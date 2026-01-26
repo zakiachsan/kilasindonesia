@@ -20,9 +20,11 @@ services:
 
   # Next.js Application
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ghcr.io/zakiachsan/kilasindonesia:latest
+    # Uncomment below to build locally instead:
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
     container_name: kilasindonesia-app
     restart: unless-stopped
     environment:
