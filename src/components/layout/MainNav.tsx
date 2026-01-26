@@ -56,7 +56,7 @@ export default function MainNav({ items = defaultNavItems }: MainNavProps) {
       <div className="container">
         <div className="flex items-center justify-between gap-4">
           {/* Navigation Items */}
-          <ul className="flex items-center gap-1 overflow-x-auto scrollbar-hide flex-1 min-w-0">
+          <ul className="flex items-center gap-2 overflow-x-auto scrollbar-hide flex-1 min-w-0 py-1">
             {items.map((item) => {
               const isActive = pathname === item.url ||
                 (item.url !== '/' && pathname.startsWith(item.url))
@@ -66,15 +66,16 @@ export default function MainNav({ items = defaultNavItems }: MainNavProps) {
                   <Link
                     href={item.url}
                     className={cn(
-                      'nav-link group relative flex items-center gap-1.5 px-3 py-3 text-sm font-medium whitespace-nowrap transition-all duration-200 rounded-md',
+                      'group relative flex items-center gap-1.5 px-4 py-2.5 text-sm font-semibold whitespace-nowrap transition-all duration-200 rounded-lg',
                       isActive
                         ? isScrolled
-                          ? 'text-primary-700 bg-primary-50'
-                          : 'text-white bg-white/20'
+                          ? 'text-primary-700 bg-primary-100'
+                          : 'text-white bg-white/25'
                         : isScrolled
                           ? 'text-gray-700 hover:text-primary-600 hover:bg-gray-100'
-                          : 'text-white/90 hover:text-white hover:bg-white/10'
+                          : 'text-white hover:bg-white/15'
                     )}
+                    style={!isScrolled && !isActive ? { color: '#ffffff' } : undefined}
                   >
                     {item.icon === 'home' && (
                       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -153,7 +154,7 @@ export default function MainNav({ items = defaultNavItems }: MainNavProps) {
               'md:hidden p-3 rounded-lg transition-colors',
               isScrolled
                 ? 'text-gray-600 hover:text-primary-600 hover:bg-gray-100'
-                : 'text-primary-100 hover:text-white hover:bg-white/10'
+                : 'text-white hover:bg-white/15'
             )}
           >
             <svg
