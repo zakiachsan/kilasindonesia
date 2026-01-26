@@ -487,15 +487,16 @@ body {
 
 /* Glassmorphism */
 .glass {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .glass-dark {
-  background: rgba(15, 23, 42, 0.9);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 /* Reading Progress Bar */
@@ -514,9 +515,25 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1rem;
   padding-bottom: 0.75rem;
   margin-bottom: 1.25rem;
   border-bottom: 2px solid var(--primary-500);
+}
+
+.section-header h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin: 0;
+  white-space: nowrap;
+}
+
+.section-header h2 svg {
+  flex-shrink: 0;
 }
 
 .section-title {
@@ -529,14 +546,22 @@ body {
 }
 
 .section-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--gray-600);
+  white-space: nowrap;
   transition: color var(--transition-fast);
 }
 
 .section-link:hover {
   color: var(--primary-500);
+}
+
+.section-link svg {
+  flex-shrink: 0;
 }
 
 /* Widget Card */
@@ -554,6 +579,19 @@ body {
   padding: 1rem 1.25rem;
   background: var(--primary-500);
   color: white;
+}
+
+.widget-header h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.widget-header h3 svg {
+  flex-shrink: 0;
 }
 
 .widget-title {
@@ -833,12 +871,14 @@ body {
 }
 
 /* Hide scrollbar but allow scrolling */
-.no-scrollbar {
+.no-scrollbar,
+.scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
-.no-scrollbar::-webkit-scrollbar {
+.no-scrollbar::-webkit-scrollbar,
+.scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
 
