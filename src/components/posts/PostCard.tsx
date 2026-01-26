@@ -51,7 +51,7 @@ export default function PostCard({
 }: PostCardProps) {
   const readingTime = calculateReadingTime(content || excerpt || '')
 
-  // Featured variant - Hero-style card with overlay
+  // Featured variant - Hero-style card with overlay (like Detik.com)
   if (variant === 'featured') {
     return (
       <article className="post-card group relative bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
@@ -74,68 +74,21 @@ export default function PostCard({
               </div>
             )}
 
-            {/* Gradient Overlay - stronger for better text visibility */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/20" />
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
 
-            {/* Badges */}
-            <div className="absolute top-4 left-4 flex gap-2">
-              {isBreaking && (
-                <span className="px-3 py-1 bg-red-600 text-white text-xs font-bold rounded-full animate-pulse">
-                  BREAKING
-                </span>
-              )}
-              {isTrending && (
-                <span className="px-3 py-1 bg-accent-500 text-white text-xs font-bold rounded-full flex items-center gap-1">
-                  <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clipRule="evenodd" />
-                  </svg>
-                  TRENDING
-                </span>
-              )}
-            </div>
-
-            {/* Content */}
-            <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8">
-              {category && (
-                <Link
-                  href={`/category/${category.slug}`}
-                  className="category-badge mb-2 sm:mb-3 inline-block hover:bg-primary-700"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  {category.name}
-                </Link>
-              )}
-              <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white mb-2 sm:mb-3 line-clamp-3 sm:line-clamp-2 group-hover:text-primary-200 transition-colors duration-300 drop-shadow-lg">
+            {/* Content - Bottom overlay like Detik */}
+            <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
+              <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2 line-clamp-3 sm:line-clamp-2 group-hover:text-blue-200 transition-colors duration-300">
                 {title}
               </h2>
-              {excerpt && (
-                <p className="hidden sm:block text-gray-200 text-sm md:text-base line-clamp-2 mb-3 max-w-3xl drop-shadow-md">
-                  {excerpt}
-                </p>
-              )}
-              <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-300">
-                {publishedAt && (
-                  <span className="flex items-center gap-1">
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                    {formatDate(new Date(publishedAt))}
-                  </span>
+              <div className="flex items-center gap-2 text-sm text-gray-300">
+                {category && (
+                  <span className="text-white font-medium">{category.name}</span>
                 )}
-                <span className="flex items-center gap-1">
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  {readingTime} menit baca
-                </span>
-                {viewCount > 0 && (
-                  <span className="flex items-center gap-1">
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                    </svg>
-                    {viewCount.toLocaleString('id-ID')} views
-                  </span>
+                {category && publishedAt && <span>|</span>}
+                {publishedAt && (
+                  <span>{formatRelativeTime(new Date(publishedAt))}</span>
                 )}
               </div>
             </div>
@@ -153,7 +106,7 @@ export default function PostCard({
           {/* Thumbnail */}
           <Link
             href={`/${slug}`}
-            className="sm:w-56 h-40 sm:h-auto flex-shrink-0 relative bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden"
+            className="sm:w-48 h-36 sm:h-auto flex-shrink-0 relative bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden"
           >
             {featuredImage ? (
               <Image
@@ -172,56 +125,28 @@ export default function PostCard({
           </Link>
 
           {/* Content */}
-          <div className="flex-1 p-5 border-l-0 sm:border-l-4 border-transparent group-hover:border-primary-500 transition-colors duration-300">
-            <div className="flex items-center gap-2 mb-2">
-              {category && (
-                <Link href={`/category/${category.slug}`} className="category-badge text-xs">
-                  {category.name}
-                </Link>
-              )}
-              {publishedAt && (
-                <span className="text-xs text-gray-500">
-                  {formatRelativeTime(new Date(publishedAt))}
-                </span>
-              )}
-            </div>
+          <div className="flex-1 p-4">
+            {category && (
+              <Link href={`/category/${category.slug}`} className="text-primary-600 text-sm font-medium hover:text-primary-700">
+                {category.name}
+              </Link>
+            )}
 
-            <h3 className="font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-primary-600 transition-colors duration-200">
+            <h3 className="font-bold text-gray-900 mt-1 mb-2 line-clamp-2 group-hover:text-primary-600 transition-colors duration-200">
               <Link href={`/${slug}`}>{title}</Link>
             </h3>
 
             {excerpt && (
-              <p className="text-sm text-gray-600 line-clamp-2 mb-3">
+              <p className="text-sm text-gray-600 line-clamp-2 mb-2">
                 {excerpt}
               </p>
             )}
 
-            <div className="flex items-center gap-4 text-xs text-gray-500">
-              <span className="flex items-center gap-1">
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                {readingTime} menit
+            {publishedAt && (
+              <span className="text-xs text-gray-500">
+                {formatRelativeTime(new Date(publishedAt))}
               </span>
-              {viewCount > 0 && (
-                <span className="flex items-center gap-1">
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                  </svg>
-                  {viewCount.toLocaleString('id-ID')}
-                </span>
-              )}
-              <Link
-                href={`/${slug}`}
-                className="ml-auto text-primary-600 hover:text-primary-700 font-medium flex items-center gap-1 group/link"
-              >
-                Baca
-                <svg className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
-            </div>
+            )}
           </div>
         </div>
       </article>
@@ -267,31 +192,21 @@ export default function PostCard({
           <h4 className="text-sm font-semibold text-gray-900 line-clamp-2 group-hover:text-primary-600 transition-colors duration-200">
             <Link href={`/${slug}`}>{title}</Link>
           </h4>
-          <div className="flex items-center gap-2 mt-1">
-            {publishedAt && (
-              <p className="text-xs text-gray-500">
-                {formatRelativeTime(new Date(publishedAt))}
-              </p>
-            )}
-            {viewCount > 0 && (
-              <span className="text-xs text-gray-400 flex items-center gap-0.5">
-                <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                {viewCount.toLocaleString('id-ID')}
-              </span>
-            )}
-          </div>
+          {publishedAt && (
+            <p className="text-xs text-gray-500 mt-1">
+              {formatRelativeTime(new Date(publishedAt))}
+            </p>
+          )}
         </div>
       </article>
     )
   }
 
-  // Default card (vertical) - Standard blog card
+  // Default card (vertical) - Like Detik.com style
   return (
-    <article className="post-card group bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-xl hover:border-transparent hover:-translate-y-1 transition-all duration-300">
+    <article className="post-card group">
       {/* Thumbnail */}
-      <Link href={`/${slug}`} className="block aspect-[16/10] relative bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
+      <Link href={`/${slug}`} className="block aspect-[4/3] relative bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg overflow-hidden mb-3">
         {featuredImage ? (
           <Image
             src={featuredImage}
@@ -306,54 +221,19 @@ export default function PostCard({
             </svg>
           </div>
         )}
-
-        {/* Category badge overlay */}
-        {category && (
-          <div className="absolute top-3 left-3">
-            <Link
-              href={`/category/${category.slug}`}
-              className="category-badge shadow-md"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {category.name}
-            </Link>
-          </div>
-        )}
       </Link>
 
       {/* Content */}
-      <div className="p-5">
-        <h3 className="font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-primary-600 transition-colors duration-200">
-          <Link href={`/${slug}`}>{title}</Link>
-        </h3>
-
-        {excerpt && (
-          <p className="text-sm text-gray-600 line-clamp-2 mb-4">
-            {excerpt}
-          </p>
+      <div>
+        {category && (
+          <Link href={`/category/${category.slug}`} className="text-primary-600 text-sm font-medium hover:text-primary-700">
+            {category.name}
+          </Link>
         )}
 
-        <div className="flex items-center justify-between text-xs text-gray-500 pt-3 border-t border-gray-100">
-          <div className="flex items-center gap-3">
-            {publishedAt && (
-              <span>{formatDate(new Date(publishedAt))}</span>
-            )}
-            <span className="flex items-center gap-1">
-              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              {readingTime} mnt
-            </span>
-          </div>
-          {viewCount > 0 && (
-            <span className="flex items-center gap-1">
-              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-              {viewCount.toLocaleString('id-ID')}
-            </span>
-          )}
-        </div>
+        <h3 className="font-bold text-gray-900 mt-1 line-clamp-3 group-hover:text-primary-600 transition-colors duration-200">
+          <Link href={`/${slug}`}>{title}</Link>
+        </h3>
       </div>
     </article>
   )
