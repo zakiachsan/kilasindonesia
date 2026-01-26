@@ -57,7 +57,7 @@ export default function PostCard({
       <article className="post-card group relative bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
         <Link href={`/${slug}`} className="block">
           {/* Image */}
-          <div className="aspect-[16/9] md:aspect-[21/9] relative">
+          <div className="aspect-[4/3] sm:aspect-[16/10] lg:aspect-[16/9] relative">
             {featuredImage ? (
               <Image
                 src={featuredImage}
@@ -67,15 +67,15 @@ export default function PostCard({
                 priority
               />
             ) : (
-              <div className="absolute inset-0 bg-gradient-to-br from-primary-800 to-primary-900 flex items-center justify-center">
-                <svg className="w-20 h-20 text-primary-600/50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary-700 to-primary-900 flex items-center justify-center">
+                <svg className="w-20 h-20 text-primary-500/50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
               </div>
             )}
 
-            {/* Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+            {/* Gradient Overlay - stronger for better text visibility */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/20" />
 
             {/* Badges */}
             <div className="absolute top-4 left-4 flex gap-2">
@@ -95,25 +95,25 @@ export default function PostCard({
             </div>
 
             {/* Content */}
-            <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+            <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8">
               {category && (
                 <Link
                   href={`/category/${category.slug}`}
-                  className="category-badge mb-3 inline-block hover:bg-primary-700"
+                  className="category-badge mb-2 sm:mb-3 inline-block hover:bg-primary-700"
                   onClick={(e) => e.stopPropagation()}
                 >
                   {category.name}
                 </Link>
               )}
-              <h2 className="text-xl md:text-3xl font-bold text-white mb-3 line-clamp-2 group-hover:text-primary-200 transition-colors duration-300">
+              <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white mb-2 sm:mb-3 line-clamp-3 sm:line-clamp-2 group-hover:text-primary-200 transition-colors duration-300 drop-shadow-lg">
                 {title}
               </h2>
               {excerpt && (
-                <p className="text-gray-300 text-sm md:text-base line-clamp-2 mb-4 max-w-3xl">
+                <p className="hidden sm:block text-gray-200 text-sm md:text-base line-clamp-2 mb-3 max-w-3xl drop-shadow-md">
                   {excerpt}
                 </p>
               )}
-              <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-300">
                 {publishedAt && (
                   <span className="flex items-center gap-1">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

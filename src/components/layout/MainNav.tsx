@@ -56,24 +56,24 @@ export default function MainNav({ items = defaultNavItems }: MainNavProps) {
       <div className="container">
         <div className="flex items-center justify-between gap-4">
           {/* Navigation Items */}
-          <ul className="flex items-center overflow-x-auto scrollbar-hide flex-1 min-w-0">
+          <ul className="flex items-center gap-1 overflow-x-auto scrollbar-hide flex-1 min-w-0">
             {items.map((item) => {
               const isActive = pathname === item.url ||
                 (item.url !== '/' && pathname.startsWith(item.url))
 
               return (
-                <li key={item.url}>
+                <li key={item.url} className="flex-shrink-0">
                   <Link
                     href={item.url}
                     className={cn(
-                      'nav-link group relative flex items-center gap-1.5 px-4 py-3.5 text-sm font-medium whitespace-nowrap transition-all duration-200',
+                      'nav-link group relative flex items-center gap-1.5 px-3 py-3 text-sm font-medium whitespace-nowrap transition-all duration-200 rounded-md',
                       isActive
                         ? isScrolled
-                          ? 'text-primary-700'
-                          : 'text-white bg-white/10'
+                          ? 'text-primary-700 bg-primary-50'
+                          : 'text-white bg-white/20'
                         : isScrolled
-                          ? 'text-gray-700 hover:text-primary-600'
-                          : 'text-primary-100 hover:text-white hover:bg-white/10'
+                          ? 'text-gray-700 hover:text-primary-600 hover:bg-gray-100'
+                          : 'text-white/90 hover:text-white hover:bg-white/10'
                     )}
                   >
                     {item.icon === 'home' && (
