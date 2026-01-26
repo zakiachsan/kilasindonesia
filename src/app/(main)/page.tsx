@@ -96,7 +96,7 @@ export default async function HomePage() {
         <h2 className="text-xl font-bold text-primary-600 mb-4">
           Berita untuk Anda
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {secondaryPosts.map((post) => (
             <PostCard
               key={post.id}
