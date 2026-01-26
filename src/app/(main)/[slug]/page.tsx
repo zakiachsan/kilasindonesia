@@ -10,8 +10,8 @@ import {
   getCanonicalUrl,
 } from '@/lib/seo'
 
-// ISR: Revalidate every 5 minutes (300 seconds)
-export const revalidate = 300
+// Force dynamic rendering to fetch data at runtime
+export const dynamic = 'force-dynamic'
 
 // Fetch post by slug
 async function getPost(slug: string) {

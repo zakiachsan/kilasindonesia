@@ -3,8 +3,9 @@ import { BannerAd } from '@/components/ads'
 import { PostCard } from '@/components/posts'
 import { prisma } from '@/lib/db'
 
-// ISR: Revalidate every 5 minutes
-export const revalidate = 300
+// Force dynamic rendering to fetch data at runtime (not build time)
+// This ensures the page always gets fresh data from the database
+export const dynamic = 'force-dynamic'
 
 async function getHomeData() {
   try {

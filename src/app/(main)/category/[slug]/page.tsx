@@ -9,8 +9,8 @@ import {
   getCanonicalUrl,
 } from '@/lib/seo'
 
-// ISR: Revalidate every 5 minutes
-export const revalidate = 300
+// Force dynamic rendering to fetch data at runtime
+export const dynamic = 'force-dynamic'
 
 // Fetch category by slug
 async function getCategory(slug: string) {
