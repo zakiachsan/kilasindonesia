@@ -54,9 +54,9 @@ export default function MainNav({ items = defaultNavItems }: MainNavProps) {
       )}
     >
       <div className="container">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-4">
           {/* Navigation Items */}
-          <ul className="flex items-center overflow-x-auto scrollbar-hide -mx-1">
+          <ul className="flex items-center overflow-x-auto scrollbar-hide flex-1 min-w-0">
             {items.map((item) => {
               const isActive = pathname === item.url ||
                 (item.url !== '/' && pathname.startsWith(item.url))
