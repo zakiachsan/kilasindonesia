@@ -77,41 +77,54 @@ export default async function HomePage() {
 
       {/* Hero Section - Featured + Secondary Posts */}
       <section className="container mb-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-          {/* Main Featured Post */}
-          {featuredPost && (
-            <div className="lg:col-span-2">
-              <PostCard
-                id={featuredPost.id}
-                title={featuredPost.title}
-                slug={featuredPost.slug}
-                excerpt={featuredPost.excerpt}
-                featuredImage={featuredPost.featuredImage}
-                category={featuredPost.categories[0]}
-                publishedAt={featuredPost.publishedAt}
-                viewCount={featuredPost.viewCount}
-                variant="featured"
-                isTrending={featuredPost.viewCount > 100}
-              />
-            </div>
-          )}
+        {/* Section Header */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+          <div className="bg-gradient-to-r from-primary-600 to-primary-700 px-4 py-3">
+            <h2 className="text-white font-bold text-lg flex items-center gap-2">
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M18 3a1 1 0 00-1.447-.894L8.763 6H5a3 3 0 000 6h.28l1.771 5.316A1 1 0 008 18h1a1 1 0 001-1v-4.382l6.553 3.276A1 1 0 0018 15V3z" clipRule="evenodd" />
+              </svg>
+              Berita Utama
+            </h2>
+          </div>
+          <div className="p-4">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+              {/* Main Featured Post */}
+              {featuredPost && (
+                <div className="lg:col-span-2">
+                  <PostCard
+                    id={featuredPost.id}
+                    title={featuredPost.title}
+                    slug={featuredPost.slug}
+                    excerpt={featuredPost.excerpt}
+                    featuredImage={featuredPost.featuredImage}
+                    category={featuredPost.categories[0]}
+                    publishedAt={featuredPost.publishedAt}
+                    viewCount={featuredPost.viewCount}
+                    variant="featured"
+                    isTrending={featuredPost.viewCount > 100}
+                  />
+                </div>
+              )}
 
-          {/* Secondary Posts */}
-          <div className="space-y-4">
-            {secondaryPosts.map((post) => (
-              <PostCard
-                key={post.id}
-                id={post.id}
-                title={post.title}
-                slug={post.slug}
-                excerpt={post.excerpt}
-                featuredImage={post.featuredImage}
-                category={post.categories[0]}
-                publishedAt={post.publishedAt}
-                viewCount={post.viewCount}
-                variant="horizontal"
-              />
-            ))}
+              {/* Secondary Posts */}
+              <div className="space-y-4">
+                {secondaryPosts.map((post) => (
+                  <PostCard
+                    key={post.id}
+                    id={post.id}
+                    title={post.title}
+                    slug={post.slug}
+                    excerpt={post.excerpt}
+                    featuredImage={post.featuredImage}
+                    category={post.categories[0]}
+                    publishedAt={post.publishedAt}
+                    viewCount={post.viewCount}
+                    variant="horizontal"
+                  />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -123,88 +136,95 @@ export default async function HomePage() {
             {/* Trending Section */}
             {trendingPosts.length > 0 && (
               <section className="mb-10">
-                <div className="section-header">
-                  <h2>
-                    <svg className="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clipRule="evenodd" />
-                    </svg>
-                    Trending Minggu Ini
-                  </h2>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {trendingPosts.map((post) => (
-                    <PostCard
-                      key={post.id}
-                      id={post.id}
-                      title={post.title}
-                      slug={post.slug}
-                      excerpt={post.excerpt}
-                      featuredImage={post.featuredImage}
-                      category={post.categories[0]}
-                      publishedAt={post.publishedAt}
-                      viewCount={post.viewCount}
-                      variant="default"
-                    />
-                  ))}
+                <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                  <div className="bg-gradient-to-r from-accent-500 to-accent-600 px-4 py-3">
+                    <h2 className="text-white font-bold text-lg flex items-center gap-2">
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clipRule="evenodd" />
+                      </svg>
+                      Trending Minggu Ini
+                    </h2>
+                  </div>
+                  <div className="p-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {trendingPosts.map((post) => (
+                        <PostCard
+                          key={post.id}
+                          id={post.id}
+                          title={post.title}
+                          slug={post.slug}
+                          excerpt={post.excerpt}
+                          featuredImage={post.featuredImage}
+                          category={post.categories[0]}
+                          publishedAt={post.publishedAt}
+                          viewCount={post.viewCount}
+                          variant="default"
+                        />
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </section>
             )}
 
             {/* Recent News Section */}
             <section>
-              <div className="section-header">
-                <h2>
-                  <svg className="w-5 h-5 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-                  </svg>
-                  Berita Terbaru
-                </h2>
-                <Link href="/category/berita" className="section-link">
-                  Lihat Semua
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </Link>
-              </div>
-
-              {recentPosts.length > 0 ? (
-                <div className="space-y-4">
-                  {recentPosts.map((post) => (
-                    <PostCard
-                      key={post.id}
-                      id={post.id}
-                      title={post.title}
-                      slug={post.slug}
-                      excerpt={post.excerpt}
-                      featuredImage={post.featuredImage}
-                      category={post.categories[0]}
-                      author={post.author}
-                      publishedAt={post.publishedAt}
-                      viewCount={post.viewCount}
-                      variant="horizontal"
-                    />
-                  ))}
-                </div>
-              ) : (
-                <div className="py-12 text-center bg-white rounded-xl border border-gray-200">
-                  <svg className="w-16 h-16 mx-auto text-gray-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-                  </svg>
-                  <p className="text-gray-500">Belum ada artikel</p>
-                </div>
-              )}
-
-              {/* Load More Button */}
-              {recentPosts.length > 0 && (
-                <div className="mt-8 text-center">
-                  <Link href="/category/berita" className="btn btn-primary">
-                    Lihat Semua Berita
-                    <svg className="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                <div className="bg-gradient-to-r from-primary-600 to-primary-700 px-4 py-3 flex items-center justify-between">
+                  <h2 className="text-white font-bold text-lg flex items-center gap-2">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                    </svg>
+                    Berita Terbaru
+                  </h2>
+                  <Link href="/category/nasional" className="text-white/90 hover:text-white text-sm font-medium flex items-center gap-1">
+                    Lihat Semua
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </Link>
                 </div>
-              )}
+                <div className="p-4">
+                  {recentPosts.length > 0 ? (
+                    <div className="space-y-4">
+                      {recentPosts.map((post) => (
+                        <PostCard
+                          key={post.id}
+                          id={post.id}
+                          title={post.title}
+                          slug={post.slug}
+                          excerpt={post.excerpt}
+                          featuredImage={post.featuredImage}
+                          category={post.categories[0]}
+                          author={post.author}
+                          publishedAt={post.publishedAt}
+                          viewCount={post.viewCount}
+                          variant="horizontal"
+                        />
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="py-12 text-center">
+                      <svg className="w-16 h-16 mx-auto text-gray-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                      </svg>
+                      <p className="text-gray-500">Belum ada artikel</p>
+                    </div>
+                  )}
+
+                  {/* Load More Button */}
+                  {recentPosts.length > 0 && (
+                    <div className="mt-6 text-center">
+                      <Link href="/category/nasional" className="btn btn-primary">
+                        Lihat Semua Berita
+                        <svg className="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </Link>
+                    </div>
+                  )}
+                </div>
+              </div>
             </section>
           </div>
 
