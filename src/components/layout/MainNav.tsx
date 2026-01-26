@@ -27,7 +27,7 @@ export default function MainNav({ items = defaultNavItems }: MainNavProps) {
   const pathname = usePathname()
 
   return (
-    <nav className="bg-red-600 sticky top-0 z-50 shadow-md">
+    <nav className="hidden md:block bg-red-600 sticky top-0 z-50 shadow-md">
       <div className="container">
         <div className="flex items-center">
           {/* Navigation Items */}

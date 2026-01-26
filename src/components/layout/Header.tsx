@@ -1,9 +1,21 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
+
+const navItems = [
+  { title: 'Beranda', url: '/' },
+  { title: 'Berita', url: '/category/berita' },
+  { title: 'Politik', url: '/category/politik' },
+  { title: 'Olahraga', url: '/category/olahraga' },
+  { title: 'Hiburan', url: '/category/hiburan' },
+  { title: 'Otomotif', url: '/category/otomotif' },
+  { title: 'Budaya', url: '/category/budaya' },
+]
 
 export default function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
   return (
     <header className="bg-white border-b border-gray-200">
       <div className="container py-4">
@@ -82,26 +94,96 @@ export default function Header() {
 
           {/* Mobile Menu Button */}
           <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden p-2 text-gray-600 hover:text-red-600"
             aria-label="Toggle menu"
+            aria-expanded={isMenuOpen}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
+            {isMenuOpen ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            )}
           </button>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div className="md:hidden border-t border-gray-200 bg-white">
+          <nav className="container py-4">
+            <ul className="space-y-2">
+              {navItems.map((item) => (
+                <li key={item.url}>
+                  <Link
+                    href={item.url}
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block py-2 px-4 text-gray-700 hover:bg-red-50 hover:text-red-600 rounded-lg transition-colors"
+                  >
+                    {item.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            {/* Mobile Search */}
+            <form className="mt-4 px-4">
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Cari berita..."
+                  className="w-full px-4 py-2 pr-10 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                />
+                <button
+                  type="submit"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-red-600"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </form>
+          </nav>
+        </div>
+      )}
     </header>
   )
 }
