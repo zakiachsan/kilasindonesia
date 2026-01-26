@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import { generateOrganizationSchema, generateWebSiteSchema } from '@/lib/seo'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -39,8 +40,24 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  // Generate JSON-LD schemas for the entire site
+  const organizationSchema = generateOrganizationSchema()
+  const webSiteSchema = generateWebSiteSchema()
+
   return (
     <html lang="id">
+      <head>
+        {/* JSON-LD Structured Data - Organization */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+        {/* JSON-LD Structured Data - WebSite with Search */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
+        />
+      </head>
       <body className={`${inter.className} antialiased bg-gray-50`}>
         {children}
       </body>

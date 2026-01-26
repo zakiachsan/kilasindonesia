@@ -3,6 +3,12 @@ import { notFound } from 'next/navigation'
 import { Sidebar, SidebarWidget, SidebarAd } from '@/components/layout'
 import { PostCard } from '@/components/posts'
 import prisma from '@/lib/db'
+import {
+  generateArticleSchema,
+  generateBreadcrumbSchema,
+  calculateReadingTime,
+  getCanonicalUrl,
+} from '@/lib/seo'
 
 // ISR: Revalidate every 5 minutes (300 seconds)
 export const revalidate = 300
@@ -150,16 +156,53 @@ export async function generateMetadata({ params }: PageProps) {
     }
   }
 
+  // Use metaTitle/metaDescription if available, otherwise fallback
+  const title = post.metaTitle || post.title
+  const description = post.metaDescription || post.excerpt || post.content.replace(/<[^>]*>/g, '').substring(0, 160)
+  const canonicalUrl = getCanonicalUrl(`/${slug}`)
+  const imageUrl = post.featuredImage || '/og-image.jpg'
+
   return {
-    title: post.title,
-    description: post.excerpt,
+    title,
+    description,
+    alternates: {
+      canonical: canonicalUrl,
+    },
     openGraph: {
-      title: post.title,
-      description: post.excerpt || '',
+      title,
+      description,
       type: 'article',
+      url: canonicalUrl,
+      siteName: 'Kilas Indonesia',
+      locale: 'id_ID',
       publishedTime: post.publishedAt?.toISOString(),
+      modifiedTime: post.updatedAt?.toISOString(),
       authors: [post.author.name],
-      images: post.featuredImage ? [post.featuredImage] : [],
+      section: post.categories[0]?.name || 'Berita',
+      tags: post.tags?.map((tag) => tag.name) || [],
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [imageUrl],
+      creator: '@kilasindonesia',
+      site: '@kilasindonesia',
+    },
+    robots: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
     },
   }
 }
@@ -186,8 +229,30 @@ export default async function ArticlePage({ params }: PageProps) {
   // If not enough related posts in same category, we'll show what we have
   const primaryCategory = post.categories[0] || { name: 'Berita', slug: 'berita' }
 
+  // Calculate reading time
+  const readingTime = calculateReadingTime(post.content)
+
+  // Generate JSON-LD schemas
+  const articleSchema = generateArticleSchema(post)
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Beranda', url: getCanonicalUrl('/') },
+    { name: primaryCategory.name, url: getCanonicalUrl(`/category/${primaryCategory.slug}`) },
+    { name: post.title, url: getCanonicalUrl(`/${post.slug}`) },
+  ])
+
   return (
-    <div className="container py-6">
+    <>
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
+      <div className="container py-6">
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Main Content */}
         <article className="flex-1">
@@ -195,7 +260,7 @@ export default async function ArticlePage({ params }: PageProps) {
           <nav className="mb-4 text-sm">
             <ol className="flex items-center gap-2 text-gray-500">
               <li>
-                <Link href="/" className="hover:text-red-600">
+                <Link href="/" className="hover:text-primary-600">
                   Beranda
                 </Link>
               </li>
@@ -203,7 +268,7 @@ export default async function ArticlePage({ params }: PageProps) {
               <li>
                 <Link
                   href={`/category/${primaryCategory.slug}`}
-                  className="hover:text-red-600"
+                  className="hover:text-primary-600"
                 >
                   {primaryCategory.name}
                 </Link>
@@ -253,6 +318,23 @@ export default async function ArticlePage({ params }: PageProps) {
               <time dateTime={post.publishedAt?.toISOString()}>
                 {post.publishedAt ? formatDateTime(post.publishedAt) : '-'}
               </time>
+              <span>•</span>
+              <span className="flex items-center gap-1">
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                {readingTime} menit baca
+              </span>
               <span>•</span>
               <span className="flex items-center gap-1">
                 <svg
@@ -411,7 +493,7 @@ export default async function ArticlePage({ params }: PageProps) {
           {relatedPosts.length > 0 && (
             <section className="mb-8">
               <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <span className="w-1 h-6 bg-red-600 rounded"></span>
+                <span className="w-1 h-6 bg-primary-600 rounded"></span>
                 Berita Terkait
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -436,7 +518,7 @@ export default async function ArticlePage({ params }: PageProps) {
           {/* Comments Section */}
           <section className="mb-8">
             <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-              <span className="w-1 h-6 bg-red-600 rounded"></span>
+              <span className="w-1 h-6 bg-primary-600 rounded"></span>
               Komentar ({post.comments.length})
             </h2>
 
@@ -460,7 +542,7 @@ export default async function ArticlePage({ params }: PageProps) {
                       id="name"
                       name="authorName"
                       required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                     />
                   </div>
                   <div>
@@ -475,7 +557,7 @@ export default async function ArticlePage({ params }: PageProps) {
                       id="email"
                       name="authorEmail"
                       required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                     />
                   </div>
                 </div>
@@ -491,12 +573,12 @@ export default async function ArticlePage({ params }: PageProps) {
                     name="content"
                     rows={4}
                     required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                   ></textarea>
                 </div>
                 <button
                   type="submit"
-                  className="px-6 py-2 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition-colors"
+                  className="btn btn-primary"
                 >
                   Kirim Komentar
                 </button>
@@ -542,11 +624,11 @@ export default async function ArticlePage({ params }: PageProps) {
             <div className="space-y-4">
               {popularPosts.map((sidebarPost, index) => (
                 <div key={sidebarPost.id} className="flex gap-3">
-                  <span className="flex-shrink-0 w-8 h-8 bg-red-600 text-white rounded flex items-center justify-center font-bold text-sm">
+                  <span className="flex-shrink-0 w-8 h-8 bg-primary-600 text-white rounded flex items-center justify-center font-bold text-sm">
                     {index + 1}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <h4 className="text-sm font-medium text-gray-900 line-clamp-2 hover:text-red-600 transition-colors">
+                    <h4 className="text-sm font-medium text-gray-900 line-clamp-2 hover:text-primary-600 transition-colors">
                       <Link href={`/${sidebarPost.slug}`}>{sidebarPost.title}</Link>
                     </h4>
                     <p className="text-xs text-gray-500 mt-1">
@@ -585,5 +667,6 @@ export default async function ArticlePage({ params }: PageProps) {
         </Sidebar>
       </div>
     </div>
+    </>
   )
 }
