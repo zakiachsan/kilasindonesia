@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Sidebar, SidebarWidget, SidebarAd } from '@/components/layout'
-import { PostCard, ReadingTracker } from '@/components/posts'
+import { PostCard } from '@/components/posts'
+import { ReadingTracker } from '@/components/posts/ReadingTracker'
 import prisma from '@/lib/db'
 import {
   generateArticleSchema,
