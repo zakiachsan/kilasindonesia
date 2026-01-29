@@ -1,0 +1,184 @@
+// Prisma schema for Kilas Indonesia News Portal
+// https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ============================================
+// USER & AUTH
+// ============================================
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String   // hashed with bcrypt
+  name      String
+  avatar    String?
+  role      Role     @default(AUTHOR)
+  posts     Post[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+enum Role {
+  ADMIN
+  AUTHOR
+}
+
+// ============================================
+// CONTENT
+// ============================================
+
+model Category {
+  id          String     @id @default(cuid())
+  name        String
+  slug        String     @unique
+  description String?
+  parentId    String?
+  parent      Category?  @relation("CategoryTree", fields: [parentId], references: [id])
+  children    Category[] @relation("CategoryTree")
+  posts       Post[]     @relation("PostCategories")
+  createdAt   DateTime   @default(now())
+
+  @@map("categories")
+}
+
+model Tag {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  posts     Post[]   @relation("PostTags")
+  createdAt DateTime @default(now())
+
+  @@map("tags")
+}
+
+model Post {
+  id            String     @id @default(cuid())
+  title         String
+  slug          String     @unique
+  content       String     @db.Text
+  excerpt       String?
+  featuredImage String?
+  author        User       @relation(fields: [authorId], references: [id])
+  authorId      String
+  status        PostStatus @default(DRAFT)
+  viewCount     Int        @default(0)
+  publishedAt   DateTime?
+  categories    Category[] @relation("PostCategories")
+  tags          Tag[]      @relation("PostTags")
+  comments      Comment[]
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  // Featured/Pinned post for homepage
+  isPinned    Boolean @default(false)
+  pinnedOrder Int     @default(0)
+
+  // SEO fields
+  metaTitle       String?
+  metaDescription String?
+
+  @@index([status, publishedAt])
+  @@index([authorId])
+  @@index([isPinned, pinnedOrder])
+  @@map("posts")
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+// ============================================
+// COMMENTS
+// ============================================
+
+model Comment {
+  id          String        @id @default(cuid())
+  post        Post          @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId      String
+  authorName  String
+  authorEmail String
+  content     String        @db.Text
+  status      CommentStatus @default(PENDING)
+  parentId    String?
+  parent      Comment?      @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies     Comment[]     @relation("CommentReplies")
+  createdAt   DateTime      @default(now())
+
+  @@index([postId, status])
+  @@map("comments")
+}
+
+enum CommentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+// ============================================
+// MEDIA
+// ============================================
+
+model Media {
+  id         String   @id @default(cuid())
+  filename   String
+  url        String
+  altText    String?
+  caption    String?
+  mimeType   String
+  size       Int      // in bytes
+  uploadedBy String?
+  createdAt  DateTime @default(now())
+
+  @@map("media")
+}
+
+// ============================================
+// SETTINGS
+// ============================================
+
+model Setting {
+  key   String @id
+  value String @db.Text
+
+  @@map("settings")
+}
+
+// ============================================
+// MENU
+// ============================================
+
+model Menu {
+  id       String     @id @default(cuid())
+  name     String
+  location String     @unique // e.g., "primary", "footer"
+  items    MenuItem[]
+
+  @@map("menus")
+}
+
+model MenuItem {
+  id       String     @id @default(cuid())
+  menu     Menu       @relation(fields: [menuId], references: [id], onDelete: Cascade)
+  menuId   String
+  title    String
+  url      String
+  target   String     @default("_self") // _self, _blank
+  parentId String?
+  parent   MenuItem?  @relation("MenuItemTree", fields: [parentId], references: [id], onDelete: Cascade)
+  children MenuItem[] @relation("MenuItemTree")
+  order    Int        @default(0)
+
+  @@index([menuId, order])
+  @@map("menu_items")
+}

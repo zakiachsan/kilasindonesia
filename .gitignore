@@ -1,0 +1,20 @@
+# WordPress export
+*.wpress
+
+# Screenshots
+*.png
+*.jpg
+*.jpeg
+
+# Windows
+nul
+Thumbs.db
+
+# Package manager
+package-lock.json
+
+# Large database dumps (keep seed files)
+database.sql
+
+# Uploads (can be large)
+uploads/
