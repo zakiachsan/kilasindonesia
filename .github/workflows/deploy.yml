@@ -63,3 +63,18 @@ jobs:
             cd /opt/apps/kilasindonesia
             docker pull ghcr.io/${{ github.repository }}:latest
             docker compose -f docker-compose.prod.yml up -d app
+
+            # Wait for app to be ready
+            sleep 10
+
+            # Run database migrations
+            docker exec kilasindonesia-app npx prisma migrate deploy
+
+            # Seed only if database is empty (no posts)
+            POST_COUNT=$(docker exec kilasindonesia-db psql -U postgres -d kilasindonesia -t -c "SELECT COUNT(*) FROM \"Post\";" 2>/dev/null | tr -d ' ' || echo "0")
+            if [ "$POST_COUNT" = "0" ] || [ -z "$POST_COUNT" ]; then
+              echo "Database empty, running seed..."
+              docker exec kilasindonesia-app npx prisma db seed
+            else
+              echo "Database has $POST_COUNT posts, skipping seed"
+            fi
