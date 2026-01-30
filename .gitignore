@@ -60,7 +60,7 @@ nul
 Thumbs.db
 
 # Package manager
-package-lock.json
+# package-lock.json is needed for Docker builds
 
 # Large database dumps (keep seed files)
 database.sql
