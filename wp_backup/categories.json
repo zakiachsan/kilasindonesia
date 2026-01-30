@@ -1,0 +1,44 @@
+[
+  {
+    "id": "1",
+    "termId": "1",
+    "name": "Lingkungan",
+    "slug": "lingkungan",
+    "count": "7"
+  },
+  {
+    "id": "2",
+    "termId": "2",
+    "name": "Berita",
+    "slug": "berita",
+    "count": "13"
+  },
+  {
+    "id": "3",
+    "termId": "3",
+    "name": "Hiburan",
+    "slug": "hiburan",
+    "count": "2"
+  },
+  {
+    "id": "4",
+    "termId": "4",
+    "name": "Budaya",
+    "slug": "budaya",
+    "count": "4"
+  },
+  {
+    "id": "6",
+    "termId": "6",
+    "name": "Politik",
+    "slug": "politik",
+    "count": "2"
+  },
+  {
+    "id": "32",
+    "termId": "32",
+    "name": "Edukasi",
+    "slug": "edukasi",
+    "count": "3"
+  }
+]

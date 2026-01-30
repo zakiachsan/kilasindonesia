@@ -1,0 +1,412 @@
+[
+  {
+    "postId": "7",
+    "tagSlug": "new-zealand",
+    "tagName": "New Zealand"
+  },
+  {
+    "postId": "7",
+    "tagSlug": "tag-berita",
+    "tagName": "Tag Berita"
+  },
+  {
+    "postId": "11",
+    "tagSlug": "new-zealand",
+    "tagName": "New Zealand"
+  },
+  {
+    "postId": "11",
+    "tagSlug": "tag-berita",
+    "tagName": "Tag Berita"
+  },
+  {
+    "postId": "17",
+    "tagSlug": "kejahatan",
+    "tagName": "Kejahatan"
+  },
+  {
+    "postId": "17",
+    "tagSlug": "tag-berita",
+    "tagName": "Tag Berita"
+  },
+  {
+    "postId": "20",
+    "tagSlug": "kejahatan",
+    "tagName": "Kejahatan"
+  },
+  {
+    "postId": "20",
+    "tagSlug": "tag-berita",
+    "tagName": "Tag Berita"
+  },
+  {
+    "postId": "23",
+    "tagSlug": "gerindra",
+    "tagName": "Gerindra"
+  },
+  {
+    "postId": "23",
+    "tagSlug": "tag-berita",
+    "tagName": "Tag Berita"
+  },
+  {
+    "postId": "26",
+    "tagSlug": "berita-otomotif",
+    "tagName": "Berita Otomotif"
+  },
+  {
+    "postId": "26",
+    "tagSlug": "daihatsu",
+    "tagName": "Daihatsu"
+  },
+  {
+    "postId": "44",
+    "tagSlug": "berita-otomotif",
+    "tagName": "Berita Otomotif"
+  },
+  {
+    "postId": "44",
+    "tagSlug": "nissan",
+    "tagName": "Nissan"
+  },
+  {
+    "postId": "47",
+    "tagSlug": "berita-otomotif",
+    "tagName": "Berita Otomotif"
+  },
+  {
+    "postId": "47",
+    "tagSlug": "nissan",
+    "tagName": "Nissan"
+  },
+  {
+    "postId": "54",
+    "tagSlug": "berita-otomotif",
+    "tagName": "Berita Otomotif"
+  },
+  {
+    "postId": "54",
+    "tagSlug": "mitsubishi",
+    "tagName": "Mitsubishi"
+  },
+  {
+    "postId": "58",
+    "tagSlug": "rohinya",
+    "tagName": "Rohinya"
+  },
+  {
+    "postId": "58",
+    "tagSlug": "tag-berita",
+    "tagName": "Tag Berita"
+  },
+  {
+    "postId": "74",
+    "tagSlug": "berita-olahraga",
+    "tagName": "Berita Olahraga"
+  },
+  {
+    "postId": "74",
+    "tagSlug": "sepakbola",
+    "tagName": "Sepakbola"
+  },
+  {
+    "postId": "79",
+    "tagSlug": "berita-olahraga",
+    "tagName": "Berita Olahraga"
+  },
+  {
+    "postId": "79",
+    "tagSlug": "bulutangkis",
+    "tagName": "Bulutangkis"
+  },
+  {
+    "postId": "82",
+    "tagSlug": "balapan",
+    "tagName": "Balapan"
+  },
+  {
+    "postId": "82",
+    "tagSlug": "berita-olahraga",
+    "tagName": "Berita Olahraga"
+  },
+  {
+    "postId": "85",
+    "tagSlug": "berita-olahraga",
+    "tagName": "Berita Olahraga"
+  },
+  {
+    "postId": "85",
+    "tagSlug": "bulutangkis",
+    "tagName": "Bulutangkis"
+  },
+  {
+    "postId": "110",
+    "tagSlug": "dki-jakarta",
+    "tagName": "DKI Jakarta"
+  },
+  {
+    "postId": "110",
+    "tagSlug": "tag-berita",
+    "tagName": "Tag Berita"
+  },
+  {
+    "postId": "334",
+    "tagSlug": "pendidikan-profesi-guru",
+    "tagName": "Pendidikan Profesi Guru"
+  },
+  {
+    "postId": "334",
+    "tagSlug": "program-indonesia-pintar",
+    "tagName": "Program Indonesia Pintar"
+  },
+  {
+    "postId": "334",
+    "tagSlug": "madada",
+    "tagName": "MADADA"
+  },
+  {
+    "postId": "334",
+    "tagSlug": "akminas",
+    "tagName": "Akminas"
+  },
+  {
+    "postId": "334",
+    "tagSlug": "prabowo-subianto",
+    "tagName": "Prabowo Subianto"
+  },
+  {
+    "postId": "334",
+    "tagSlug": "nasaruddin-umar",
+    "tagName": "Nasaruddin Umar"
+  },
+  {
+    "postId": "338",
+    "tagSlug": "nasaruddin-umar",
+    "tagName": "Nasaruddin Umar"
+  },
+  {
+    "postId": "338",
+    "tagSlug": "indonesia-emas-2045",
+    "tagName": "Indonesia Emas 2045"
+  },
+  {
+    "postId": "338",
+    "tagSlug": "asep-saepudin-jahar",
+    "tagName": "Asep Saepudin Jahar"
+  },
+  {
+    "postId": "338",
+    "tagSlug": "pondok-pesantren-al-khoziny",
+    "tagName": "Pondok Pesantren Al-Khoziny"
+  },
+  {
+    "postId": "338",
+    "tagSlug": "hari-santri-nasional",
+    "tagName": "Hari Santri Nasional"
+  },
+  {
+    "postId": "341",
+    "tagSlug": "nasaruddin-umar",
+    "tagName": "Nasaruddin Umar"
+  },
+  {
+    "postId": "341",
+    "tagSlug": "hari-santri-nasional",
+    "tagName": "Hari Santri Nasional"
+  },
+  {
+    "postId": "341",
+    "tagSlug": "beasiswa-santri-berprestasi",
+    "tagName": "Beasiswa Santri Berprestasi"
+  },
+  {
+    "postId": "341",
+    "tagSlug": "direktorat-jenderal-pesantren",
+    "tagName": "Direktorat Jenderal Pesantren"
+  },
+  {
+    "postId": "345",
+    "tagSlug": "nasaruddin-umar",
+    "tagName": "Nasaruddin Umar"
+  },
+  {
+    "postId": "345",
+    "tagSlug": "mrc-2025",
+    "tagName": "MRC 2025"
+  },
+  {
+    "postId": "348",
+    "tagSlug": "man-3-bantul",
+    "tagName": "MAN 3 Bantul"
+  },
+  {
+    "postId": "348",
+    "tagSlug": "puspresnas",
+    "tagName": "Puspresnas"
+  },
+  {
+    "postId": "348",
+    "tagSlug": "smesco-exhibition-hall",
+    "tagName": "Smesco Exhibition Hall"
+  },
+  {
+    "postId": "351",
+    "tagSlug": "uin-jakarta",
+    "tagName": "UIN Jakarta"
+  },
+  {
+    "postId": "351",
+    "tagSlug": "universitas-islam-internasional-indonesia",
+    "tagName": "Universitas Islam Internasional Indonesia"
+  },
+  {
+    "postId": "351",
+    "tagSlug": "program-studi-teknik-informatika",
+    "tagName": "Program Studi Teknik Informatika"
+  },
+  {
+    "postId": "351",
+    "tagSlug": "fakultas-sains-dan-teknologi",
+    "tagName": "Fakultas Sains dan Teknologi"
+  },
+  {
+    "postId": "355",
+    "tagSlug": "mrc-2025",
+    "tagName": "MRC 2025"
+  },
+  {
+    "postId": "355",
+    "tagSlug": "madrasah-robotics-competition",
+    "tagName": "Madrasah Robotics Competition"
+  },
+  {
+    "postId": "355",
+    "tagSlug": "kementerian-agama",
+    "tagName": "Kementerian Agama"
+  },
+  {
+    "postId": "359",
+    "tagSlug": "prabowo-subianto",
+    "tagName": "Prabowo Subianto"
+  },
+  {
+    "postId": "359",
+    "tagSlug": "man-insan-cendekia-serpong",
+    "tagName": "MAN Insan Cendekia Serpong"
+  },
+  {
+    "postId": "359",
+    "tagSlug": "komisi-viii-dpr-ri",
+    "tagName": "Komisi VIII DPR RI"
+  },
+  {
+    "postId": "359",
+    "tagSlug": "wakil-menteri-agama",
+    "tagName": "Wakil Menteri Agama"
+  },
+  {
+    "postId": "359",
+    "tagSlug": "omi-2025",
+    "tagName": "OMI 2025"
+  },
+  {
+    "postId": "359",
+    "tagSlug": "amien-suyitno",
+    "tagName": "Amien Suyitno"
+  },
+  {
+    "postId": "363",
+    "tagSlug": "pendidikan-profesi-guru",
+    "tagName": "Pendidikan Profesi Guru"
+  },
+  {
+    "postId": "363",
+    "tagSlug": "nasaruddin-umar",
+    "tagName": "Nasaruddin Umar"
+  },
+  {
+    "postId": "363",
+    "tagSlug": "amien-suyitno",
+    "tagName": "Amien Suyitno"
+  },
+  {
+    "postId": "363",
+    "tagSlug": "menteri-agama",
+    "tagName": "Menteri Agama"
+  },
+  {
+    "postId": "363",
+    "tagSlug": "cirebon",
+    "tagName": "Cirebon"
+  },
+  {
+    "postId": "363",
+    "tagSlug": "hari-guru-nasional",
+    "tagName": "Hari Guru Nasional"
+  },
+  {
+    "postId": "366",
+    "tagSlug": "nasaruddin-umar",
+    "tagName": "Nasaruddin Umar"
+  },
+  {
+    "postId": "366",
+    "tagSlug": "amien-suyitno",
+    "tagName": "Amien Suyitno"
+  },
+  {
+    "postId": "366",
+    "tagSlug": "rohis",
+    "tagName": "ROHIS"
+  },
+  {
+    "postId": "366",
+    "tagSlug": "kemenag",
+    "tagName": "Kemenag"
+  },
+  {
+    "postId": "369",
+    "tagSlug": "kementerian-agama",
+    "tagName": "Kementerian Agama"
+  },
+  {
+    "postId": "369",
+    "tagSlug": "moderasi-beragama",
+    "tagName": "Moderasi Beragama"
+  },
+  {
+    "postId": "369",
+    "tagSlug": "lpdp",
+    "tagName": "LPDP"
+  },
+  {
+    "postId": "369",
+    "tagSlug": "perguruan-tinggi",
+    "tagName": "Perguruan Tinggi"
+  },
+  {
+    "postId": "369",
+    "tagSlug": "kolaborasi",
+    "tagName": "Kolaborasi"
+  },
+  {
+    "postId": "382",
+    "tagSlug": "direktorat-jenderal-pesantren",
+    "tagName": "Direktorat Jenderal Pesantren"
+  },
+  {
+    "postId": "382",
+    "tagSlug": "kementerian-agama",
+    "tagName": "Kementerian Agama"
+  },
+  {
+    "postId": "382",
+    "tagSlug": "moderasi",
+    "tagName": "Moderasi"
+  },
+  {
+    "postId": "382",
+    "tagSlug": "pesantren",
+    "tagName": "Pesantren"
+  }
+]

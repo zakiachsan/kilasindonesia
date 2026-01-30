@@ -1,0 +1,314 @@
+[
+  {
+    "id": "7",
+    "termId": "7",
+    "name": "Balapan",
+    "slug": "balapan"
+  },
+  {
+    "id": "8",
+    "termId": "8",
+    "name": "Berita Olahraga",
+    "slug": "berita-olahraga"
+  },
+  {
+    "id": "9",
+    "termId": "9",
+    "name": "Berita Otomotif",
+    "slug": "berita-otomotif"
+  },
+  {
+    "id": "10",
+    "termId": "10",
+    "name": "Bulutangkis",
+    "slug": "bulutangkis"
+  },
+  {
+    "id": "11",
+    "termId": "11",
+    "name": "Daihatsu",
+    "slug": "daihatsu"
+  },
+  {
+    "id": "12",
+    "termId": "12",
+    "name": "DKI Jakarta",
+    "slug": "dki-jakarta"
+  },
+  {
+    "id": "13",
+    "termId": "13",
+    "name": "Gerindra",
+    "slug": "gerindra"
+  },
+  {
+    "id": "14",
+    "termId": "14",
+    "name": "Kejahatan",
+    "slug": "kejahatan"
+  },
+  {
+    "id": "15",
+    "termId": "15",
+    "name": "Mitsubishi",
+    "slug": "mitsubishi"
+  },
+  {
+    "id": "16",
+    "termId": "16",
+    "name": "New Zealand",
+    "slug": "new-zealand"
+  },
+  {
+    "id": "17",
+    "termId": "17",
+    "name": "Nissan",
+    "slug": "nissan"
+  },
+  {
+    "id": "18",
+    "termId": "18",
+    "name": "Rohinya",
+    "slug": "rohinya"
+  },
+  {
+    "id": "19",
+    "termId": "19",
+    "name": "Sepakbola",
+    "slug": "sepakbola"
+  },
+  {
+    "id": "20",
+    "termId": "20",
+    "name": "Tag Berita",
+    "slug": "tag-berita"
+  },
+  {
+    "id": "33",
+    "termId": "33",
+    "name": "Pendidikan Profesi Guru",
+    "slug": "pendidikan-profesi-guru"
+  },
+  {
+    "id": "34",
+    "termId": "34",
+    "name": "Program Indonesia Pintar",
+    "slug": "program-indonesia-pintar"
+  },
+  {
+    "id": "35",
+    "termId": "35",
+    "name": "MADADA",
+    "slug": "madada"
+  },
+  {
+    "id": "36",
+    "termId": "36",
+    "name": "Akminas",
+    "slug": "akminas"
+  },
+  {
+    "id": "37",
+    "termId": "37",
+    "name": "Prabowo Subianto",
+    "slug": "prabowo-subianto"
+  },
+  {
+    "id": "38",
+    "termId": "38",
+    "name": "Nasaruddin Umar",
+    "slug": "nasaruddin-umar"
+  },
+  {
+    "id": "39",
+    "termId": "39",
+    "name": "Indonesia Emas 2045",
+    "slug": "indonesia-emas-2045"
+  },
+  {
+    "id": "40",
+    "termId": "40",
+    "name": "Asep Saepudin Jahar",
+    "slug": "asep-saepudin-jahar"
+  },
+  {
+    "id": "41",
+    "termId": "41",
+    "name": "Pondok Pesantren Al-Khoziny",
+    "slug": "pondok-pesantren-al-khoziny"
+  },
+  {
+    "id": "42",
+    "termId": "42",
+    "name": "Hari Santri Nasional",
+    "slug": "hari-santri-nasional"
+  },
+  {
+    "id": "43",
+    "termId": "43",
+    "name": "Beasiswa Santri Berprestasi",
+    "slug": "beasiswa-santri-berprestasi"
+  },
+  {
+    "id": "44",
+    "termId": "44",
+    "name": "Direktorat Jenderal Pesantren",
+    "slug": "direktorat-jenderal-pesantren"
+  },
+  {
+    "id": "45",
+    "termId": "45",
+    "name": "MRC 2025",
+    "slug": "mrc-2025"
+  },
+  {
+    "id": "46",
+    "termId": "46",
+    "name": "MAN 3 Bantul",
+    "slug": "man-3-bantul"
+  },
+  {
+    "id": "47",
+    "termId": "47",
+    "name": "Puspresnas",
+    "slug": "puspresnas"
+  },
+  {
+    "id": "48",
+    "termId": "48",
+    "name": "Smesco Exhibition Hall",
+    "slug": "smesco-exhibition-hall"
+  },
+  {
+    "id": "49",
+    "termId": "49",
+    "name": "UIN Jakarta",
+    "slug": "uin-jakarta"
+  },
+  {
+    "id": "50",
+    "termId": "50",
+    "name": "Universitas Islam Internasional Indonesia",
+    "slug": "universitas-islam-internasional-indonesia"
+  },
+  {
+    "id": "51",
+    "termId": "51",
+    "name": "Program Studi Teknik Informatika",
+    "slug": "program-studi-teknik-informatika"
+  },
+  {
+    "id": "52",
+    "termId": "52",
+    "name": "Fakultas Sains dan Teknologi",
+    "slug": "fakultas-sains-dan-teknologi"
+  },
+  {
+    "id": "53",
+    "termId": "53",
+    "name": "Madrasah Robotics Competition",
+    "slug": "madrasah-robotics-competition"
+  },
+  {
+    "id": "54",
+    "termId": "54",
+    "name": "Kementerian Agama",
+    "slug": "kementerian-agama"
+  },
+  {
+    "id": "55",
+    "termId": "55",
+    "name": "MAN Insan Cendekia Serpong",
+    "slug": "man-insan-cendekia-serpong"
+  },
+  {
+    "id": "56",
+    "termId": "56",
+    "name": "Komisi VIII DPR RI",
+    "slug": "komisi-viii-dpr-ri"
+  },
+  {
+    "id": "57",
+    "termId": "57",
+    "name": "Wakil Menteri Agama",
+    "slug": "wakil-menteri-agama"
+  },
+  {
+    "id": "58",
+    "termId": "58",
+    "name": "OMI 2025",
+    "slug": "omi-2025"
+  },
+  {
+    "id": "59",
+    "termId": "59",
+    "name": "Amien Suyitno",
+    "slug": "amien-suyitno"
+  },
+  {
+    "id": "60",
+    "termId": "60",
+    "name": "Menteri Agama",
+    "slug": "menteri-agama"
+  },
+  {
+    "id": "61",
+    "termId": "61",
+    "name": "Cirebon",
+    "slug": "cirebon"
+  },
+  {
+    "id": "62",
+    "termId": "62",
+    "name": "Hari Guru Nasional",
+    "slug": "hari-guru-nasional"
+  },
+  {
+    "id": "63",
+    "termId": "63",
+    "name": "ROHIS",
+    "slug": "rohis"
+  },
+  {
+    "id": "64",
+    "termId": "64",
+    "name": "Kemenag",
+    "slug": "kemenag"
+  },
+  {
+    "id": "65",
+    "termId": "65",
+    "name": "Moderasi Beragama",
+    "slug": "moderasi-beragama"
+  },
+  {
+    "id": "66",
+    "termId": "66",
+    "name": "LPDP",
+    "slug": "lpdp"
+  },
+  {
+    "id": "67",
+    "termId": "67",
+    "name": "Perguruan Tinggi",
+    "slug": "perguruan-tinggi"
+  },
+  {
+    "id": "68",
+    "termId": "68",
+    "name": "Kolaborasi",
+    "slug": "kolaborasi"
+  },
+  {
+    "id": "70",
+    "termId": "70",
+    "name": "Moderasi",
+    "slug": "moderasi"
+  },
+  {
+    "id": "71",
+    "termId": "71",
+    "name": "Pesantren",
+    "slug": "pesantren"
+  }
+]

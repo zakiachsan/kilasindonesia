@@ -35,7 +35,7 @@ async function getPosts(status?: string, page = 1, search?: string) {
     const postsQuery = db
       .select()
       .from(posts)
-      .orderBy(desc(posts.createdAt))
+      .orderBy(desc(posts.publishedAt))
       .limit(limit)
       .offset(skip)
 
