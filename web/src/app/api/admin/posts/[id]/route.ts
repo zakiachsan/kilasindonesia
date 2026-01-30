@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
-import { prisma } from '@/lib/db'
+import { db, posts, users, categories, tags, postCategories, postTags, eq } from '@/db'
 
 interface RouteParams {
   params: Promise<{ id: string }>
@@ -16,20 +16,45 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
 
     const { id } = await params
 
-    const post = await prisma.post.findUnique({
-      where: { id },
-      include: {
-        author: { select: { id: true, name: true } },
-        categories: true,
-        tags: true,
-      },
-    })
+    const [post] = await db
+      .select()
+      .from(posts)
+      .where(eq(posts.id, id))
+      .limit(1)
 
     if (!post) {
       return NextResponse.json({ error: 'Artikel tidak ditemukan' }, { status: 404 })
     }
 
-    return NextResponse.json({ post })
+    // Get author
+    const [author] = await db
+      .select({ id: users.id, name: users.name })
+      .from(users)
+      .where(eq(users.id, post.authorId))
+      .limit(1)
+
+    // Get categories
+    const postCats = await db
+      .select({ id: categories.id, name: categories.name, slug: categories.slug })
+      .from(categories)
+      .innerJoin(postCategories, eq(categories.id, postCategories.categoryId))
+      .where(eq(postCategories.postId, id))
+
+    // Get tags
+    const postTagsList = await db
+      .select({ id: tags.id, name: tags.name, slug: tags.slug })
+      .from(tags)
+      .innerJoin(postTags, eq(tags.id, postTags.tagId))
+      .where(eq(postTags.postId, id))
+
+    return NextResponse.json({
+      post: {
+        ...post,
+        author,
+        categories: postCats,
+        tags: postTagsList,
+      },
+    })
   } catch (error) {
     console.error('Error fetching post:', error)
     return NextResponse.json(
@@ -71,18 +96,22 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     }
 
     // Check if post exists
-    const existingPost = await prisma.post.findUnique({
-      where: { id },
-    })
+    const [existingPost] = await db
+      .select()
+      .from(posts)
+      .where(eq(posts.id, id))
+      .limit(1)
 
     if (!existingPost) {
       return NextResponse.json({ error: 'Artikel tidak ditemukan' }, { status: 404 })
     }
 
     // Check if slug is taken by another post
-    const slugPost = await prisma.post.findUnique({
-      where: { slug },
-    })
+    const [slugPost] = await db
+      .select()
+      .from(posts)
+      .where(eq(posts.slug, slug))
+      .limit(1)
 
     if (slugPost && slugPost.id !== id) {
       return NextResponse.json(
@@ -100,9 +129,9 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     }
 
     // Update post
-    const post = await prisma.post.update({
-      where: { id },
-      data: {
+    const [post] = await db
+      .update(posts)
+      .set({
         title,
         slug,
         content,
@@ -112,14 +141,32 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
         publishedAt,
         metaTitle: metaTitle || null,
         metaDescription: metaDescription || null,
-        categories: {
-          set: (categoryIds || []).map((catId: string) => ({ id: catId })),
-        },
-        tags: {
-          set: (tagIds || []).map((tagId: string) => ({ id: tagId })),
-        },
-      },
-    })
+        updatedAt: new Date(),
+      })
+      .where(eq(posts.id, id))
+      .returning()
+
+    // Update categories - delete all and re-insert
+    await db.delete(postCategories).where(eq(postCategories.postId, id))
+    if (categoryIds && categoryIds.length > 0) {
+      await db.insert(postCategories).values(
+        categoryIds.map((catId: string) => ({
+          postId: id,
+          categoryId: catId,
+        }))
+      )
+    }
+
+    // Update tags - delete all and re-insert
+    await db.delete(postTags).where(eq(postTags.postId, id))
+    if (tagIds && tagIds.length > 0) {
+      await db.insert(postTags).values(
+        tagIds.map((tagId: string) => ({
+          postId: id,
+          tagId: tagId,
+        }))
+      )
+    }
 
     return NextResponse.json({ success: true, post })
   } catch (error) {
@@ -142,18 +189,22 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
     const { id } = await params
 
     // Check if post exists
-    const existingPost = await prisma.post.findUnique({
-      where: { id },
-    })
+    const [existingPost] = await db
+      .select()
+      .from(posts)
+      .where(eq(posts.id, id))
+      .limit(1)
 
     if (!existingPost) {
       return NextResponse.json({ error: 'Artikel tidak ditemukan' }, { status: 404 })
     }
 
+    // Delete post categories and tags first
+    await db.delete(postCategories).where(eq(postCategories.postId, id))
+    await db.delete(postTags).where(eq(postTags.postId, id))
+
     // Delete post
-    await prisma.post.delete({
-      where: { id },
-    })
+    await db.delete(posts).where(eq(posts.id, id))
 
     return NextResponse.json({ success: true })
   } catch (error) {

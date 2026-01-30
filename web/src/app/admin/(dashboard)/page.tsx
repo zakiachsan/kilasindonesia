@@ -1,34 +1,34 @@
 import Link from 'next/link'
-import { prisma } from '@/lib/db'
+import { db, posts, categories, comments, users, postCategories, eq, desc, count } from '@/db'
 
 async function getStats() {
   try {
     const [
-      totalPosts,
-      publishedPosts,
-      draftPosts,
-      totalCategories,
-      totalComments,
-      pendingComments,
-      pinnedPosts,
+      totalPostsResult,
+      publishedPostsResult,
+      draftPostsResult,
+      totalCategoriesResult,
+      totalCommentsResult,
+      pendingCommentsResult,
+      pinnedPostsResult,
     ] = await Promise.all([
-      prisma.post.count(),
-      prisma.post.count({ where: { status: 'PUBLISHED' } }),
-      prisma.post.count({ where: { status: 'DRAFT' } }),
-      prisma.category.count(),
-      prisma.comment.count(),
-      prisma.comment.count({ where: { status: 'PENDING' } }),
-      prisma.post.count({ where: { isPinned: true } }),
+      db.select({ count: count() }).from(posts),
+      db.select({ count: count() }).from(posts).where(eq(posts.status, 'PUBLISHED')),
+      db.select({ count: count() }).from(posts).where(eq(posts.status, 'DRAFT')),
+      db.select({ count: count() }).from(categories),
+      db.select({ count: count() }).from(comments),
+      db.select({ count: count() }).from(comments).where(eq(comments.status, 'PENDING')),
+      db.select({ count: count() }).from(posts).where(eq(posts.isPinned, true)),
     ])
 
     return {
-      totalPosts,
-      publishedPosts,
-      draftPosts,
-      totalCategories,
-      totalComments,
-      pendingComments,
-      pinnedPosts,
+      totalPosts: totalPostsResult[0]?.count || 0,
+      publishedPosts: publishedPostsResult[0]?.count || 0,
+      draftPosts: draftPostsResult[0]?.count || 0,
+      totalCategories: totalCategoriesResult[0]?.count || 0,
+      totalComments: totalCommentsResult[0]?.count || 0,
+      pendingComments: pendingCommentsResult[0]?.count || 0,
+      pinnedPosts: pinnedPostsResult[0]?.count || 0,
     }
   } catch (error) {
     console.error('Failed to fetch stats:', error)
@@ -46,14 +46,32 @@ async function getStats() {
 
 async function getRecentPosts() {
   try {
-    return await prisma.post.findMany({
-      take: 5,
-      orderBy: { createdAt: 'desc' },
-      include: {
-        author: { select: { name: true } },
-        categories: { select: { name: true }, take: 1 },
-      },
-    })
+    const recentPosts = await db
+      .select()
+      .from(posts)
+      .orderBy(desc(posts.createdAt))
+      .limit(5)
+
+    return Promise.all(recentPosts.map(async (post) => {
+      const [author] = await db
+        .select({ name: users.name })
+        .from(users)
+        .where(eq(users.id, post.authorId))
+        .limit(1)
+
+      const postCats = await db
+        .select({ name: categories.name })
+        .from(categories)
+        .innerJoin(postCategories, eq(categories.id, postCategories.categoryId))
+        .where(eq(postCategories.postId, post.id))
+        .limit(1)
+
+      return {
+        ...post,
+        author: author || { name: 'Unknown' },
+        categories: postCats,
+      }
+    }))
   } catch (error) {
     console.error('Failed to fetch recent posts:', error)
     return []
@@ -62,13 +80,24 @@ async function getRecentPosts() {
 
 async function getRecentComments() {
   try {
-    return await prisma.comment.findMany({
-      take: 5,
-      orderBy: { createdAt: 'desc' },
-      include: {
-        post: { select: { title: true, slug: true } },
-      },
-    })
+    const recentComments = await db
+      .select()
+      .from(comments)
+      .orderBy(desc(comments.createdAt))
+      .limit(5)
+
+    return Promise.all(recentComments.map(async (comment) => {
+      const [post] = await db
+        .select({ title: posts.title, slug: posts.slug })
+        .from(posts)
+        .where(eq(posts.id, comment.postId))
+        .limit(1)
+
+      return {
+        ...comment,
+        post: post || { title: 'Unknown', slug: '#' },
+      }
+    }))
   } catch (error) {
     console.error('Failed to fetch recent comments:', error)
     return []

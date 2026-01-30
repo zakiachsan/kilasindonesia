@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Sidebar, SidebarWidget, SidebarAd } from '@/components/layout'
 import { PostCard } from '@/components/posts'
-import prisma from '@/lib/db'
+import { db, categories, posts, postCategories, users, eq, and, desc, count, inArray, sql } from '@/db'
 import {
   generateCollectionSchema,
   generateBreadcrumbSchema,
@@ -15,13 +15,21 @@ export const dynamic = 'force-dynamic'
 // Fetch category by slug
 async function getCategory(slug: string) {
   try {
-    const category = await prisma.category.findUnique({
-      where: { slug },
-      include: {
-        _count: { select: { posts: true } },
-      },
-    })
-    return category
+    const [category] = await db
+      .select()
+      .from(categories)
+      .where(eq(categories.slug, slug))
+      .limit(1)
+
+    if (!category) return null
+
+    // Get post count
+    const [result] = await db
+      .select({ count: count() })
+      .from(postCategories)
+      .where(eq(postCategories.categoryId, category.id))
+
+    return { ...category, _count: { posts: result?.count || 0 } }
   } catch (error) {
     console.error('Failed to fetch category:', error)
     return null
@@ -31,21 +39,44 @@ async function getCategory(slug: string) {
 // Fetch posts by category
 async function getCategoryPosts(categoryId: string) {
   try {
-    const posts = await prisma.post.findMany({
-      where: {
-        status: 'PUBLISHED',
-        categories: {
-          some: { id: categoryId },
-        },
-      },
-      include: {
-        categories: { take: 1 },
-        author: { select: { name: true } },
-      },
-      orderBy: { publishedAt: 'desc' },
-      take: 11, // 1 featured + 10 list
-    })
-    return posts
+    // Get post IDs for this category
+    const postIds = await db
+      .select({ postId: postCategories.postId })
+      .from(postCategories)
+      .where(eq(postCategories.categoryId, categoryId))
+
+    if (postIds.length === 0) return []
+
+    const ids = postIds.map(p => p.postId)
+
+    // Get published posts
+    const categoryPosts = await db
+      .select()
+      .from(posts)
+      .where(and(
+        inArray(posts.id, ids),
+        eq(posts.status, 'PUBLISHED')
+      ))
+      .orderBy(desc(posts.publishedAt))
+      .limit(11)
+
+    // Get categories and author for each post
+    return Promise.all(categoryPosts.map(async (post) => {
+      const cats = await db
+        .select({ id: categories.id, name: categories.name, slug: categories.slug })
+        .from(categories)
+        .innerJoin(postCategories, eq(categories.id, postCategories.categoryId))
+        .where(eq(postCategories.postId, post.id))
+        .limit(1)
+
+      const [author] = await db
+        .select({ name: users.name })
+        .from(users)
+        .where(eq(users.id, post.authorId))
+        .limit(1)
+
+      return { ...post, categories: cats, author: author || { name: 'Unknown' } }
+    }))
   } catch (error) {
     console.error('Failed to fetch category posts:', error)
     return []
@@ -53,48 +84,76 @@ async function getCategoryPosts(categoryId: string) {
 }
 
 // Fetch popular posts in category with rolling algorithm
-// Prioritizes recent posts (last 7 days) while maintaining fallback to all-time popular
 async function getPopularInCategory(categoryId: string, excludeIds: string[] = []) {
   try {
     const sevenDaysAgo = new Date()
     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7)
 
-    // First, try to get popular posts from the last 7 days
-    const recentPopular = await prisma.post.findMany({
-      where: {
-        status: 'PUBLISHED',
-        categories: { some: { id: categoryId } },
-        id: { notIn: excludeIds },
-        publishedAt: { gte: sevenDaysAgo },
-      },
-      include: {
-        categories: { take: 1 },
-      },
-      orderBy: { viewCount: 'desc' },
-      take: 3,
-    })
+    // Get post IDs for this category
+    const postIds = await db
+      .select({ postId: postCategories.postId })
+      .from(postCategories)
+      .where(eq(postCategories.categoryId, categoryId))
 
-    // If we have enough recent popular posts, return them
-    if (recentPopular.length >= 3) {
-      return recentPopular
+    if (postIds.length === 0) return []
+
+    const ids = postIds.map(p => p.postId).filter(id => !excludeIds.includes(id))
+    if (ids.length === 0) return []
+
+    // First, try to get popular posts from the last 7 days
+    const recentPopular = await db
+      .select()
+      .from(posts)
+      .where(and(
+        inArray(posts.id, ids),
+        eq(posts.status, 'PUBLISHED'),
+        sql`${posts.publishedAt} >= ${sevenDaysAgo}`
+      ))
+      .orderBy(desc(posts.viewCount))
+      .limit(3)
+
+    // Add categories to each post
+    const recentWithCats = await Promise.all(recentPopular.map(async (post) => {
+      const cats = await db
+        .select({ id: categories.id, name: categories.name, slug: categories.slug })
+        .from(categories)
+        .innerJoin(postCategories, eq(categories.id, postCategories.categoryId))
+        .where(eq(postCategories.postId, post.id))
+        .limit(1)
+      return { ...post, categories: cats }
+    }))
+
+    if (recentWithCats.length >= 3) {
+      return recentWithCats
     }
 
     // Otherwise, fill with all-time popular posts
     const existingIds = [...excludeIds, ...recentPopular.map(p => p.id)]
-    const allTimePopular = await prisma.post.findMany({
-      where: {
-        status: 'PUBLISHED',
-        categories: { some: { id: categoryId } },
-        id: { notIn: existingIds },
-      },
-      include: {
-        categories: { take: 1 },
-      },
-      orderBy: { viewCount: 'desc' },
-      take: 3 - recentPopular.length,
-    })
+    const remainingIds = ids.filter(id => !existingIds.includes(id))
 
-    return [...recentPopular, ...allTimePopular]
+    if (remainingIds.length === 0) return recentWithCats
+
+    const allTimePopular = await db
+      .select()
+      .from(posts)
+      .where(and(
+        inArray(posts.id, remainingIds),
+        eq(posts.status, 'PUBLISHED')
+      ))
+      .orderBy(desc(posts.viewCount))
+      .limit(3 - recentWithCats.length)
+
+    const allTimeWithCats = await Promise.all(allTimePopular.map(async (post) => {
+      const cats = await db
+        .select({ id: categories.id, name: categories.name, slug: categories.slug })
+        .from(categories)
+        .innerJoin(postCategories, eq(categories.id, postCategories.categoryId))
+        .where(eq(postCategories.postId, post.id))
+        .limit(1)
+      return { ...post, categories: cats }
+    }))
+
+    return [...recentWithCats, ...allTimeWithCats]
   } catch (error) {
     console.error('Failed to fetch popular posts in category:', error)
     return []
@@ -108,30 +167,42 @@ async function getPopularPosts() {
     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7)
 
     // First, try to get popular posts from the last 7 days
-    const recentPopular = await prisma.post.findMany({
-      where: {
-        status: 'PUBLISHED',
-        publishedAt: { gte: sevenDaysAgo },
-      },
-      orderBy: { viewCount: 'desc' },
-      take: 5,
-    })
+    const recentPopular = await db
+      .select()
+      .from(posts)
+      .where(and(
+        eq(posts.status, 'PUBLISHED'),
+        sql`${posts.publishedAt} >= ${sevenDaysAgo}`
+      ))
+      .orderBy(desc(posts.viewCount))
+      .limit(5)
 
-    // If we have enough recent popular posts, return them
     if (recentPopular.length >= 5) {
       return recentPopular
     }
 
     // Otherwise, fill with all-time popular posts
     const existingIds = recentPopular.map(p => p.id)
-    const allTimePopular = await prisma.post.findMany({
-      where: {
-        status: 'PUBLISHED',
-        id: { notIn: existingIds },
-      },
-      orderBy: { viewCount: 'desc' },
-      take: 5 - recentPopular.length,
-    })
+
+    let allTimePopular: typeof recentPopular = []
+    if (existingIds.length > 0) {
+      allTimePopular = await db
+        .select()
+        .from(posts)
+        .where(and(
+          eq(posts.status, 'PUBLISHED'),
+          sql`${posts.id} NOT IN (${existingIds.map(id => `'${id}'`).join(',')})`
+        ))
+        .orderBy(desc(posts.viewCount))
+        .limit(5 - recentPopular.length)
+    } else {
+      allTimePopular = await db
+        .select()
+        .from(posts)
+        .where(eq(posts.status, 'PUBLISHED'))
+        .orderBy(desc(posts.viewCount))
+        .limit(5)
+    }
 
     return [...recentPopular, ...allTimePopular]
   } catch (error) {
@@ -143,13 +214,18 @@ async function getPopularPosts() {
 // Fetch all categories for sidebar
 async function getAllCategories() {
   try {
-    const categories = await prisma.category.findMany({
-      include: {
-        _count: { select: { posts: true } },
-      },
-      orderBy: { name: 'asc' },
-    })
-    return categories
+    const allCats = await db
+      .select()
+      .from(categories)
+      .orderBy(categories.name)
+
+    return Promise.all(allCats.map(async (cat) => {
+      const [result] = await db
+        .select({ count: count() })
+        .from(postCategories)
+        .where(eq(postCategories.categoryId, cat.id))
+      return { ...cat, _count: { posts: result?.count || 0 } }
+    }))
   } catch (error) {
     console.error('Failed to fetch categories:', error)
     return []

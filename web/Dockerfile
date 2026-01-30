@@ -5,7 +5,6 @@ WORKDIR /app
 
 # Copy package files
 COPY package.json package-lock.json ./
-COPY prisma ./prisma/
 
 # Install dependencies
 RUN npm ci
@@ -17,9 +16,6 @@ WORKDIR /app
 # Copy dependencies from deps stage
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-
-# Generate Prisma client
-RUN npx prisma generate
 
 # Set environment for build
 ENV NEXT_TELEMETRY_DISABLED=1
@@ -43,11 +39,12 @@ RUN adduser --system --uid 1001 nextjs
 
 # Copy necessary files
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/prisma ./prisma
-COPY --from=builder /app/prisma.config.ts ./prisma.config.ts
+COPY --from=builder /app/drizzle ./drizzle
+COPY --from=builder /app/drizzle.config.ts ./drizzle.config.ts
 COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/src/db ./src/db
 
-# Copy node_modules for prisma CLI and seeding
+# Copy node_modules for drizzle-kit and seeding
 COPY --from=builder /app/node_modules ./node_modules
 
 # Set correct permissions for prerender cache

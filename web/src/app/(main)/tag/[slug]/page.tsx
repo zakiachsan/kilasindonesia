@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Sidebar, SidebarWidget, SidebarAd } from '@/components/layout'
 import { PostCard } from '@/components/posts'
-import prisma from '@/lib/db'
+import { db, tags, posts, postTags, categories, postCategories, users, eq, and, desc, count, inArray, asc } from '@/db'
 import {
   generateCollectionSchema,
   generateBreadcrumbSchema,
@@ -15,13 +15,21 @@ export const dynamic = 'force-dynamic'
 // Fetch tag by slug
 async function getTag(slug: string) {
   try {
-    const tag = await prisma.tag.findUnique({
-      where: { slug },
-      include: {
-        _count: { select: { posts: true } },
-      },
-    })
-    return tag
+    const [tag] = await db
+      .select()
+      .from(tags)
+      .where(eq(tags.slug, slug))
+      .limit(1)
+
+    if (!tag) return null
+
+    // Get post count
+    const [result] = await db
+      .select({ count: count() })
+      .from(postTags)
+      .where(eq(postTags.tagId, tag.id))
+
+    return { ...tag, _count: { posts: result?.count || 0 } }
   } catch (error) {
     console.error('Failed to fetch tag:', error)
     return null
@@ -31,21 +39,44 @@ async function getTag(slug: string) {
 // Fetch posts by tag
 async function getTagPosts(tagId: string) {
   try {
-    const posts = await prisma.post.findMany({
-      where: {
-        status: 'PUBLISHED',
-        tags: {
-          some: { id: tagId },
-        },
-      },
-      include: {
-        categories: { take: 1 },
-        author: { select: { name: true } },
-      },
-      orderBy: { publishedAt: 'desc' },
-      take: 20,
-    })
-    return posts
+    // Get post IDs for this tag
+    const postIds = await db
+      .select({ postId: postTags.postId })
+      .from(postTags)
+      .where(eq(postTags.tagId, tagId))
+
+    if (postIds.length === 0) return []
+
+    const ids = postIds.map(p => p.postId)
+
+    // Get published posts
+    const tagPosts = await db
+      .select()
+      .from(posts)
+      .where(and(
+        inArray(posts.id, ids),
+        eq(posts.status, 'PUBLISHED')
+      ))
+      .orderBy(desc(posts.publishedAt))
+      .limit(20)
+
+    // Get categories and author for each post
+    return Promise.all(tagPosts.map(async (post) => {
+      const cats = await db
+        .select({ id: categories.id, name: categories.name, slug: categories.slug })
+        .from(categories)
+        .innerJoin(postCategories, eq(categories.id, postCategories.categoryId))
+        .where(eq(postCategories.postId, post.id))
+        .limit(1)
+
+      const [author] = await db
+        .select({ name: users.name })
+        .from(users)
+        .where(eq(users.id, post.authorId))
+        .limit(1)
+
+      return { ...post, categories: cats, author: author || { name: 'Unknown' } }
+    }))
   } catch (error) {
     console.error('Failed to fetch tag posts:', error)
     return []
@@ -55,12 +86,12 @@ async function getTagPosts(tagId: string) {
 // Fetch popular posts for sidebar
 async function getPopularPosts() {
   try {
-    const posts = await prisma.post.findMany({
-      where: { status: 'PUBLISHED' },
-      orderBy: { viewCount: 'desc' },
-      take: 5,
-    })
-    return posts
+    return db
+      .select()
+      .from(posts)
+      .where(eq(posts.status, 'PUBLISHED'))
+      .orderBy(desc(posts.viewCount))
+      .limit(5)
   } catch (error) {
     console.error('Failed to fetch popular posts:', error)
     return []
@@ -70,13 +101,18 @@ async function getPopularPosts() {
 // Fetch all tags for sidebar
 async function getAllTags() {
   try {
-    const tags = await prisma.tag.findMany({
-      include: {
-        _count: { select: { posts: true } },
-      },
-      orderBy: { name: 'asc' },
-    })
-    return tags
+    const allTags = await db
+      .select()
+      .from(tags)
+      .orderBy(asc(tags.name))
+
+    return Promise.all(allTags.map(async (tag) => {
+      const [result] = await db
+        .select({ count: count() })
+        .from(postTags)
+        .where(eq(postTags.tagId, tag.id))
+      return { ...tag, _count: { posts: result?.count || 0 } }
+    }))
   } catch (error) {
     console.error('Failed to fetch tags:', error)
     return []
@@ -86,13 +122,18 @@ async function getAllTags() {
 // Fetch categories for sidebar
 async function getCategories() {
   try {
-    const categories = await prisma.category.findMany({
-      include: {
-        _count: { select: { posts: true } },
-      },
-      orderBy: { name: 'asc' },
-    })
-    return categories
+    const allCats = await db
+      .select()
+      .from(categories)
+      .orderBy(asc(categories.name))
+
+    return Promise.all(allCats.map(async (cat) => {
+      const [result] = await db
+        .select({ count: count() })
+        .from(postCategories)
+        .where(eq(postCategories.categoryId, cat.id))
+      return { ...cat, _count: { posts: result?.count || 0 } }
+    }))
   } catch (error) {
     console.error('Failed to fetch categories:', error)
     return []
@@ -153,7 +194,7 @@ export default async function TagPage({ params }: PageProps) {
   }
 
   // Fetch posts, popular posts, tags, and categories in parallel
-  const [tagPosts, popularPosts, allTags, categories] = await Promise.all([
+  const [tagPosts, popularPosts, allTags, categoriesList] = await Promise.all([
     getTagPosts(tag.id),
     getPopularPosts(),
     getAllTags(),
@@ -348,7 +389,7 @@ export default async function TagPage({ params }: PageProps) {
             {/* Categories Widget */}
             <SidebarWidget title="Kategori">
               <ul className="space-y-1">
-                {categories.map((category) => (
+                {categoriesList.map((category) => (
                   <li key={category.slug}>
                     <Link
                       href={`/category/${category.slug}`}

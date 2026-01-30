@@ -1,28 +1,34 @@
 import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
+import { db, tags, postTags, posts, eq, and, count, asc } from '@/db'
 
 export async function GET() {
   try {
-    const tags = await prisma.tag.findMany({
-      include: {
-        _count: {
-          select: {
-            posts: {
-              where: { status: 'PUBLISHED' },
-            },
-          },
-        },
-      },
-      orderBy: { name: 'asc' },
-    })
+    // Get all tags
+    const allTags = await db
+      .select()
+      .from(tags)
+      .orderBy(asc(tags.name))
 
-    // Transform to include post count
-    const tagsWithCount = tags.map((tag) => ({
-      id: tag.id,
-      name: tag.name,
-      slug: tag.slug,
-      count: tag._count.posts,
-    }))
+    // Get post counts for each tag
+    const tagsWithCount = await Promise.all(
+      allTags.map(async (tag) => {
+        const [result] = await db
+          .select({ count: count() })
+          .from(postTags)
+          .innerJoin(posts, eq(postTags.postId, posts.id))
+          .where(and(
+            eq(postTags.tagId, tag.id),
+            eq(posts.status, 'PUBLISHED')
+          ))
+
+        return {
+          id: tag.id,
+          name: tag.name,
+          slug: tag.slug,
+          count: result?.count || 0,
+        }
+      })
+    )
 
     return NextResponse.json({ tags: tagsWithCount })
   } catch (error) {

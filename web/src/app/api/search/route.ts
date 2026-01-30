@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
+import { db, posts, users, categories, postCategories, eq, and, or, ilike, desc, count } from '@/db'
 
 export async function GET(request: NextRequest) {
   try {
@@ -12,41 +12,77 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ posts: [], pagination: { total: 0 } })
     }
 
-    const skip = (page - 1) * limit
+    const offset = (page - 1) * limit
     const searchTerm = query.trim()
 
-    const where = {
-      status: 'PUBLISHED' as const,
-      OR: [
-        { title: { contains: searchTerm, mode: 'insensitive' as const } },
-        { excerpt: { contains: searchTerm, mode: 'insensitive' as const } },
-        { content: { contains: searchTerm, mode: 'insensitive' as const } },
-      ],
-    }
+    const conditions = and(
+      eq(posts.status, 'PUBLISHED'),
+      or(
+        ilike(posts.title, `%${searchTerm}%`),
+        ilike(posts.excerpt, `%${searchTerm}%`),
+        ilike(posts.content, `%${searchTerm}%`)
+      )
+    )
 
-    const [posts, total] = await Promise.all([
-      prisma.post.findMany({
-        where,
-        include: {
+    // Get posts
+    const postsResult = await db
+      .select({
+        id: posts.id,
+        title: posts.title,
+        slug: posts.slug,
+        excerpt: posts.excerpt,
+        featuredImage: posts.featuredImage,
+        publishedAt: posts.publishedAt,
+        viewCount: posts.viewCount,
+        authorId: posts.authorId,
+        authorName: users.name,
+        authorAvatar: users.avatar,
+      })
+      .from(posts)
+      .leftJoin(users, eq(posts.authorId, users.id))
+      .where(conditions)
+      .orderBy(desc(posts.publishedAt))
+      .limit(limit)
+      .offset(offset)
+
+    // Get total count
+    const [countResult] = await db
+      .select({ count: count() })
+      .from(posts)
+      .where(conditions)
+
+    const total = countResult?.count || 0
+
+    // Get categories for each post
+    const postsWithRelations = await Promise.all(
+      postsResult.map(async (post) => {
+        const postCats = await db
+          .select({
+            id: categories.id,
+            name: categories.name,
+            slug: categories.slug,
+          })
+          .from(categories)
+          .innerJoin(postCategories, eq(categories.id, postCategories.categoryId))
+          .where(eq(postCategories.postId, post.id))
+          .limit(1)
+
+        return {
+          ...post,
           author: {
-            select: { id: true, name: true, avatar: true },
+            id: post.authorId,
+            name: post.authorName,
+            avatar: post.authorAvatar,
           },
-          categories: {
-            select: { id: true, name: true, slug: true },
-            take: 1,
-          },
-        },
-        orderBy: { publishedAt: 'desc' },
-        skip,
-        take: limit,
-      }),
-      prisma.post.count({ where }),
-    ])
+          categories: postCats,
+        }
+      })
+    )
 
     const totalPages = Math.ceil(total / limit)
 
     return NextResponse.json({
-      posts,
+      posts: postsWithRelations,
       pagination: {
         page,
         limit,

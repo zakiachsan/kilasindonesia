@@ -67,15 +67,15 @@ jobs:
             # Wait for app to be ready
             sleep 10
 
-            # Sync database schema (Prisma 7 compatible)
+            # Push database schema using Drizzle
             echo "Pushing database schema..."
-            docker exec kilasindonesia-app npx prisma db push --skip-generate --accept-data-loss
+            docker exec kilasindonesia-app npx drizzle-kit push
 
             # Check if posts table exists and has data
             POST_COUNT=$(docker exec kilasindonesia-db psql -U kilasindonesia -d kilasindonesia -t -c "SELECT COUNT(*) FROM posts;" 2>/dev/null | tr -d ' ' || echo "0")
             if [ "$POST_COUNT" = "0" ] || [ -z "$POST_COUNT" ]; then
               echo "Database empty, running seed..."
-              docker exec kilasindonesia-app npx tsx prisma/seed.ts
+              docker exec kilasindonesia-app npx tsx src/db/seed.ts
             else
               echo "Database has $POST_COUNT posts, skipping seed"
             fi

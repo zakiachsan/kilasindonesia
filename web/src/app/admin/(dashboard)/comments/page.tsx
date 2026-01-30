@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { prisma } from '@/lib/db'
+import { db, comments, posts, eq, desc, count } from '@/db'
 import CommentsTable from './components/CommentsTable'
 
 interface PageProps {
@@ -11,28 +11,51 @@ async function getComments(status?: string, page = 1) {
   const skip = (page - 1) * limit
 
   try {
-    const where: { status?: 'PENDING' | 'APPROVED' | 'REJECTED' } = {}
-
+    // Build conditions
+    const conditions = []
     if (status && ['PENDING', 'APPROVED', 'REJECTED'].includes(status.toUpperCase())) {
-      where.status = status.toUpperCase() as 'PENDING' | 'APPROVED' | 'REJECTED'
+      conditions.push(eq(comments.status, status.toUpperCase() as 'PENDING' | 'APPROVED' | 'REJECTED'))
     }
 
-    const [comments, total, pendingCount] = await Promise.all([
-      prisma.comment.findMany({
-        where,
-        include: {
-          post: { select: { title: true, slug: true } },
-        },
-        orderBy: { createdAt: 'desc' },
-        skip,
-        take: limit,
-      }),
-      prisma.comment.count({ where }),
-      prisma.comment.count({ where: { status: 'PENDING' } }),
-    ])
+    // Get comments with post info
+    const commentsQuery = db
+      .select()
+      .from(comments)
+      .orderBy(desc(comments.createdAt))
+      .limit(limit)
+      .offset(skip)
+
+    const allComments = conditions.length > 0
+      ? await commentsQuery.where(conditions[0])
+      : await commentsQuery
+
+    // Add post info to each comment
+    const commentsWithPosts = await Promise.all(
+      allComments.map(async (comment) => {
+        const [post] = await db
+          .select({ title: posts.title, slug: posts.slug })
+          .from(posts)
+          .where(eq(posts.id, comment.postId))
+          .limit(1)
+        return { ...comment, post: post || { title: 'Unknown', slug: '#' } }
+      })
+    )
+
+    // Get total count
+    const [totalResult] = conditions.length > 0
+      ? await db.select({ count: count() }).from(comments).where(conditions[0])
+      : await db.select({ count: count() }).from(comments)
+    const total = totalResult?.count || 0
+
+    // Get pending count
+    const [pendingResult] = await db
+      .select({ count: count() })
+      .from(comments)
+      .where(eq(comments.status, 'PENDING'))
+    const pendingCount = pendingResult?.count || 0
 
     return {
-      comments,
+      comments: commentsWithPosts,
       total,
       totalPages: Math.ceil(total / limit),
       currentPage: page,
@@ -49,7 +72,7 @@ export default async function CommentsPage({ searchParams }: PageProps) {
   const status = params.status
   const page = parseInt(params.page || '1')
 
-  const { comments, total, totalPages, currentPage, pendingCount } = await getComments(status, page)
+  const { comments: commentsList, total, totalPages, currentPage, pendingCount } = await getComments(status, page)
 
   const statusTabs = [
     { name: 'Semua', value: '', count: null },
@@ -103,7 +126,7 @@ export default async function CommentsPage({ searchParams }: PageProps) {
           {total} komentar ditemukan
         </div>
 
-        <CommentsTable comments={comments} />
+        <CommentsTable comments={commentsList} />
 
         {/* Pagination */}
         {totalPages > 1 && (

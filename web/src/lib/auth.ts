@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 import bcrypt from 'bcryptjs'
-import { prisma } from './db'
+import { db, users, eq } from '@/db'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -20,9 +20,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const password = credentials.password as string
 
         try {
-          const user = await prisma.user.findUnique({
-            where: { email },
-          })
+          const [user] = await db
+            .select()
+            .from(users)
+            .where(eq(users.email, email))
+            .limit(1)
 
           if (!user) {
             return null

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
+import { db, posts, comments, eq, and, isNull, desc, asc } from '@/db'
 
 export async function POST(request: NextRequest) {
   try {
@@ -24,9 +24,11 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if post exists
-    const post = await prisma.post.findUnique({
-      where: { id: postId },
-    })
+    const [post] = await db
+      .select({ id: posts.id })
+      .from(posts)
+      .where(eq(posts.id, postId))
+      .limit(1)
 
     if (!post) {
       return NextResponse.json({ error: 'Post not found' }, { status: 404 })
@@ -34,9 +36,11 @@ export async function POST(request: NextRequest) {
 
     // If parentId is provided, check if parent comment exists
     if (parentId) {
-      const parentComment = await prisma.comment.findUnique({
-        where: { id: parentId },
-      })
+      const [parentComment] = await db
+        .select({ id: comments.id })
+        .from(comments)
+        .where(eq(comments.id, parentId))
+        .limit(1)
 
       if (!parentComment) {
         return NextResponse.json(
@@ -47,16 +51,17 @@ export async function POST(request: NextRequest) {
     }
 
     // Create comment
-    const comment = await prisma.comment.create({
-      data: {
+    const [comment] = await db
+      .insert(comments)
+      .values({
         postId,
         authorName: authorName.trim(),
         authorEmail: authorEmail.trim().toLowerCase(),
         content: content.trim(),
         parentId: parentId || null,
-        status: 'PENDING', // Comments need moderation
-      },
-    })
+        status: 'PENDING',
+      })
+      .returning()
 
     return NextResponse.json({
       success: true,
@@ -89,22 +94,34 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    const comments = await prisma.comment.findMany({
-      where: {
-        postId,
-        status: 'APPROVED',
-        parentId: null, // Only top-level comments
-      },
-      include: {
-        replies: {
-          where: { status: 'APPROVED' },
-          orderBy: { createdAt: 'asc' },
-        },
-      },
-      orderBy: { createdAt: 'desc' },
-    })
+    // Get top-level comments
+    const topLevelComments = await db
+      .select()
+      .from(comments)
+      .where(and(
+        eq(comments.postId, postId),
+        eq(comments.status, 'APPROVED'),
+        isNull(comments.parentId)
+      ))
+      .orderBy(desc(comments.createdAt))
 
-    return NextResponse.json({ comments })
+    // Get replies for each comment
+    const commentsWithReplies = await Promise.all(
+      topLevelComments.map(async (comment) => {
+        const replies = await db
+          .select()
+          .from(comments)
+          .where(and(
+            eq(comments.parentId, comment.id),
+            eq(comments.status, 'APPROVED')
+          ))
+          .orderBy(asc(comments.createdAt))
+
+        return { ...comment, replies }
+      })
+    )
+
+    return NextResponse.json({ comments: commentsWithReplies })
   } catch (error) {
     console.error('Error fetching comments:', error)
     return NextResponse.json(

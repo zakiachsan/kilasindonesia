@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
-import { prisma } from '@/lib/db'
+import { db, posts, postCategories, postTags, eq } from '@/db'
 
 export async function POST(request: NextRequest) {
   try {
@@ -33,9 +33,11 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if slug already exists
-    const existingPost = await prisma.post.findUnique({
-      where: { slug },
-    })
+    const [existingPost] = await db
+      .select()
+      .from(posts)
+      .where(eq(posts.slug, slug))
+      .limit(1)
 
     if (existingPost) {
       return NextResponse.json(
@@ -45,8 +47,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Create post
-    const post = await prisma.post.create({
-      data: {
+    const [post] = await db
+      .insert(posts)
+      .values({
         title,
         slug,
         content,
@@ -57,14 +60,28 @@ export async function POST(request: NextRequest) {
         publishedAt: status === 'PUBLISHED' ? new Date() : null,
         metaTitle: metaTitle || null,
         metaDescription: metaDescription || null,
-        categories: {
-          connect: (categoryIds || []).map((id: string) => ({ id })),
-        },
-        tags: {
-          connect: (tagIds || []).map((id: string) => ({ id })),
-        },
-      },
-    })
+      })
+      .returning()
+
+    // Add categories
+    if (categoryIds && categoryIds.length > 0) {
+      await db.insert(postCategories).values(
+        categoryIds.map((catId: string) => ({
+          postId: post.id,
+          categoryId: catId,
+        }))
+      )
+    }
+
+    // Add tags
+    if (tagIds && tagIds.length > 0) {
+      await db.insert(postTags).values(
+        tagIds.map((tagId: string) => ({
+          postId: post.id,
+          tagId: tagId,
+        }))
+      )
+    }
 
     return NextResponse.json({ success: true, post })
   } catch (error) {

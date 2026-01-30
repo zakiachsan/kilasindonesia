@@ -1,77 +1,147 @@
 import Link from 'next/link'
 import { BannerAd } from '@/components/ads'
 import { PostCard, RecommendedPosts } from '@/components/posts'
-import { prisma } from '@/lib/db'
+import { db, posts, users, categories, postCategories, eq, and, desc, count, sql, asc } from '@/db'
 
 // Force dynamic rendering to fetch data at runtime (not build time)
 export const dynamic = 'force-dynamic'
 
 // Fetch popular posts with rolling algorithm
-// Prioritizes recent posts (last 7 days) while maintaining fallback to all-time popular
 async function getPopularPostsWithRolling() {
   const sevenDaysAgo = new Date()
   sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7)
 
-  // First, try to get popular posts from the last 7 days
-  const recentPopular = await prisma.post.findMany({
-    where: {
-      status: 'PUBLISHED',
-      publishedAt: { gte: sevenDaysAgo },
-    },
-    include: {
-      categories: { take: 1 },
-    },
-    orderBy: { viewCount: 'desc' },
-    take: 5,
-  })
+  // Get popular posts from the last 7 days
+  const recentPopular = await db
+    .select({
+      id: posts.id,
+      title: posts.title,
+      slug: posts.slug,
+      excerpt: posts.excerpt,
+      featuredImage: posts.featuredImage,
+      publishedAt: posts.publishedAt,
+      viewCount: posts.viewCount,
+    })
+    .from(posts)
+    .where(and(
+      eq(posts.status, 'PUBLISHED'),
+      sql`${posts.publishedAt} >= ${sevenDaysAgo}`
+    ))
+    .orderBy(desc(posts.viewCount))
+    .limit(5)
 
-  // If we have enough recent popular posts, return them
-  if (recentPopular.length >= 5) {
-    return recentPopular
+  // Get first category for each post
+  const recentWithCategories = await Promise.all(
+    recentPopular.map(async (post) => {
+      const [cat] = await db
+        .select({ id: categories.id, name: categories.name, slug: categories.slug })
+        .from(categories)
+        .innerJoin(postCategories, eq(categories.id, postCategories.categoryId))
+        .where(eq(postCategories.postId, post.id))
+        .limit(1)
+      return { ...post, categories: cat ? [cat] : [] }
+    })
+  )
+
+  if (recentWithCategories.length >= 5) {
+    return recentWithCategories
   }
 
-  // Otherwise, fill with all-time popular posts
-  const existingIds = recentPopular.map(p => p.id)
-  const allTimePopular = await prisma.post.findMany({
-    where: {
-      status: 'PUBLISHED',
-      id: { notIn: existingIds },
-    },
-    include: {
-      categories: { take: 1 },
-    },
-    orderBy: { viewCount: 'desc' },
-    take: 5 - recentPopular.length,
-  })
+  // Fill with all-time popular posts
+  const existingIds = recentWithCategories.map(p => p.id)
+  const remainingCount = 5 - recentWithCategories.length
 
-  return [...recentPopular, ...allTimePopular]
+  const allTimePopular = await db
+    .select({
+      id: posts.id,
+      title: posts.title,
+      slug: posts.slug,
+      excerpt: posts.excerpt,
+      featuredImage: posts.featuredImage,
+      publishedAt: posts.publishedAt,
+      viewCount: posts.viewCount,
+    })
+    .from(posts)
+    .where(and(
+      eq(posts.status, 'PUBLISHED'),
+      existingIds.length > 0 ? sql`${posts.id} NOT IN (${sql.join(existingIds.map(id => sql`${id}`), sql`, `)})` : sql`1=1`
+    ))
+    .orderBy(desc(posts.viewCount))
+    .limit(remainingCount)
+
+  const allTimeWithCategories = await Promise.all(
+    allTimePopular.map(async (post) => {
+      const [cat] = await db
+        .select({ id: categories.id, name: categories.name, slug: categories.slug })
+        .from(categories)
+        .innerJoin(postCategories, eq(categories.id, postCategories.categoryId))
+        .where(eq(postCategories.postId, post.id))
+        .limit(1)
+      return { ...post, categories: cat ? [cat] : [] }
+    })
+  )
+
+  return [...recentWithCategories, ...allTimeWithCategories]
 }
 
 async function getHomeData() {
   try {
-    const [posts, popularPosts, categories] = await Promise.all([
-      // Recent posts
-      prisma.post.findMany({
-        where: { status: 'PUBLISHED' },
-        include: {
-          categories: { take: 1 },
-          author: { select: { name: true } },
-        },
-        orderBy: { publishedAt: 'desc' },
-        take: 20,
-      }),
-      // Popular posts with rolling algorithm
-      getPopularPostsWithRolling(),
-      // Categories with post count
-      prisma.category.findMany({
-        include: {
-          _count: { select: { posts: true } },
-        },
-        orderBy: { name: 'asc' },
-      }),
-    ])
+    // Get recent posts
+    const recentPosts = await db
+      .select({
+        id: posts.id,
+        title: posts.title,
+        slug: posts.slug,
+        excerpt: posts.excerpt,
+        featuredImage: posts.featuredImage,
+        publishedAt: posts.publishedAt,
+        viewCount: posts.viewCount,
+        authorId: posts.authorId,
+        authorName: users.name,
+      })
+      .from(posts)
+      .leftJoin(users, eq(posts.authorId, users.id))
+      .where(eq(posts.status, 'PUBLISHED'))
+      .orderBy(desc(posts.publishedAt))
+      .limit(20)
 
-    return { posts, popularPosts, categories }
+    // Get first category for each post
+    const postsWithCategories = await Promise.all(
+      recentPosts.map(async (post) => {
+        const [cat] = await db
+          .select({ id: categories.id, name: categories.name, slug: categories.slug })
+          .from(categories)
+          .innerJoin(postCategories, eq(categories.id, postCategories.categoryId))
+          .where(eq(postCategories.postId, post.id))
+          .limit(1)
+        return { ...post, categories: cat ? [cat] : [], author: { name: post.authorName } }
+      })
+    )
+
+    // Get popular posts
+    const popularPosts = await getPopularPostsWithRolling()
+
+    // Get categories with post count
+    const allCategories = await db
+      .select()
+      .from(categories)
+      .orderBy(asc(categories.name))
+
+    const categoriesWithCount = await Promise.all(
+      allCategories.map(async (cat) => {
+        const [result] = await db
+          .select({ count: count() })
+          .from(postCategories)
+          .innerJoin(posts, eq(postCategories.postId, posts.id))
+          .where(and(
+            eq(postCategories.categoryId, cat.id),
+            eq(posts.status, 'PUBLISHED')
+          ))
+        return { ...cat, _count: { posts: result?.count || 0 } }
+      })
+    )
+
+    return { posts: postsWithCategories, popularPosts, categories: categoriesWithCount }
   } catch (error) {
     console.error('Failed to fetch home data:', error)
     return { posts: [], popularPosts: [], categories: [] }
@@ -79,14 +149,14 @@ async function getHomeData() {
 }
 
 export default async function HomePage() {
-  const { posts, popularPosts, categories } = await getHomeData()
+  const { posts: allPosts, popularPosts, categories: allCategories } = await getHomeData()
 
-  const featuredPost = posts[0]
-  const topPosts = posts.slice(1, 5) // 4 posts for Berita Utama
-  const firstBatchPosts = posts.slice(5, 10) // Posts 5-9
-  const secondBatchPosts = posts.slice(10, 15) // Posts 10-14
+  const featuredPost = allPosts[0]
+  const topPosts = allPosts.slice(1, 5)
+  const firstBatchPosts = allPosts.slice(5, 10)
+  const secondBatchPosts = allPosts.slice(10, 15)
 
-  const currentPostIds = posts.map(p => p.id)
+  const currentPostIds = allPosts.map(p => p.id)
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -118,7 +188,7 @@ export default async function HomePage() {
               </section>
             )}
 
-            {/* Berita Terpopuler - Mobile Only (above Berita Utama) */}
+            {/* Berita Terpopuler - Mobile Only */}
             {popularPosts.length > 0 && (
               <section className="mb-6 lg:hidden">
                 <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
@@ -143,7 +213,7 @@ export default async function HomePage() {
               </section>
             )}
 
-            {/* Berita Utama - 4 articles on mobile (2x2), 3 articles on desktop (row) */}
+            {/* Berita Utama */}
             {topPosts.length > 0 && (
               <section className="mb-6">
                 <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
@@ -224,7 +294,6 @@ export default async function HomePage() {
                   ))}
                 </div>
 
-                {/* Load More Button */}
                 <div className="mt-6 text-center">
                   <Link href="/berita" className="btn btn-primary">
                     Lihat Semua Berita
@@ -272,7 +341,6 @@ export default async function HomePage() {
                 </div>
               </div>
 
-              {/* Sidebar Ad */}
               <BannerAd slot="sidebar" width={300} height={250} />
 
               {/* Categories Widget */}
@@ -287,7 +355,7 @@ export default async function HomePage() {
                 </div>
                 <div className="p-4">
                   <ul className="space-y-1">
-                    {categories.map((category) => (
+                    {allCategories.map((category) => (
                       <li key={category.slug}>
                         <Link
                           href={`/category/${category.slug}`}
@@ -304,7 +372,6 @@ export default async function HomePage() {
                 </div>
               </div>
 
-              {/* Another Sidebar Ad */}
               <BannerAd slot="sidebar" width={300} height={250} />
             </div>
           </aside>

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { prisma } from '@/lib/db'
+import { db, posts, users, categories, postCategories, eq, desc, count, ilike, or, and } from '@/db'
 import PostsTable from './components/PostsTable'
 
 interface PageProps {
@@ -11,38 +11,70 @@ async function getPosts(status?: string, page = 1, search?: string) {
   const skip = (page - 1) * limit
 
   try {
-    const where: {
-      status?: 'PUBLISHED' | 'DRAFT' | 'ARCHIVED'
-      OR?: Array<{ title: { contains: string; mode: 'insensitive' } } | { excerpt: { contains: string; mode: 'insensitive' } }>
-    } = {}
+    // Build conditions
+    const conditions = []
 
     if (status && ['PUBLISHED', 'DRAFT', 'ARCHIVED'].includes(status.toUpperCase())) {
-      where.status = status.toUpperCase() as 'PUBLISHED' | 'DRAFT' | 'ARCHIVED'
+      conditions.push(eq(posts.status, status.toUpperCase() as 'PUBLISHED' | 'DRAFT' | 'ARCHIVED'))
     }
 
     if (search) {
-      where.OR = [
-        { title: { contains: search, mode: 'insensitive' } },
-        { excerpt: { contains: search, mode: 'insensitive' } },
-      ]
+      conditions.push(or(
+        ilike(posts.title, `%${search}%`),
+        ilike(posts.excerpt, `%${search}%`)
+      ))
     }
 
-    const [posts, total] = await Promise.all([
-      prisma.post.findMany({
-        where,
-        include: {
-          author: { select: { name: true } },
-          categories: { select: { name: true, slug: true }, take: 1 },
-        },
-        orderBy: { createdAt: 'desc' },
-        skip,
-        take: limit,
-      }),
-      prisma.post.count({ where }),
-    ])
+    const whereClause = conditions.length > 0
+      ? conditions.length === 1
+        ? conditions[0]
+        : and(...conditions)
+      : undefined
+
+    // Get posts
+    const postsQuery = db
+      .select()
+      .from(posts)
+      .orderBy(desc(posts.createdAt))
+      .limit(limit)
+      .offset(skip)
+
+    const allPosts = whereClause
+      ? await postsQuery.where(whereClause)
+      : await postsQuery
+
+    // Add author and categories to each post
+    const postsWithRelations = await Promise.all(
+      allPosts.map(async (post) => {
+        const [author] = await db
+          .select({ name: users.name })
+          .from(users)
+          .where(eq(users.id, post.authorId))
+          .limit(1)
+
+        const postCats = await db
+          .select({ name: categories.name, slug: categories.slug })
+          .from(categories)
+          .innerJoin(postCategories, eq(categories.id, postCategories.categoryId))
+          .where(eq(postCategories.postId, post.id))
+          .limit(1)
+
+        return {
+          ...post,
+          author: author || { name: 'Unknown' },
+          categories: postCats,
+        }
+      })
+    )
+
+    // Get total count
+    const [totalResult] = whereClause
+      ? await db.select({ count: count() }).from(posts).where(whereClause)
+      : await db.select({ count: count() }).from(posts)
+    const total = totalResult?.count || 0
 
     return {
-      posts,
+      posts: postsWithRelations,
       total,
       totalPages: Math.ceil(total / limit),
       currentPage: page,
@@ -59,7 +91,7 @@ export default async function PostsPage({ searchParams }: PageProps) {
   const page = parseInt(params.page || '1')
   const search = params.search
 
-  const { posts, total, totalPages, currentPage } = await getPosts(status, page, search)
+  const { posts: postsList, total, totalPages, currentPage } = await getPosts(status, page, search)
 
   const statusTabs = [
     { name: 'Semua', value: '', count: null },
@@ -146,7 +178,7 @@ export default async function PostsPage({ searchParams }: PageProps) {
         </div>
 
         {/* Posts Table */}
-        <PostsTable posts={posts} />
+        <PostsTable posts={postsList} />
 
         {/* Pagination */}
         {totalPages > 1 && (

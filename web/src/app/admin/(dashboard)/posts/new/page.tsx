@@ -1,13 +1,13 @@
-import { prisma } from '@/lib/db'
+import { db, categories, tags, asc } from '@/db'
 import PostEditor from '../components/PostEditor'
 
 async function getData() {
   try {
-    const [categories, tags] = await Promise.all([
-      prisma.category.findMany({ orderBy: { name: 'asc' } }),
-      prisma.tag.findMany({ orderBy: { name: 'asc' } }),
+    const [allCategories, allTags] = await Promise.all([
+      db.select().from(categories).orderBy(asc(categories.name)),
+      db.select().from(tags).orderBy(asc(tags.name)),
     ])
-    return { categories, tags }
+    return { categories: allCategories, tags: allTags }
   } catch (error) {
     console.error('Failed to fetch data:', error)
     return { categories: [], tags: [] }
@@ -15,7 +15,7 @@ async function getData() {
 }
 
 export default async function NewPostPage() {
-  const { categories, tags } = await getData()
+  const { categories: allCategories, tags: allTags } = await getData()
 
   return (
     <div className="space-y-6">
@@ -26,7 +26,7 @@ export default async function NewPostPage() {
         </p>
       </div>
 
-      <PostEditor categories={categories} tags={tags} />
+      <PostEditor categories={allCategories} tags={allTags} />
     </div>
   )
 }

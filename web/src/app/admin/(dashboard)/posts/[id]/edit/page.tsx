@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { prisma } from '@/lib/db'
+import { db, posts, categories, tags, postCategories, postTags, eq, asc } from '@/db'
 import PostEditor from '../../components/PostEditor'
 
 interface PageProps {
@@ -8,19 +8,42 @@ interface PageProps {
 
 async function getData(id: string) {
   try {
-    const [post, categories, tags] = await Promise.all([
-      prisma.post.findUnique({
-        where: { id },
-        include: {
-          categories: { select: { id: true } },
-          tags: { select: { id: true } },
-        },
-      }),
-      prisma.category.findMany({ orderBy: { name: 'asc' } }),
-      prisma.tag.findMany({ orderBy: { name: 'asc' } }),
+    // Get post
+    const [post] = await db
+      .select()
+      .from(posts)
+      .where(eq(posts.id, id))
+      .limit(1)
+
+    if (!post) {
+      return { post: null, categories: [], tags: [] }
+    }
+
+    // Get post categories
+    const postCats = await db
+      .select({ id: categories.id })
+      .from(categories)
+      .innerJoin(postCategories, eq(categories.id, postCategories.categoryId))
+      .where(eq(postCategories.postId, id))
+
+    // Get post tags
+    const postTagsList = await db
+      .select({ id: tags.id })
+      .from(tags)
+      .innerJoin(postTags, eq(tags.id, postTags.tagId))
+      .where(eq(postTags.postId, id))
+
+    // Get all categories and tags
+    const [allCategories, allTags] = await Promise.all([
+      db.select().from(categories).orderBy(asc(categories.name)),
+      db.select().from(tags).orderBy(asc(tags.name)),
     ])
 
-    return { post, categories, tags }
+    return {
+      post: { ...post, categories: postCats, tags: postTagsList },
+      categories: allCategories,
+      tags: allTags,
+    }
   } catch (error) {
     console.error('Failed to fetch data:', error)
     return { post: null, categories: [], tags: [] }
@@ -29,7 +52,7 @@ async function getData(id: string) {
 
 export default async function EditPostPage({ params }: PageProps) {
   const { id } = await params
-  const { post, categories, tags } = await getData(id)
+  const { post, categories: allCategories, tags: allTags } = await getData(id)
 
   if (!post) {
     notFound()
@@ -58,7 +81,7 @@ export default async function EditPostPage({ params }: PageProps) {
         </p>
       </div>
 
-      <PostEditor post={postData} categories={categories} tags={tags} isEdit />
+      <PostEditor post={postData} categories={allCategories} tags={allTags} isEdit />
     </div>
   )
 }

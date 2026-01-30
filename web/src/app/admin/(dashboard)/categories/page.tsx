@@ -1,19 +1,23 @@
-import { prisma } from '@/lib/db'
+import { db, categories, postCategories, eq, asc, count } from '@/db'
 import CategoriesManager from './components/CategoriesManager'
 
 async function getCategories() {
   try {
-    const categories = await prisma.category.findMany({
-      include: {
-        _count: {
-          select: { posts: true },
-        },
-      },
-      orderBy: { name: 'asc' },
-    })
-    return categories.map((cat) => ({
-      ...cat,
-      postCount: cat._count.posts,
+    const allCategories = await db
+      .select()
+      .from(categories)
+      .orderBy(asc(categories.name))
+
+    return Promise.all(allCategories.map(async (cat) => {
+      const [result] = await db
+        .select({ count: count() })
+        .from(postCategories)
+        .where(eq(postCategories.categoryId, cat.id))
+      return {
+        ...cat,
+        postCount: result?.count || 0,
+        _count: { posts: result?.count || 0 },
+      }
     }))
   } catch (error) {
     console.error('Failed to fetch categories:', error)
@@ -22,7 +26,7 @@ async function getCategories() {
 }
 
 export default async function CategoriesPage() {
-  const categories = await getCategories()
+  const categoriesList = await getCategories()
 
   return (
     <div className="space-y-6">
@@ -33,7 +37,7 @@ export default async function CategoriesPage() {
         </p>
       </div>
 
-      <CategoriesManager initialCategories={categories} />
+      <CategoriesManager initialCategories={categoriesList} />
     </div>
   )
 }
