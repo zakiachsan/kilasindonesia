@@ -117,14 +117,14 @@ export default function BannerAd({
     }
   }, [slot])
 
-  // Loading state
+  // Loading state - show nothing while loading
   if (loading) {
-    return <AdPlaceholder width={w} height={h} className={className} />
+    return null
   }
 
-  // No ad found or disabled - still show placeholder
+  // No ad found or disabled - hide completely
   if (!ad) {
-    return <AdPlaceholder width={w} height={h} className={className} />
+    return null
   }
 
   // Custom ad with image
