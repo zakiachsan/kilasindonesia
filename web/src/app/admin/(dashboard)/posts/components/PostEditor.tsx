@@ -55,12 +55,15 @@ function slugify(text: string): string {
 export default function PostEditor({
   post,
   categories,
-  tags,
+  tags: initialTags,
   isEdit = false,
 }: PostEditorProps) {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [availableTags, setAvailableTags] = useState<Tag[]>(initialTags)
+  const [newTagName, setNewTagName] = useState('')
+  const [creatingTag, setCreatingTag] = useState(false)
 
   const [formData, setFormData] = useState<PostData>({
     title: post?.title || '',
@@ -163,6 +166,38 @@ export default function PostEditor({
         ? prev.tagIds.filter((id) => id !== tagId)
         : [...prev.tagIds, tagId],
     }))
+  }
+
+  async function handleCreateTag(e: React.FormEvent) {
+    e.preventDefault()
+    if (!newTagName.trim() || creatingTag) return
+
+    setCreatingTag(true)
+    try {
+      const res = await fetch('/api/admin/tags', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: newTagName.trim() }),
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Gagal membuat tag')
+      }
+
+      // Add new tag to available tags and select it
+      setAvailableTags((prev) => [...prev, data])
+      setFormData((prev) => ({
+        ...prev,
+        tagIds: [...prev.tagIds, data.id],
+      }))
+      setNewTagName('')
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Gagal membuat tag')
+    } finally {
+      setCreatingTag(false)
+    }
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -268,6 +303,95 @@ export default function PostEditor({
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500 text-sm"
               placeholder="Ringkasan singkat artikel (opsional)"
             />
+          </div>
+
+          {/* Tags */}
+          <div className="bg-white rounded-md shadow-sm border border-gray-200 p-4">
+            <h3 className="font-medium text-gray-900 text-sm mb-3">Tag</h3>
+
+            {/* Create new tag */}
+            <div className="flex gap-2 mb-3">
+              <input
+                type="text"
+                value={newTagName}
+                onChange={(e) => setNewTagName(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault()
+                    handleCreateTag(e)
+                  }
+                }}
+                className="flex-1 px-2 py-1.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500 text-sm"
+                placeholder="Tambah tag baru..."
+                disabled={creatingTag}
+              />
+              <button
+                type="button"
+                onClick={handleCreateTag}
+                disabled={creatingTag || !newTagName.trim()}
+                className="px-3 py-1.5 bg-red-600 text-white text-sm rounded-md hover:bg-red-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+              >
+                {creatingTag ? (
+                  <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                ) : (
+                  '+'
+                )}
+              </button>
+            </div>
+
+            {/* Selected tags */}
+            {formData.tagIds.length > 0 && (
+              <div className="mb-3">
+                <p className="text-xs text-gray-500 mb-1.5">Tag terpilih:</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {formData.tagIds.map((tagId) => {
+                    const tag = availableTags.find((t) => t.id === tagId)
+                    return tag ? (
+                      <span
+                        key={tag.id}
+                        className="inline-flex items-center gap-1 px-2 py-0.5 bg-red-600 text-white text-xs rounded-full"
+                      >
+                        #{tag.name}
+                        <button
+                          type="button"
+                          onClick={() => handleTagToggle(tag.id)}
+                          className="hover:bg-red-700 rounded-full p-0.5"
+                        >
+                          <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
+                      </span>
+                    ) : null
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* Available tags */}
+            <div>
+              <p className="text-xs text-gray-500 mb-1.5">Pilih tag:</p>
+              <div className="flex flex-wrap gap-1.5 max-h-24 overflow-y-auto">
+                {availableTags
+                  .filter((tag) => !formData.tagIds.includes(tag.id))
+                  .map((tag) => (
+                    <button
+                      key={tag.id}
+                      type="button"
+                      onClick={() => handleTagToggle(tag.id)}
+                      className="px-2 py-0.5 text-xs rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors"
+                    >
+                      #{tag.name}
+                    </button>
+                  ))}
+                {availableTags.filter((tag) => !formData.tagIds.includes(tag.id)).length === 0 && (
+                  <p className="text-xs text-gray-400 italic">Semua tag sudah dipilih</p>
+                )}
+              </div>
+            </div>
           </div>
 
           {/* SEO */}
@@ -456,29 +580,6 @@ export default function PostEditor({
             </div>
           </div>
 
-          {/* Tags */}
-          <div className="bg-white rounded-md shadow-sm border border-gray-200 p-4">
-            <h3 className="font-medium text-gray-900 text-sm mb-3">Tag</h3>
-            <div className="flex flex-wrap gap-1.5 max-h-36 overflow-y-auto">
-              {tags.map((tag) => (
-                <button
-                  key={tag.id}
-                  type="button"
-                  onClick={() => handleTagToggle(tag.id)}
-                  className={`px-2 py-0.5 text-xs rounded-full transition-colors ${
-                    formData.tagIds.includes(tag.id)
-                      ? 'bg-red-600 text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                  }`}
-                >
-                  #{tag.name}
-                </button>
-              ))}
-              {tags.length === 0 && (
-                <p className="text-xs text-gray-500">Belum ada tag</p>
-              )}
-            </div>
-          </div>
         </div>
       </div>
     </form>
