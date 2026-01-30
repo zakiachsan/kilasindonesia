@@ -18,6 +18,7 @@ import { createId } from './utils'
 export const roleEnum = pgEnum('Role', ['ADMIN', 'AUTHOR'])
 export const postStatusEnum = pgEnum('PostStatus', ['DRAFT', 'PUBLISHED', 'ARCHIVED'])
 export const commentStatusEnum = pgEnum('CommentStatus', ['PENDING', 'APPROVED', 'REJECTED'])
+export const adTypeEnum = pgEnum('AdType', ['placeholder', 'custom', 'programmatic'])
 
 // ============================================
 // USER & AUTH
@@ -262,6 +263,29 @@ export const menuItemsRelations = relations(menuItems, ({ one, many }) => ({
 }))
 
 // ============================================
+// ADS
+// ============================================
+
+export const ads = pgTable('ads', {
+  id: text('id').primaryKey().$defaultFn(createId),
+  position: text('position').notNull().unique(),
+  name: text('name').notNull(),
+  width: integer('width').notNull(),
+  height: integer('height').notNull(),
+  enabled: boolean('enabled').notNull().default(false),
+  type: adTypeEnum('type').notNull().default('placeholder'),
+  imageUrl: text('imageUrl'),
+  redirectUrl: text('redirectUrl'),
+  altText: text('altText'),
+  adCode: text('adCode'),
+  createdAt: timestamp('createdAt').notNull().defaultNow(),
+  updatedAt: timestamp('updatedAt').notNull().defaultNow().$onUpdate(() => new Date()),
+}, (table) => [
+  index('ads_position_idx').on(table.position),
+  index('ads_enabled_idx').on(table.enabled),
+])
+
+// ============================================
 // TYPE EXPORTS
 // ============================================
 
@@ -280,3 +304,5 @@ export type NewMedia = typeof media.$inferInsert
 export type Setting = typeof settings.$inferSelect
 export type Menu = typeof menus.$inferSelect
 export type MenuItem = typeof menuItems.$inferSelect
+export type Ad = typeof ads.$inferSelect
+export type NewAd = typeof ads.$inferInsert
