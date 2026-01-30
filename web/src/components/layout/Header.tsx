@@ -24,7 +24,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="bg-primary-700 relative z-40">
+      <header className="bg-white border-b border-gray-200 relative z-40">
         <div className="container py-3">
           <div className="flex items-center justify-between">
             {/* Logo */}
@@ -32,7 +32,7 @@ export default function Header() {
               <img
                 src="https://res.cloudinary.com/dicwfbdgz/image/upload/v1769740036/logo_kilasindonesia_ww6s9k.jpg"
                 alt="Kilas Indonesia"
-                className="h-12 w-auto rounded-lg shadow-md group-hover:shadow-lg transition-shadow"
+                className="h-12 w-auto"
               />
             </Link>
 
@@ -40,7 +40,7 @@ export default function Header() {
             <div className="flex items-center gap-6">
               {/* Date */}
               <div className="hidden md:block text-right">
-                <p className="text-sm text-white">{today}</p>
+                <p className="text-sm text-gray-600">{today}</p>
               </div>
 
               {/* Social Links */}
@@ -49,7 +49,7 @@ export default function Header() {
                   href="https://facebook.com/kilasindonesia"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 flex items-center justify-center text-white hover:text-accent-400 hover:scale-110 transition-all duration-200 rounded-full hover:bg-white/10"
+                  className="w-9 h-9 flex items-center justify-center text-gray-500 hover:text-primary-600 hover:scale-110 transition-all duration-200 rounded-full hover:bg-primary-50"
                   aria-label="Ikuti kami di Facebook"
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -60,7 +60,7 @@ export default function Header() {
                   href="https://twitter.com/kilasindonesia"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 flex items-center justify-center text-white hover:text-accent-400 hover:scale-110 transition-all duration-200 rounded-full hover:bg-white/10"
+                  className="w-9 h-9 flex items-center justify-center text-gray-500 hover:text-primary-600 hover:scale-110 transition-all duration-200 rounded-full hover:bg-primary-50"
                   aria-label="Ikuti kami di Twitter"
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -71,7 +71,7 @@ export default function Header() {
                   href="https://instagram.com/kilasindonesia"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 flex items-center justify-center text-white hover:text-accent-400 hover:scale-110 transition-all duration-200 rounded-full hover:bg-white/10"
+                  className="w-9 h-9 flex items-center justify-center text-gray-500 hover:text-primary-600 hover:scale-110 transition-all duration-200 rounded-full hover:bg-primary-50"
                   aria-label="Ikuti kami di Instagram"
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -82,7 +82,7 @@ export default function Header() {
                   href="https://youtube.com/@kilasindonesia"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 flex items-center justify-center text-white hover:text-accent-400 hover:scale-110 transition-all duration-200 rounded-full hover:bg-white/10"
+                  className="w-9 h-9 flex items-center justify-center text-gray-500 hover:text-primary-600 hover:scale-110 transition-all duration-200 rounded-full hover:bg-primary-50"
                   aria-label="Ikuti kami di YouTube"
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -94,7 +94,7 @@ export default function Header() {
               {/* Mobile Menu Button */}
               <button
                 onClick={toggleMobileMenu}
-                className="lg:hidden p-2 text-white hover:text-accent-400 hover:bg-white/10 rounded-lg transition-all duration-200"
+                className="lg:hidden p-2 text-gray-600 hover:text-primary-600 hover:bg-gray-100 rounded-lg transition-all duration-200"
                 aria-label={isMobileMenuOpen ? 'Tutup menu' : 'Buka menu'}
                 aria-expanded={isMobileMenuOpen}
                 aria-controls="mobile-menu"

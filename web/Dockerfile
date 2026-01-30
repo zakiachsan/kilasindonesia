@@ -44,6 +44,11 @@ RUN adduser --system --uid 1001 nextjs
 # Copy necessary files
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/prisma ./prisma
+COPY --from=builder /app/prisma.config.ts ./prisma.config.ts
+COPY --from=builder /app/package.json ./package.json
+
+# Copy node_modules for prisma CLI and seeding
+COPY --from=builder /app/node_modules ./node_modules
 
 # Set correct permissions for prerender cache
 RUN mkdir .next
