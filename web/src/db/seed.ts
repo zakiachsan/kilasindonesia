@@ -28,11 +28,14 @@ async function main() {
   // Pre-hashed password for 'admin123' using bcrypt with 10 rounds
   const hashedPassword = '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy'
 
+  const now = new Date()
   const [admin] = await db.insert(schema.users).values({
     email: 'admin@kilasindonesia.com',
     password: hashedPassword,
     name: 'Admin Kilas Indonesia',
     role: 'ADMIN',
+    createdAt: now,
+    updatedAt: now,
   }).returning()
 
   // ===========================================
@@ -197,6 +200,8 @@ async function main() {
       status: 'PUBLISHED',
       publishedAt: postData.publishedAt,
       viewCount: postData.viewCount,
+      createdAt: postData.publishedAt,
+      updatedAt: postData.publishedAt,
     }).returning()
 
     // Add category relation
