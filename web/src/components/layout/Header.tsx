@@ -29,15 +29,11 @@ export default function Header() {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center overflow-hidden shadow-md group-hover:shadow-lg transition-shadow">
-                <span className="text-primary-700 font-bold text-2xl">K</span>
-              </div>
-              <div>
-                <h1 className="text-xl font-bold text-white group-hover:text-primary-100 transition-colors">
-                  Kilas Indonesia
-                </h1>
-                <p className="text-xs text-primary-200">Portal Berita Terkini</p>
-              </div>
+              <img
+                src="https://res.cloudinary.com/dicwfbdgz/image/upload/v1769740036/logo_kilasindonesia_ww6s9k.jpg"
+                alt="Kilas Indonesia"
+                className="h-12 w-auto rounded-lg shadow-md group-hover:shadow-lg transition-shadow"
+              />
             </Link>
 
             {/* Right Side - Date & Social */}

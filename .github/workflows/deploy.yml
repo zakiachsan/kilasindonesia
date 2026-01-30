@@ -71,7 +71,7 @@ jobs:
             docker exec kilasindonesia-app npx prisma migrate deploy
 
             # Seed only if database is empty (no posts)
-            POST_COUNT=$(docker exec kilasindonesia-db psql -U postgres -d kilasindonesia -t -c "SELECT COUNT(*) FROM \"Post\";" 2>/dev/null | tr -d ' ' || echo "0")
+            POST_COUNT=$(docker exec kilasindonesia-db psql -U kilasindonesia -d kilasindonesia -t -c "SELECT COUNT(*) FROM \"Post\";" 2>/dev/null | tr -d ' ' || echo "0")
             if [ "$POST_COUNT" = "0" ] || [ -z "$POST_COUNT" ]; then
               echo "Database empty, running seed..."
               docker exec kilasindonesia-app npx prisma db seed
