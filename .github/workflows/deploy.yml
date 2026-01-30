@@ -15,6 +15,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+      actions: write
 
     steps:
       - name: Checkout repository
@@ -77,3 +78,17 @@ jobs:
             # Show disk usage
             echo "Disk usage:"
             df -h / | tail -1
+
+  cleanup:
+    needs: deploy
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    steps:
+      - name: Delete old container images
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: kilasindonesia
+          package-type: container
+          min-versions-to-keep: 3
+          delete-only-untagged-versions: false
