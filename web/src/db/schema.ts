@@ -117,11 +117,14 @@ export const postsRelations = relations(posts, ({ one, many }) => ({
 // POST-CATEGORY JUNCTION
 // ============================================
 
-export const postCategories = pgTable('_CategoryToPost', {
-  postId: text('B').notNull().references(() => posts.id, { onDelete: 'cascade' }),
+// Prisma names this table _PostCategories (from @relation("PostCategories"))
+// Column A = categoryId (Category comes before Post alphabetically)
+// Column B = postId
+export const postCategories = pgTable('_PostCategories', {
   categoryId: text('A').notNull().references(() => categories.id, { onDelete: 'cascade' }),
+  postId: text('B').notNull().references(() => posts.id, { onDelete: 'cascade' }),
 }, (table) => [
-  primaryKey({ columns: [table.postId, table.categoryId] }),
+  primaryKey({ columns: [table.categoryId, table.postId] }),
 ])
 
 export const postCategoriesRelations = relations(postCategories, ({ one }) => ({
@@ -139,7 +142,10 @@ export const postCategoriesRelations = relations(postCategories, ({ one }) => ({
 // POST-TAG JUNCTION
 // ============================================
 
-export const postTags = pgTable('_PostToTag', {
+// Prisma names this table _PostTags (from @relation("PostTags"))
+// Column A = postId (Post comes before Tag alphabetically)
+// Column B = tagId
+export const postTags = pgTable('_PostTags', {
   postId: text('A').notNull().references(() => posts.id, { onDelete: 'cascade' }),
   tagId: text('B').notNull().references(() => tags.id, { onDelete: 'cascade' }),
 }, (table) => [
