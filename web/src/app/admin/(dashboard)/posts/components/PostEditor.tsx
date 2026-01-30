@@ -76,8 +76,23 @@ export default function PostEditor({
   })
 
   const [autoSlug, setAutoSlug] = useState(!isEdit)
+  const [autoMetaTitle, setAutoMetaTitle] = useState(!isEdit)
+  const [autoMetaDesc, setAutoMetaDesc] = useState(!isEdit)
   const [uploading, setUploading] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  // Extract plain text from HTML and get first sentence
+  function extractFirstSentence(html: string): string {
+    // Remove HTML tags
+    const text = html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim()
+    // Find first sentence (up to first period, question mark, or exclamation)
+    const match = text.match(/^[^.!?]*[.!?]/)
+    if (match) {
+      return match[0].trim()
+    }
+    // If no sentence ending found, return first 160 chars
+    return text.slice(0, 160)
+  }
 
   async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
@@ -115,6 +130,15 @@ export default function PostEditor({
       ...prev,
       title,
       slug: autoSlug ? slugify(title) : prev.slug,
+      metaTitle: autoMetaTitle ? title : prev.metaTitle,
+    }))
+  }
+
+  function handleContentChange(content: string) {
+    setFormData((prev) => ({
+      ...prev,
+      content,
+      metaDescription: autoMetaDesc ? extractFirstSentence(content) : prev.metaDescription,
     }))
   }
 
@@ -226,7 +250,7 @@ export default function PostEditor({
             </label>
             <RichTextEditor
               content={formData.content}
-              onChange={(content) => setFormData((prev) => ({ ...prev, content }))}
+              onChange={handleContentChange}
               placeholder="Tulis konten artikel..."
             />
           </div>
@@ -258,9 +282,12 @@ export default function PostEditor({
                   type="text"
                   id="metaTitle"
                   value={formData.metaTitle}
-                  onChange={(e) => setFormData((prev) => ({ ...prev, metaTitle: e.target.value }))}
+                  onChange={(e) => {
+                    setAutoMetaTitle(false)
+                    setFormData((prev) => ({ ...prev, metaTitle: e.target.value }))
+                  }}
                   className="w-full px-2 py-1.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500 text-sm"
-                  placeholder="Judul untuk mesin pencari (opsional)"
+                  placeholder="Otomatis dari judul artikel"
                 />
               </div>
               <div>
@@ -270,10 +297,13 @@ export default function PostEditor({
                 <textarea
                   id="metaDescription"
                   value={formData.metaDescription}
-                  onChange={(e) => setFormData((prev) => ({ ...prev, metaDescription: e.target.value }))}
+                  onChange={(e) => {
+                    setAutoMetaDesc(false)
+                    setFormData((prev) => ({ ...prev, metaDescription: e.target.value }))
+                  }}
                   rows={2}
                   className="w-full px-2 py-1.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500 text-sm"
-                  placeholder="Deskripsi untuk mesin pencari (opsional)"
+                  placeholder="Otomatis dari paragraf pertama"
                 />
               </div>
             </div>
