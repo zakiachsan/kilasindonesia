@@ -169,20 +169,22 @@ export function generateBreadcrumbSchema(items: BreadcrumbItem[]) {
 
 // CollectionPage Schema for Category/Tag pages
 export function generateCollectionSchema(
-  type: 'category' | 'tag',
+  type: 'category' | 'tag' | 'archive',
   name: string,
   slug: string,
   description: string | null | undefined,
   postCount: number,
   posts: Array<{ slug: string; title: string }>
 ) {
-  const pageUrl = `${BASE_URL}/${type}/${slug}`
+  const pageUrl = type === 'archive' ? `${BASE_URL}/${slug}` : `${BASE_URL}/${type}/${slug}`
+
+  const typeLabel = type === 'category' ? 'Kategori' : type === 'tag' ? 'Tag' : ''
 
   return {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
     '@id': `${pageUrl}/#collection`,
-    name: `${type === 'category' ? 'Kategori' : 'Tag'}: ${name}`,
+    name: typeLabel ? `${typeLabel}: ${name}` : name,
     description: description || `Kumpulan berita tentang ${name} di ${SITE_NAME}`,
     url: pageUrl,
     isPartOf: {

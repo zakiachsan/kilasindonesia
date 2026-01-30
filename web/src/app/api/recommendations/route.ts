@@ -10,7 +10,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Get recommendations based on user's reading history categories
-    let recommendations = []
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let recommendations: any[] = []
 
     if (categories.length > 0) {
       // Fetch posts from categories user has read
