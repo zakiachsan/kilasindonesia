@@ -35,7 +35,7 @@ export default function Footer({ links = defaultLinks }: FooterProps) {
           <div className="md:col-span-2">
             <Link href="/" className="flex items-center gap-3 mb-6 group">
               <img
-                src="https://res.cloudinary.com/dicwfbdgz/image/upload/v1769740036/logo_kilasindonesia_ww6s9k.jpg"
+                src="https://res.cloudinary.com/dicwfbdgz/image/upload/v1769873625/logo_kilasindonesia_ww6s9k.png"
                 alt="Kilas Indonesia"
                 className="h-14 w-auto"
               />

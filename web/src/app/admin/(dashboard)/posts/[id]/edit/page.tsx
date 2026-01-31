@@ -1,5 +1,6 @@
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import { db, posts, categories, tags, postCategories, postTags, eq, asc } from '@/db'
+import { auth } from '@/lib/auth'
 import PostEditor from '../../components/PostEditor'
 
 interface PageProps {
@@ -51,11 +52,19 @@ async function getData(id: string) {
 }
 
 export default async function EditPostPage({ params }: PageProps) {
+  const session = await auth()
   const { id } = await params
   const { post, categories: allCategories, tags: allTags } = await getData(id)
 
   if (!post) {
     notFound()
+  }
+
+  // Check authorization: ADMIN can edit all, AUTHOR can only edit own posts
+  const isAdmin = session?.user?.role === 'ADMIN'
+  const isOwner = post.authorId === session?.user?.id
+  if (!isAdmin && !isOwner) {
+    redirect('/admin/posts')
   }
 
   const postData = {

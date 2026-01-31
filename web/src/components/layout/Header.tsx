@@ -30,7 +30,7 @@ export default function Header() {
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 group">
               <img
-                src="https://res.cloudinary.com/dicwfbdgz/image/upload/v1769740036/logo_kilasindonesia_ww6s9k.jpg"
+                src="https://res.cloudinary.com/dicwfbdgz/image/upload/v1769873625/logo_kilasindonesia_ww6s9k.png"
                 alt="Kilas Indonesia"
                 className="h-12 w-auto"
               />

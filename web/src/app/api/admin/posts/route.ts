@@ -47,6 +47,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Create post
+    const now = new Date()
     const [post] = await db
       .insert(posts)
       .values({
@@ -57,9 +58,11 @@ export async function POST(request: NextRequest) {
         featuredImage: featuredImage || null,
         status: status || 'DRAFT',
         authorId: session.user.id,
-        publishedAt: status === 'PUBLISHED' ? new Date() : null,
+        publishedAt: status === 'PUBLISHED' ? now : null,
         metaTitle: metaTitle || null,
         metaDescription: metaDescription || null,
+        createdAt: now,
+        updatedAt: now,
       })
       .returning()
 

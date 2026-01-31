@@ -199,7 +199,9 @@ export async function generateMetadata({ params }: PageProps) {
   const title = post.metaTitle || post.title
   const description = post.metaDescription || post.excerpt || post.content.replace(/<[^>]*>/g, '').substring(0, 160)
   const canonicalUrl = getCanonicalUrl(`/${slug}`)
-  const imageUrl = post.featuredImage || '/og-image.jpg'
+  // Make sure image URL is absolute for social sharing (WhatsApp, Facebook, Twitter)
+  const rawImageUrl = post.featuredImage || '/og-image.jpg'
+  const imageUrl = rawImageUrl.startsWith('http') ? rawImageUrl : getCanonicalUrl(rawImageUrl)
 
   return {
     title,

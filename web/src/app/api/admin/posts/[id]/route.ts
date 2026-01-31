@@ -106,6 +106,16 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       return NextResponse.json({ error: 'Artikel tidak ditemukan' }, { status: 404 })
     }
 
+    // Check authorization: ADMIN can edit all, AUTHOR can only edit own posts
+    const isAdmin = session.user.role === 'ADMIN'
+    const isOwner = existingPost.authorId === session.user.id
+    if (!isAdmin && !isOwner) {
+      return NextResponse.json(
+        { error: 'Anda tidak memiliki izin untuk mengedit artikel ini' },
+        { status: 403 }
+      )
+    }
+
     // Check if slug is taken by another post
     const [slugPost] = await db
       .select()
@@ -197,6 +207,16 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
 
     if (!existingPost) {
       return NextResponse.json({ error: 'Artikel tidak ditemukan' }, { status: 404 })
+    }
+
+    // Check authorization: ADMIN can delete all, AUTHOR can only delete own posts
+    const isAdmin = session.user.role === 'ADMIN'
+    const isOwner = existingPost.authorId === session.user.id
+    if (!isAdmin && !isOwner) {
+      return NextResponse.json(
+        { error: 'Anda tidak memiliki izin untuk menghapus artikel ini' },
+        { status: 403 }
+      )
     }
 
     // Delete post categories and tags first
