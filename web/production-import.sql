@@ -1,12 +1,12 @@
 -- KilasIndonesia Production Import SQL
--- Generated on 2026-02-01T00:20:45.986Z
+-- Generated on 2026-02-01T00:28:03.053Z
 -- Run this SQL on production PostgreSQL database
 
 BEGIN;
 
 -- Check and create admin user if not exists
 INSERT INTO users (id, email, password, name, role, "createdAt", "updatedAt")
-SELECT 'cml2zvw2stekadtt0', 'admin@kilasindonesia.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'Admin Kilas Indonesia', 'ADMIN', '2026-02-01T00:20:45.988Z', '2026-02-01T00:20:45.988Z'
+SELECT 'cml3059bilft2joj6', 'admin@kilasindonesia.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'Admin Kilas Indonesia', 'ADMIN', '2026-02-01T00:28:03.054Z', '2026-02-01T00:28:03.054Z'
 WHERE NOT EXISTS (SELECT 1 FROM users WHERE email = 'admin@kilasindonesia.com');
 
 -- Get admin user ID
@@ -15,380 +15,380 @@ DO $$ DECLARE admin_user_id TEXT; BEGIN
 
   -- Categories
   INSERT INTO categories (id, name, slug, description, "createdAt")
-  SELECT 'cml2zvw2si7bz01fg', 'Nasional', 'nasional', 'Berita nasional terkini', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bird1zu1k9', 'Nasional', 'nasional', 'Berita nasional terkini', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM categories WHERE slug = 'nasional');
   INSERT INTO categories (id, name, slug, description, "createdAt")
-  SELECT 'cml2zvw2shpkjl9nn', 'Madrasah', 'madrasah', 'Berita seputar madrasah di Indonesia', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059biuq150nrh', 'Madrasah', 'madrasah', 'Berita seputar madrasah di Indonesia', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM categories WHERE slug = 'madrasah');
   INSERT INTO categories (id, name, slug, description, "createdAt")
-  SELECT 'cml2zvw2sbflis2wg', 'Pesantren', 'pesantren', 'Berita seputar pesantren dan santri', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi7souxhy9', 'Pesantren', 'pesantren', 'Berita seputar pesantren dan santri', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM categories WHERE slug = 'pesantren');
   INSERT INTO categories (id, name, slug, description, "createdAt")
-  SELECT 'cml2zvw2s8fpirain', 'Perguruan Tinggi', 'perguruan-tinggi', 'Berita seputar perguruan tinggi keagamaan', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bif0zb2mov', 'Perguruan Tinggi', 'perguruan-tinggi', 'Berita seputar perguruan tinggi keagamaan', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM categories WHERE slug = 'perguruan-tinggi');
   INSERT INTO categories (id, name, slug, description, "createdAt")
-  SELECT 'cml2zvw2sph30pa2v', 'Opini', 'opini', 'Opini dan pandangan', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi46f5q3eu', 'Opini', 'opini', 'Opini dan pandangan', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM categories WHERE slug = 'opini');
   INSERT INTO categories (id, name, slug, description, "createdAt")
-  SELECT 'cml2zvw2spt2si4zx', 'Tokoh', 'tokoh', 'Profil tokoh pendidikan dan keagamaan', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bim6hd5bk3', 'Tokoh', 'tokoh', 'Profil tokoh pendidikan dan keagamaan', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM categories WHERE slug = 'tokoh');
   INSERT INTO categories (id, name, slug, description, "createdAt")
-  SELECT 'cml2zvw2sw6mddbet', 'Edukasi', 'edukasi', 'Berita pendidikan umum', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059biuhdhj6tp', 'Edukasi', 'edukasi', 'Berita pendidikan umum', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM categories WHERE slug = 'edukasi');
 
   -- Tags
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s2inck08u', 'Aceh', 'aceh', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bio4mihbf7', 'Aceh', 'aceh', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'aceh');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sewwvy278', 'Belajar Mengajar', 'belajar-mengajar', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bimvdcwpxm', 'Belajar Mengajar', 'belajar-mengajar', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'belajar-mengajar');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sn3zapcrl', 'KBM', 'kbm', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bibmy1nn2j', 'KBM', 'kbm', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'kbm');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s0dldtwt1', 'Depok', 'depok', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059biz4yxg7wl', 'Depok', 'depok', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'depok');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s0pdgm8t8', 'MUI', 'mui', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bieq1zy7ag', 'MUI', 'mui', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'mui');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s3u38h0bu', 'Kejari Depok', 'kejari-depok', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bih9xxhtr8', 'Kejari Depok', 'kejari-depok', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'kejari-depok');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sa3kxq6ue', 'Kementerian Agama', 'kementerian-agama', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059biwc4f83fx', 'Kementerian Agama', 'kementerian-agama', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'kementerian-agama');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s5fk85jax', '2026', '2026', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi4kzhiibp', '2026', '2026', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = '2026');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2ss2dwn2dt', 'PTKIN', 'ptkin', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi272lqo53', 'PTKIN', 'ptkin', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'ptkin');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s8zmo16g9', 'Pendidikan Islam', 'pendidikan-islam', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bir7406ikk', 'Pendidikan Islam', 'pendidikan-islam', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'pendidikan-islam');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s86lcytj8', '2025', '2025', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bixm7fmb62', '2025', '2025', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = '2025');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2ssnbxorgq', 'Kinerja', 'kinerja', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi0xf6oojz', 'Kinerja', 'kinerja', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'kinerja');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s0lz7bftk', 'Direktorat Pendidikan Agama Islam (PAI)', 'direktorat-pendidikan-agama-islam-pai', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bieuklarn2', 'Direktorat Pendidikan Agama Islam (PAI)', 'direktorat-pendidikan-agama-islam-pai', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'direktorat-pendidikan-agama-islam-pai');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2swxfe7aqw', 'Literasi', 'literasi', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi5cc0ebzh', 'Literasi', 'literasi', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'literasi');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s2q08gfv8', 'TBQ', 'tbq', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi3zpbin0p', 'TBQ', 'tbq', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'tbq');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s3ikz0629', 'Guru Madrasah', 'guru-madrasah', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi654o1n98', 'Guru Madrasah', 'guru-madrasah', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'guru-madrasah');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s9rplyuzu', 'Surakarta', 'surakarta', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bignd9rk1g', 'Surakarta', 'surakarta', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'surakarta');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2stufc0wvj', 'Beasiswa', 'beasiswa', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi3hjudiwr', 'Beasiswa', 'beasiswa', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'beasiswa');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2srsfjtqnd', 'Diskusi', 'diskusi', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059biz9xet0h3', 'Diskusi', 'diskusi', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'diskusi');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sukqdbu5y', 'UIN Surabaya', 'uin-surabaya', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bioupswb41', 'UIN Surabaya', 'uin-surabaya', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'uin-surabaya');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sfayvgcoi', 'Anti Korupsi', 'anti-korupsi', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi4ahlvy4s', 'Anti Korupsi', 'anti-korupsi', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'anti-korupsi');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2schrhf127', 'Penghargaan', 'penghargaan', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bipg1l88e4', 'Penghargaan', 'penghargaan', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'penghargaan');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2slwt9kfnc', 'DIY', 'diy', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059biay8a1dep', 'DIY', 'diy', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'diy');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sk1oar4d3', 'KPK', 'kpk', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi17m6cd9u', 'KPK', 'kpk', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'kpk');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s23001ude', 'Sekjen KEMENAG', 'sekjen-kemenag', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bimgr6ju0s', 'Sekjen KEMENAG', 'sekjen-kemenag', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'sekjen-kemenag');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s0e0a6eb2', 'Penelitian', 'penelitian', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bixmpbtat3', 'Penelitian', 'penelitian', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'penelitian');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sdsoahmi0', 'UIN Jakarta', 'uin-jakarta', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bijovekr1d', 'UIN Jakarta', 'uin-jakarta', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'uin-jakarta');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2siqobddmr', 'STAI', 'stai', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bidmzrpa6g', 'STAI', 'stai', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'stai');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sxfahhro4', 'Pati', 'pati', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi4lnh3iwz', 'Pati', 'pati', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'pati');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sfzwftwiy', 'Hari Guru Nasional', 'hari-guru-nasional', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059biqtfxm3sk', 'Hari Guru Nasional', 'hari-guru-nasional', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'hari-guru-nasional');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sfc5uaspd', 'Anugerah Hari Guru Nasional', 'anugerah-hari-guru-nasional', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059biy7oc277j', 'Anugerah Hari Guru Nasional', 'anugerah-hari-guru-nasional', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'anugerah-hari-guru-nasional');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sbp8keboz', 'MCC', 'mcc', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bils12emrd', 'MCC', 'mcc', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'mcc');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2syptfnfea', 'UIN Jember', 'uin-jember', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bivw9ay87s', 'UIN Jember', 'uin-jember', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'uin-jember');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sh98cg2ya', 'Buku', 'buku', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bizx6c6eq0', 'Buku', 'buku', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'buku');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s5onzalsa', 'LPDP', 'lpdp', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi50h6nnwq', 'LPDP', 'lpdp', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'lpdp');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sqkuk1ger', 'implementasi ekoteologi', 'implementasi-ekoteologi', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi4qjsw914', 'implementasi ekoteologi', 'implementasi-ekoteologi', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'implementasi-ekoteologi');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2skdqtjg53', 'Hari Gunu Nasional', 'hari-gunu-nasional', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bih9dzsndm', 'Hari Gunu Nasional', 'hari-gunu-nasional', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'hari-gunu-nasional');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2scjsdolb6', 'Beasiswa Indonesia Bangkit', 'beasiswa-indonesia-bangkit', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi7ooeihkv', 'Beasiswa Indonesia Bangkit', 'beasiswa-indonesia-bangkit', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'beasiswa-indonesia-bangkit');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sa0np3gin', 'PUSPENMA', 'puspenma', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059biep4a21gk', 'PUSPENMA', 'puspenma', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'puspenma');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s3flcv4ri', 'Monitoring', 'monitoring', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bidaylpmg5', 'Monitoring', 'monitoring', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'monitoring');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sy95yorxp', 'Evaluasi', 'evaluasi', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi3gmtf0le', 'Evaluasi', 'evaluasi', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'evaluasi');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sgo0jzdgg', 'Money', 'money', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bialh91238', 'Money', 'money', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'money');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2seh2qg6r3', 'FSH UIN Jakarta', 'fsh-uin-jakarta', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bixpmbqahj', 'FSH UIN Jakarta', 'fsh-uin-jakarta', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'fsh-uin-jakarta');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sdglwmmdk', 'Lomba Debat', 'lomba-debat', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bicwt9tvlb', 'Lomba Debat', 'lomba-debat', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'lomba-debat');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sx2vsiflq', 'Debat Hukum', 'debat-hukum', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bipufmn7ph', 'Debat Hukum', 'debat-hukum', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'debat-hukum');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s5hqxrpbn', 'Pesantren', 'pesantren', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059biolzkiy46', 'Pesantren', 'pesantren', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'pesantren');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2smfmpeh76', 'Halaqah', 'halaqah', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bipo5z0kcf', 'Halaqah', 'halaqah', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'halaqah');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sw8cnlb81', 'Modernisasi', 'modernisasi', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bix6pz5blr', 'Modernisasi', 'modernisasi', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'modernisasi');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sq96i5b4c', 'Direktorat Jenderal Pesantren', 'direktorat-jenderal-pesantren', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bigsjligai', 'Direktorat Jenderal Pesantren', 'direktorat-jenderal-pesantren', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'direktorat-jenderal-pesantren');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sy4fdynfr', 'UIN Sunan Kalijaga Yogyakarta', 'uin-sunan-kalijaga-yogyakarta', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059big17px0l4', 'UIN Sunan Kalijaga Yogyakarta', 'uin-sunan-kalijaga-yogyakarta', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'uin-sunan-kalijaga-yogyakarta');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2szzpzjc3e', 'Transformasi Pesantren', 'transformasi-pesantren', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059biozxu0bbj', 'Transformasi Pesantren', 'transformasi-pesantren', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'transformasi-pesantren');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2skouda6iw', 'Mandiri', 'mandiri', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bid9fde3mu', 'Mandiri', 'mandiri', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'mandiri');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sawb6oepi', 'Kompetitif', 'kompetitif', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059biicye80bt', 'Kompetitif', 'kompetitif', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'kompetitif');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s7t31922n', 'Wakil Menteri Agama', 'wakil-menteri-agama', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059binr30l9xn', 'Wakil Menteri Agama', 'wakil-menteri-agama', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'wakil-menteri-agama');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sjm6j8fl8', 'Ulama', 'ulama', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bilsyrcf59', 'Ulama', 'ulama', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'ulama');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2swwg1lr7s', 'Transformasi', 'transformasi', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bihzq1nl99', 'Transformasi', 'transformasi', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'transformasi');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2szlcbnmom', 'UIN Maulana Malik Ibrahim Malang', 'uin-maulana-malik-ibrahim-malang', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi8ud9f4h7', 'UIN Maulana Malik Ibrahim Malang', 'uin-maulana-malik-ibrahim-malang', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'uin-maulana-malik-ibrahim-malang');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2si3137rry', 'UIN Imam Bonjol Padang', 'uin-imam-bonjol-padang', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bijsit2tv1', 'UIN Imam Bonjol Padang', 'uin-imam-bonjol-padang', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'uin-imam-bonjol-padang');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2svfwqvcwd', 'Ekosistem Pendidikan', 'ekosistem-pendidikan', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bippcilzb6', 'Ekosistem Pendidikan', 'ekosistem-pendidikan', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'ekosistem-pendidikan');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s1ks92icn', 'Prodi Manajemen Pendidikan', 'prodi-manajemen-pendidikan', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059biuehf0j8e', 'Prodi Manajemen Pendidikan', 'prodi-manajemen-pendidikan', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'prodi-manajemen-pendidikan');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2skjg8bxpj', 'UIN Syarif Hidayatullah Jakarta', 'uin-syarif-hidayatullah-jakarta', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bimggmqni8', 'UIN Syarif Hidayatullah Jakarta', 'uin-syarif-hidayatullah-jakarta', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'uin-syarif-hidayatullah-jakarta');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sek88h8tj', 'Temu Tahunan PPMPI', 'temu-tahunan-ppmpi', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi6smx33d7', 'Temu Tahunan PPMPI', 'temu-tahunan-ppmpi', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'temu-tahunan-ppmpi');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sqvc98wg9', 'Menteri Agama', 'menteri-agama', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059biy3dzzd10', 'Menteri Agama', 'menteri-agama', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'menteri-agama');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s3e7hl2ss', 'Anugerah Penggerak Nusantara 2025', 'anugerah-penggerak-nusantara-2025', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bieuxfnkaw', 'Anugerah Penggerak Nusantara 2025', 'anugerah-penggerak-nusantara-2025', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'anugerah-penggerak-nusantara-2025');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2su30ccsqz', 'Intelektualisasi Santri', 'intelektualisasi-santri', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bih8ucha08', 'Intelektualisasi Santri', 'intelektualisasi-santri', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'intelektualisasi-santri');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2szrgr5xxd', 'UIN Raden Fatah Palembang', 'uin-raden-fatah-palembang', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi2nbmqkd7', 'UIN Raden Fatah Palembang', 'uin-raden-fatah-palembang', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'uin-raden-fatah-palembang');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sztnchd15', 'Kolaborasi', 'kolaborasi', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bik0f1mv81', 'Kolaborasi', 'kolaborasi', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'kolaborasi');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sxgc7svoa', 'British Council', 'british-council', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bin5ubp0ne', 'British Council', 'british-council', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'british-council');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2syz54b3fu', 'Bahasa Inggris', 'bahasa-inggris', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi79c785ca', 'Bahasa Inggris', 'bahasa-inggris', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'bahasa-inggris');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s0em0z6cu', 'Majelis', 'majelis', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bicmlsgykk', 'Majelis', 'majelis', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'majelis');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s80jaww1r', 'Dakwah', 'dakwah', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bijjuit6c2', 'Dakwah', 'dakwah', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'dakwah');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sducnq22o', 'Fakultas Dakwah', 'fakultas-dakwah', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bim5gpc5n2', 'Fakultas Dakwah', 'fakultas-dakwah', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'fakultas-dakwah');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s088viwze', 'UIN Datokarama Palu', 'uin-datokarama-palu', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bimvxg3nfg', 'UIN Datokarama Palu', 'uin-datokarama-palu', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'uin-datokarama-palu');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s3wd3gu9q', 'Haul', 'haul', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi1wclqynz', 'Haul', 'haul', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'haul');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sov0ret13', 'Moderasi Beragama', 'moderasi-beragama', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bipa5l7ztn', 'Moderasi Beragama', 'moderasi-beragama', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'moderasi-beragama');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s9hm3j06f', 'Perguruan Tinggi', 'perguruan-tinggi', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bil8nmjvgf', 'Perguruan Tinggi', 'perguruan-tinggi', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'perguruan-tinggi');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s029aow1e', 'Nasaruddin Umar', 'nasaruddin-umar', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi2022d105', 'Nasaruddin Umar', 'nasaruddin-umar', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'nasaruddin-umar');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2scs9eeagc', 'Amien Suyitno', 'amien-suyitno', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bicnz1gma6', 'Amien Suyitno', 'amien-suyitno', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'amien-suyitno');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sbjlxpq5k', 'ROHIS', 'rohis', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bitycecifa', 'ROHIS', 'rohis', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'rohis');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2snu2d6o33', 'Kemenag', 'kemenag', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi1a4eq1bz', 'Kemenag', 'kemenag', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'kemenag');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sdvc67t1m', 'Pendidikan Profesi Guru', 'pendidikan-profesi-guru', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059biw7rpignb', 'Pendidikan Profesi Guru', 'pendidikan-profesi-guru', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'pendidikan-profesi-guru');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s1yvkcuza', 'Cirebon', 'cirebon', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bitjl54h1l', 'Cirebon', 'cirebon', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'cirebon');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2ss5v6bpwe', 'Prabowo Subianto', 'prabowo-subianto', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi3mi3so41', 'Prabowo Subianto', 'prabowo-subianto', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'prabowo-subianto');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sl5490dkp', 'MAN Insan Cendekia Serpong', 'man-insan-cendekia-serpong', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059billpwa1a2', 'MAN Insan Cendekia Serpong', 'man-insan-cendekia-serpong', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'man-insan-cendekia-serpong');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s92dppcfr', 'Komisi VIII DPR RI', 'komisi-viii-dpr-ri', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bixyf34sih', 'Komisi VIII DPR RI', 'komisi-viii-dpr-ri', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'komisi-viii-dpr-ri');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s4vbtvgh4', 'OMI 2025', 'omi-2025', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bin6cvd37s', 'OMI 2025', 'omi-2025', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'omi-2025');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2spum0o1ki', 'MRC 2025', 'mrc-2025', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059biwjysmwts', 'MRC 2025', 'mrc-2025', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'mrc-2025');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2siphwvsxn', 'Madrasah Robotics Competition', 'madrasah-robotics-competition', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bir6x80s0y', 'Madrasah Robotics Competition', 'madrasah-robotics-competition', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'madrasah-robotics-competition');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2spe7af56b', 'Universitas Islam Internasional Indonesia', 'universitas-islam-internasional-indonesia', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bite8uglcn', 'Universitas Islam Internasional Indonesia', 'universitas-islam-internasional-indonesia', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'universitas-islam-internasional-indonesia');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sfxryyfwd', 'Program Studi Teknik Informatika', 'program-studi-teknik-informatika', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059biigybancy', 'Program Studi Teknik Informatika', 'program-studi-teknik-informatika', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'program-studi-teknik-informatika');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s0uat1gx9', 'Fakultas Sains dan Teknologi', 'fakultas-sains-dan-teknologi', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bik5a0j61i', 'Fakultas Sains dan Teknologi', 'fakultas-sains-dan-teknologi', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'fakultas-sains-dan-teknologi');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sr018lai8', 'MAN 3 Bantul', 'man-3-bantul', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bifpdqifsl', 'MAN 3 Bantul', 'man-3-bantul', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'man-3-bantul');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sm3c419s4', 'Puspresnas', 'puspresnas', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bixjm5tf6a', 'Puspresnas', 'puspresnas', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'puspresnas');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s4f95u6zx', 'Smesco Exhibition Hall', 'smesco-exhibition-hall', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi5xuj4dgc', 'Smesco Exhibition Hall', 'smesco-exhibition-hall', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'smesco-exhibition-hall');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sosv6rmeg', 'Hari Santri Nasional', 'hari-santri-nasional', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bipfrghff9', 'Hari Santri Nasional', 'hari-santri-nasional', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'hari-santri-nasional');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sf10c5vtf', 'Beasiswa Santri Berprestasi', 'beasiswa-santri-berprestasi', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059biajv9mqnk', 'Beasiswa Santri Berprestasi', 'beasiswa-santri-berprestasi', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'beasiswa-santri-berprestasi');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sm3mfn2ps', 'Indonesia Emas 2045', 'indonesia-emas-2045', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bifmofe9mo', 'Indonesia Emas 2045', 'indonesia-emas-2045', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'indonesia-emas-2045');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s5xrrnczj', 'Asep Saepudin Jahar', 'asep-saepudin-jahar', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059biehhrc0yd', 'Asep Saepudin Jahar', 'asep-saepudin-jahar', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'asep-saepudin-jahar');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2swertkguf', 'Pondok Pesantren Al-Khoziny', 'pondok-pesantren-al-khoziny', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bijg8r2f1a', 'Pondok Pesantren Al-Khoziny', 'pondok-pesantren-al-khoziny', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'pondok-pesantren-al-khoziny');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sx0abs6wq', 'Program Indonesia Pintar', 'program-indonesia-pintar', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi8rfouh08', 'Program Indonesia Pintar', 'program-indonesia-pintar', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'program-indonesia-pintar');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sjbgzhtxs', 'MADADA', 'madada', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059biduvfl1qh', 'MADADA', 'madada', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'madada');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sjjao7kxp', 'Akminas', 'akminas', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bizfcxrcgk', 'Akminas', 'akminas', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'akminas');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2ssm0wdgeu', 'Berita Olahraga', 'berita-olahraga', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bilr4oq5q1', 'Berita Olahraga', 'berita-olahraga', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'berita-olahraga');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sc9sa6s9n', 'Bulutangkis', 'bulutangkis', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi2tmf1b8u', 'Bulutangkis', 'bulutangkis', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'bulutangkis');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sk06gpyuv', 'Balapan', 'balapan', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi9xhfi1l2', 'Balapan', 'balapan', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'balapan');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sk65o41wc', 'Sepakbola', 'sepakbola', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bis77la6m8', 'Sepakbola', 'sepakbola', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'sepakbola');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2slvq5k9p6', 'Rohinya', 'rohinya', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi100zkhxz', 'Rohinya', 'rohinya', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'rohinya');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2su7iieh5b', 'Tag Berita', 'tag-berita', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi2ksht4s2', 'Tag Berita', 'tag-berita', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'tag-berita');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s4ekjunsh', 'Berita Otomotif', 'berita-otomotif', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi4fg0o8he', 'Berita Otomotif', 'berita-otomotif', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'berita-otomotif');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s408asjto', 'Mitsubishi', 'mitsubishi', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059biun5waij4', 'Mitsubishi', 'mitsubishi', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'mitsubishi');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s7r25y8dv', 'Nissan', 'nissan', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi60x7v7an', 'Nissan', 'nissan', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'nissan');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2se3gimn5e', 'Daihatsu', 'daihatsu', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bikwadx7ix', 'Daihatsu', 'daihatsu', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'daihatsu');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s79wopp28', 'Gerindra', 'gerindra', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bil4phs2uy', 'Gerindra', 'gerindra', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'gerindra');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sdtr17vh8', 'Kejahatan', 'kejahatan', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi26a98pkq', 'Kejahatan', 'kejahatan', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'kejahatan');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2sggat7lng', 'DKI Jakarta', 'dki-jakarta', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bi8zqexvoh', 'DKI Jakarta', 'dki-jakarta', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'dki-jakarta');
   INSERT INTO tags (id, name, slug, "createdAt")
-  SELECT 'cml2zvw2s8ty9e26b', 'New Zealand', 'new-zealand', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bieirumdmy', 'New Zealand', 'new-zealand', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM tags WHERE slug = 'new-zealand');
 
   -- Posts
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2sk86myn9y', 'Kemenag Pastikan KBM Madrasah di Sumatera Barat Berjalan Pascabanjir', 'kemenag-pastikan-kbm-madrasah-di-sumatera-barat-berjalan-pascabanjir', 'Agam (Kemenag) — Kementerian Agama melalui Direktorat Jenderal Pendidikan Islam memastikan kegiatan belajar mengajar (KBM) Madrasah terdampak bencana di Sumatera Barat tetap berjalan dengan baik pasca banjir.
+  SELECT 'cml3059bizw1sr936', 'Kemenag Pastikan KBM Madrasah di Sumatera Barat Berjalan Pascabanjir', 'kemenag-pastikan-kbm-madrasah-di-sumatera-barat-berjalan-pascabanjir', 'Agam (Kemenag) — Kementerian Agama melalui Direktorat Jenderal Pendidikan Islam memastikan kegiatan belajar mengajar (KBM) Madrasah terdampak bencana di Sumatera Barat tetap berjalan dengan baik pasca banjir.
 
 Kepastian ini disampaikan oleh Direktur Jenderal Pendidikan Islam, Amien Suyitno saat mengunjungi langsung ke MTs Selasar Air dan MTs Tarbiyah Islamiyah, kab. Agam.
 
@@ -412,10 +412,10 @@ Lebih lanjut, Dirjen Pendis juga menyampaikan terima kasih kepada masyarakat sek
 
 ​"Semangat gotong royong inilah yang mempercepat pemulihan. Kami berkomitmen untuk terus mendukung agar fasilitas yang rusak segera diperbaiki melalui skema bantuan darurat maupun anggaran sarana prasarana," pungkasnya.
 
-​Hadir mendampingi dalam kunjungan ini, Mustafa - Kepala Kantor Wilayah Kemenag Sumatera Barat, Thomas Febria - Kepala Kantor Kemenag Kab. Agam, Abdullah Hanif - Kabag Umum Pendis, serta jajaran pimpinan madrasah setempat.', 'Agam (Kemenag) — Kementerian Agama melalui Direktorat Jenderal Pendidikan Islam memastikan kegiatan belajar mengajar (KBM) Madrasah terdampak bencana di Sumatera Barat tetap berjalan dengan baik...', 'https://kilasindonesia.com/wp-content/uploads/2026/01/6.jpeg', admin_user_id, 'PUBLISHED', 3704, '2026-01-07T13:34:31.000Z', '2026-01-07T13:34:31.000Z', '2026-02-01T00:20:45.988Z'
+​Hadir mendampingi dalam kunjungan ini, Mustafa - Kepala Kantor Wilayah Kemenag Sumatera Barat, Thomas Febria - Kepala Kantor Kemenag Kab. Agam, Abdullah Hanif - Kabag Umum Pendis, serta jajaran pimpinan madrasah setempat.', 'Agam (Kemenag) — Kementerian Agama melalui Direktorat Jenderal Pendidikan Islam memastikan kegiatan belajar mengajar (KBM) Madrasah terdampak bencana di Sumatera Barat tetap berjalan dengan baik...', '/wp-content/uploads/2026/01/6.jpeg', admin_user_id, 'PUBLISHED', 3704, '2026-01-07T13:34:31.000Z', '2026-01-07T13:34:31.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'kemenag-pastikan-kbm-madrasah-di-sumatera-barat-berjalan-pascabanjir');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2scnm9rtdy', 'Kajari Depok Kunjungi MUI Jalin Sinergitas Perkuat Kerjasama', 'kajari-depok-kunjungi-mui-jalin-sinergitas-perkuat-kerjasama', 'Depok - Jajaran Pimpinan Kejaksaan Negeri (Kejari) Kota Depok mengunjungi kantor Majelis Ulama Indonesia (MUI) Kota Depok di Pancoran Mas, Senin, 05/01/26.
+  SELECT 'cml3059biiaqvbuao', 'Kajari Depok Kunjungi MUI Jalin Sinergitas Perkuat Kerjasama', 'kajari-depok-kunjungi-mui-jalin-sinergitas-perkuat-kerjasama', 'Depok - Jajaran Pimpinan Kejaksaan Negeri (Kejari) Kota Depok mengunjungi kantor Majelis Ulama Indonesia (MUI) Kota Depok di Pancoran Mas, Senin, 05/01/26.
 
 Dalam kesempatan tersebut Kepala Kejari Depok Dr. Arif Budiman, S.H.,M.H. disambut Ketua MUI Kota Depok KH. Syihabuddin Ahmad, didampingi Sekretaris Umum MUI KH. Ahmad Fihri, KH. Achmad Solechan, Bendahara MUI KH. Samwari, Ust. Kostia dan Ust. Aan Humaidi.
 
@@ -435,10 +435,10 @@ Sebelumnya, kita sering datang ke Kejari dan alhamdulillah sekarang kita dikunju
 
 Pada kesempatan tersebut, terlaksana diskusi yang berlangsung dengan dinamis. Rencananya ke depan akan ada kegiatan bersama yang akan dilakukan antara Kejari dan MUI kota Depok.
 
-Pertemuan ini merupakan langkah awal untuk membangun masyarakat kota Depok agar menjadi masyarakat yang sadar dan taat hukum.', 'Depok - Jajaran Pimpinan Kejaksaan Negeri (Kejari) Kota Depok mengunjungi kantor Majelis Ulama Indonesia (MUI) Kota Depok di Pancoran Mas, Senin, 05/01/26. Dalam kesempatan tersebut Kepala Kejari...', 'https://kilasindonesia.com/wp-content/uploads/2026/01/5.jpeg', admin_user_id, 'PUBLISHED', 2224, '2026-01-05T19:56:34.000Z', '2026-01-05T19:56:34.000Z', '2026-02-01T00:20:45.988Z'
+Pertemuan ini merupakan langkah awal untuk membangun masyarakat kota Depok agar menjadi masyarakat yang sadar dan taat hukum.', 'Depok - Jajaran Pimpinan Kejaksaan Negeri (Kejari) Kota Depok mengunjungi kantor Majelis Ulama Indonesia (MUI) Kota Depok di Pancoran Mas, Senin, 05/01/26. Dalam kesempatan tersebut Kepala Kejari...', '/wp-content/uploads/2026/01/5.jpeg', admin_user_id, 'PUBLISHED', 2224, '2026-01-05T19:56:34.000Z', '2026-01-05T19:56:34.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'kajari-depok-kunjungi-mui-jalin-sinergitas-perkuat-kerjasama');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2snt3ny6ns', 'Kemenag Rayakan HAB ke-80 Dengan Sederhana, Dana Difokuskan untuk Korban Bencana', 'kemenag-rayakan-hab-ke-80-dengan-sederhana-dana-difokuskan-untuk-korban-bencana', 'Kementerian Agama Republik Indonesia menggelar Tasyakuran Hari Amal Bakti (HAB) ke-80 Tahun 2026 dengan tema “Umat Rukun dan Sinergi, Indonesia Damai dan Maju”. Acara berlangsung di Auditorium HM Rasjidi, Kantor Kementerian Agama RI, Jakarta, Senin (5/1/2026).
+  SELECT 'cml3059biv5zw6hqw', 'Kemenag Rayakan HAB ke-80 Dengan Sederhana, Dana Difokuskan untuk Korban Bencana', 'kemenag-rayakan-hab-ke-80-dengan-sederhana-dana-difokuskan-untuk-korban-bencana', 'Kementerian Agama Republik Indonesia menggelar Tasyakuran Hari Amal Bakti (HAB) ke-80 Tahun 2026 dengan tema “Umat Rukun dan Sinergi, Indonesia Damai dan Maju”. Acara berlangsung di Auditorium HM Rasjidi, Kantor Kementerian Agama RI, Jakarta, Senin (5/1/2026).
 
 Menteri Agama Nasaruddin Umar menjelaskan bahwa seluruh rangkaian peringatan Hari Amal Bakti ke-80 telah dilaksanakan selama kurang lebih dua bulan dan ditutup dengan tasyakuran sederhana. Kesederhanaan tersebut, menurut Menag, merupakan wujud solidaritas Kementerian Agama terhadap masyarakat yang terdampak bencana di sejumlah wilayah Sumatra.
 
@@ -472,10 +472,10 @@ Dalam arahannya, Menag jug mengajak seluruh jajaran Kementerian Agama untuk mens
 
 Terkait tema HAB ke-80, Menag menekankan bahwa persatuan dan kerukunan umat beragama harus diarahkan pada terwujudnya Indonesia yang damai dan maju. Sinergi lintas sektor, mulai dari pemerintah pusat dan daerah, kementerian dan lembaga, hingga masyarakat dan sektor swasta, menjadi kunci dalam menghadapi tantangan bangsa ke depan.
 
-Tasyakuran HAB ke-80 dihadiri Menteri Agama Nasaruddin Umar, Wakil Menteri Agama Romo Muhammad Syafi’i, Wakil Menteri Agama periode 2019–2024 Zainut Tauhid Sa’adi, Sekretaris Jenderal Kemenag Kamaruddin Amin, Penasehat Dharma Wanita Persatuan (DWP) Kemenag Helmi Nasaruddin Umar, para staf khusus, staf ahli, tenaga ahli, pejabat eselon I dan II, serta seluruh jajaran pegawai Kementerian Agama. Sejumlah tokoh lintas agama turut hadir dan menambah kekhidmatan acara.', 'Kementerian Agama Republik Indonesia menggelar Tasyakuran Hari Amal Bakti (HAB) ke-80 Tahun 2026 dengan tema “Umat Rukun dan Sinergi, Indonesia Damai dan Maju”. Acara berlangsung di Auditorium HM...', 'https://kilasindonesia.com/wp-content/uploads/2026/01/4.jpeg', admin_user_id, 'PUBLISHED', 4307, '2026-01-05T19:38:44.000Z', '2026-01-05T19:38:44.000Z', '2026-02-01T00:20:45.988Z'
+Tasyakuran HAB ke-80 dihadiri Menteri Agama Nasaruddin Umar, Wakil Menteri Agama Romo Muhammad Syafi’i, Wakil Menteri Agama periode 2019–2024 Zainut Tauhid Sa’adi, Sekretaris Jenderal Kemenag Kamaruddin Amin, Penasehat Dharma Wanita Persatuan (DWP) Kemenag Helmi Nasaruddin Umar, para staf khusus, staf ahli, tenaga ahli, pejabat eselon I dan II, serta seluruh jajaran pegawai Kementerian Agama. Sejumlah tokoh lintas agama turut hadir dan menambah kekhidmatan acara.', 'Kementerian Agama Republik Indonesia menggelar Tasyakuran Hari Amal Bakti (HAB) ke-80 Tahun 2026 dengan tema “Umat Rukun dan Sinergi, Indonesia Damai dan Maju”. Acara berlangsung di Auditorium HM...', '/wp-content/uploads/2026/01/4.jpeg', admin_user_id, 'PUBLISHED', 4307, '2026-01-05T19:38:44.000Z', '2026-01-05T19:38:44.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'kemenag-rayakan-hab-ke-80-dengan-sederhana-dana-difokuskan-untuk-korban-bencana');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2s87whvyjp', 'Pengisian PDSS SPAN-PTKIN 2026 Resmi Dibuka, Sekolah Diminta Pastikan Keakuratan Data Siswa', 'pengisian-pdss-span-ptkin-2026-resmi-dibuka-sekolah-diminta-pastikan-keakuratan-data-siswa', 'Jakarta – Panitia Nasional Penerimaan Mahasiswa Baru Perguruan Tinggi Keagamaan Islam Negeri (PMB PTKIN) Tahun 2026 secara resmi membuka tahapan pengisian Pangkalan Data Sekolah dan Siswa (PDSS). Tahapan ini merupakan langkah awal yang sangat krusial bagi satuan pendidikan dalam mendaftarkan siswa-siswi terbaiknya melalui jalur Seleksi Prestasi Akademik Nasional (SPAN-PTKIN) 2026.
+  SELECT 'cml3059bilwbbgd9v', 'Pengisian PDSS SPAN-PTKIN 2026 Resmi Dibuka, Sekolah Diminta Pastikan Keakuratan Data Siswa', 'pengisian-pdss-span-ptkin-2026-resmi-dibuka-sekolah-diminta-pastikan-keakuratan-data-siswa', 'Jakarta – Panitia Nasional Penerimaan Mahasiswa Baru Perguruan Tinggi Keagamaan Islam Negeri (PMB PTKIN) Tahun 2026 secara resmi membuka tahapan pengisian Pangkalan Data Sekolah dan Siswa (PDSS). Tahapan ini merupakan langkah awal yang sangat krusial bagi satuan pendidikan dalam mendaftarkan siswa-siswi terbaiknya melalui jalur Seleksi Prestasi Akademik Nasional (SPAN-PTKIN) 2026.
 
 SPAN-PTKIN merupakan pola seleksi nasional berbasis prestasi akademik tanpa ujian tulis yang diikuti oleh seluruh Universitas Islam Negeri (UIN), Institut Agama Islam Negeri (IAIN), dan Sekolah Tinggi Agama Islam Negeri (STAIN) di seluruh Indonesia.
 
@@ -522,10 +522,10 @@ https://pdss.ptkin.ac.id atau diunduh melalui tautan https://s.id/juknispdss202.
 </strong>Apabila mengalami kendala dalam proses pendaftaran atau pengisian PDSS, satuan pendidikan dapat menghubungi:
 1. Email: info@ptkin.ac.id
 2. Website: https://span.ptkin.ac.id
-3. WhatsApp: 0815-7890-1030 (Chat), 0857-6872-3600 (Call).', 'Jakarta – Panitia Nasional Penerimaan Mahasiswa Baru Perguruan Tinggi Keagamaan Islam Negeri (PMB PTKIN) Tahun 2026 secara resmi membuka tahapan pengisian Pangkalan Data Sekolah dan Siswa (PDSS)....', 'https://kilasindonesia.com/wp-content/uploads/2026/01/3.jpeg', admin_user_id, 'PUBLISHED', 4505, '2026-01-05T08:37:31.000Z', '2026-01-05T08:37:31.000Z', '2026-02-01T00:20:45.988Z'
+3. WhatsApp: 0815-7890-1030 (Chat), 0857-6872-3600 (Call).', 'Jakarta – Panitia Nasional Penerimaan Mahasiswa Baru Perguruan Tinggi Keagamaan Islam Negeri (PMB PTKIN) Tahun 2026 secara resmi membuka tahapan pengisian Pangkalan Data Sekolah dan Siswa (PDSS)....', '/wp-content/uploads/2026/01/3.jpeg', admin_user_id, 'PUBLISHED', 4505, '2026-01-05T08:37:31.000Z', '2026-01-05T08:37:31.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'pengisian-pdss-span-ptkin-2026-resmi-dibuka-sekolah-diminta-pastikan-keakuratan-data-siswa');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2s2rs93337', 'Kemenag Tegaskan Pendidikan Islam Harus Jawab Krisis Global', 'kemenag-tegaskan-pendidikan-islam-harus-jawab-krisis-global', 'Jakarta — Menteri Agama RI Nasaruddin Umar bersama Menteri Koordinator Pembangunan Manusia dan Kebudayaan (Menko PMK) Pratikno menegaskan bahwa pendidikan Islam harus bertransformasi agar mampu menjawab krisis global yang ditandai perubahan cepat, ketidakpastian, hingga tantangan etika teknologi.
+  SELECT 'cml3059bikulg8gu8', 'Kemenag Tegaskan Pendidikan Islam Harus Jawab Krisis Global', 'kemenag-tegaskan-pendidikan-islam-harus-jawab-krisis-global', 'Jakarta — Menteri Agama RI Nasaruddin Umar bersama Menteri Koordinator Pembangunan Manusia dan Kebudayaan (Menko PMK) Pratikno menegaskan bahwa pendidikan Islam harus bertransformasi agar mampu menjawab krisis global yang ditandai perubahan cepat, ketidakpastian, hingga tantangan etika teknologi.
 
 Penegasan tersebut disampaikan dalam kegiatan Review and Design on Islamic Education Direktorat Jenderal Pendidikan Islam Tahun 2025 yang digelar Kementerian Agama, dihadiri pimpinan kementerian/lembaga, rektor UIN, mitra internasional, serta pemangku kepentingan pendidikan Islam pada Selasa (30/12/2025).
 
@@ -553,10 +553,10 @@ Ia menegaskan bahwa pendidikan Islam harus melahirkan insan unggul secara akadem
 
 Melalui forum ini, Kementerian Agama menegaskan arah pendidikan Islam yang terintegrasi antara ilmu dan nilai, profesionalisme dan etika. Targetnya, lulusan pendidikan Islam mampu berperan sebagai insinyur AI yang humanis, dokter beretika, hingga pemimpin teknologi yang bertanggung jawab.
 
-“Kita ingin pendidikan Islam menjadi motor kebangkitan peradaban Islam abad ke-21,” pungkas Menag.', 'Jakarta — Menteri Agama RI Nasaruddin Umar bersama Menteri Koordinator Pembangunan Manusia dan Kebudayaan (Menko PMK) Pratikno menegaskan bahwa pendidikan Islam harus bertransformasi agar mampu...', 'https://kilasindonesia.com/wp-content/uploads/2026/01/2.jpeg', admin_user_id, 'PUBLISHED', 937, '2025-12-31T14:30:03.000Z', '2025-12-31T14:30:03.000Z', '2026-02-01T00:20:45.988Z'
+“Kita ingin pendidikan Islam menjadi motor kebangkitan peradaban Islam abad ke-21,” pungkas Menag.', 'Jakarta — Menteri Agama RI Nasaruddin Umar bersama Menteri Koordinator Pembangunan Manusia dan Kebudayaan (Menko PMK) Pratikno menegaskan bahwa pendidikan Islam harus bertransformasi agar mampu...', '/wp-content/uploads/2026/01/2.jpeg', admin_user_id, 'PUBLISHED', 937, '2025-12-31T14:30:03.000Z', '2025-12-31T14:30:03.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'kemenag-tegaskan-pendidikan-islam-harus-jawab-krisis-global');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2sfnwyu7t8', 'Kinerja Komunikasi Direktorat PAI Menguat, Publik Apresiasi Program Pendidikan Agama Islam', 'kinerja-komunikasi-direktorat-pai-menguat-publik-apresiasi-program-pendidikan-agama-islam', 'Jakarta — Kinerja komunikasi publik Direktorat Pendidikan Agama Islam (PAI), Direktorat Jenderal Pendidikan Islam, Kementerian Agama, menunjukkan tren yang semakin menguat sepanjang periode 23 Desember 2024 hingga 23 Desember 2025. Hal ini tercermin dari tingginya eksposur media, luasnya jangkauan informasi, serta dominasi sentimen positif dalam percakapan publik di media daring dan media sosial.
+  SELECT 'cml3059bib6gzsuje', 'Kinerja Komunikasi Direktorat PAI Menguat, Publik Apresiasi Program Pendidikan Agama Islam', 'kinerja-komunikasi-direktorat-pai-menguat-publik-apresiasi-program-pendidikan-agama-islam', 'Jakarta — Kinerja komunikasi publik Direktorat Pendidikan Agama Islam (PAI), Direktorat Jenderal Pendidikan Islam, Kementerian Agama, menunjukkan tren yang semakin menguat sepanjang periode 23 Desember 2024 hingga 23 Desember 2025. Hal ini tercermin dari tingginya eksposur media, luasnya jangkauan informasi, serta dominasi sentimen positif dalam percakapan publik di media daring dan media sosial.
 
 Berdasarkan hasil pemantauan media (media monitoring) dan analisis percakapan digital (social listening), Direktorat PAI tercatat memperoleh 229 penyebutan di berbagai kanal digital. Penyebutan tersebut berasal dari media daring nasional dan lokal, serta berbagai platform media sosial seperti Facebook, Instagram, YouTube, dan TikTok. Dari total tersebut, jangkauan media sosial mencapai sekitar 2,2 juta akun unik, dengan tingkat keterlibatan publik atau engagement sekitar 9.000 interaksi.
 
@@ -584,10 +584,10 @@ Munir menambahkan, Direktorat PAI juga terus memperkuat narasi kebijakan agar is
 
 Secara geografis, mayoritas percakapan publik berasal dari wilayah Indonesia dengan dominasi penggunaan Bahasa Indonesia. Hal ini menunjukkan bahwa komunikasi Direktorat PAI telah menjangkau audiens utama secara tepat sasaran, yakni pendidik, peserta didik, pengelola satuan pendidikan keagamaan, serta para pemangku kepentingan pendidikan Islam di tingkat nasional.
 
-Kementerian Agama menegaskan komitmennya untuk terus meningkatkan kualitas komunikasi publik yang transparan, responsif, dan berorientasi pada pelayanan. Penguatan komunikasi ini diharapkan dapat mendukung keberhasilan program-program pendidikan agama Islam sekaligus memperkokoh kepercayaan masyarakat terhadap kebijakan pemerintah di bidang pendidikan keagamaan.', 'Jakarta — Kinerja komunikasi publik Direktorat Pendidikan Agama Islam (PAI), Direktorat Jenderal Pendidikan Islam, Kementerian Agama, menunjukkan tren yang semakin menguat sepanjang periode 23...', 'https://kilasindonesia.com/wp-content/uploads/2026/01/kinerja-kemenag.jpeg', admin_user_id, 'PUBLISHED', 5354, '2025-12-30T14:08:08.000Z', '2025-12-30T14:08:08.000Z', '2026-02-01T00:20:45.988Z'
+Kementerian Agama menegaskan komitmennya untuk terus meningkatkan kualitas komunikasi publik yang transparan, responsif, dan berorientasi pada pelayanan. Penguatan komunikasi ini diharapkan dapat mendukung keberhasilan program-program pendidikan agama Islam sekaligus memperkokoh kepercayaan masyarakat terhadap kebijakan pemerintah di bidang pendidikan keagamaan.', 'Jakarta — Kinerja komunikasi publik Direktorat Pendidikan Agama Islam (PAI), Direktorat Jenderal Pendidikan Islam, Kementerian Agama, menunjukkan tren yang semakin menguat sepanjang periode 23...', '/wp-content/uploads/2026/01/kinerja-kemenag.jpeg', admin_user_id, 'PUBLISHED', 5354, '2025-12-30T14:08:08.000Z', '2025-12-30T14:08:08.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'kinerja-komunikasi-direktorat-pai-menguat-publik-apresiasi-program-pendidikan-agama-islam');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tfxuitj3a', 'Direktorat PAI Teguhkan Pendidikan Agama Islam sebagai Investasi Peradaban Bangsa Sepanjang 2025', 'direktorat-pai-teguhkan-pendidikan-agama-islam-sebagai-investasi-peradaban-bangsa-sepanjang-2025', 'Jakarta — Sepanjang tahun 2025, Direktorat Pendidikan Agama Islam (PAI) Kementerian Agama RI mengukuhkan peran pendidikan agama Islam sebagai bagian integral dari agenda pembangunan nasional.
+  SELECT 'cml3059biytwdw8ea', 'Direktorat PAI Teguhkan Pendidikan Agama Islam sebagai Investasi Peradaban Bangsa Sepanjang 2025', 'direktorat-pai-teguhkan-pendidikan-agama-islam-sebagai-investasi-peradaban-bangsa-sepanjang-2025', 'Jakarta — Sepanjang tahun 2025, Direktorat Pendidikan Agama Islam (PAI) Kementerian Agama RI mengukuhkan peran pendidikan agama Islam sebagai bagian integral dari agenda pembangunan nasional.
 
 Seluruh capaian dan kebijakan strategis Direktorat PAI dirancang selaras dengan Asta Cita Presiden Prabowo Subianto dalam penguatan karakter bangsa serta Asta Protas Menteri Agama yang menempatkan pendidikan agama sebagai fondasi moderasi beragama, ketahanan sosial, dan moral publik Indonesia.
 
@@ -631,10 +631,10 @@ Melalui PMMBN dan Rohis, Direktorat PAI secara sistematis menumbuhkembangkan eko
 
 "Melalui Rohis dan PMMBN, kami memastikan bahwa moderasi beragama tidak berhenti sebagai wacana kebijakan, tetapi tumbuh sebagai kesadaran kolektif dan kultur keagamaan generasi muda. Inilah investasi jangka panjang pendidikan agama Islam bagi bangsa dan negara,” tuturnya.
 
-Dengan tingkat serapan anggaran yang tinggi pada tahun ini, Direktorat PAI optimistis dapat terus memperkuat pendidikan agama Islam sebagai fondasi karakter bangsa, moral publik, dan ketahanan sosial Indonesia di masa depan.', 'Jakarta — Sepanjang tahun 2025, Direktorat Pendidikan Agama Islam (PAI) Kementerian Agama RI mengukuhkan peran pendidikan agama Islam sebagai bagian integral dari agenda pembangunan nasional. Seluruh...', 'https://kilasindonesia.com/wp-content/uploads/2026/01/direktorat-pai.jpeg', admin_user_id, 'PUBLISHED', 5030, '2025-12-30T13:52:59.000Z', '2025-12-30T13:52:59.000Z', '2026-02-01T00:20:45.988Z'
+Dengan tingkat serapan anggaran yang tinggi pada tahun ini, Direktorat PAI optimistis dapat terus memperkuat pendidikan agama Islam sebagai fondasi karakter bangsa, moral publik, dan ketahanan sosial Indonesia di masa depan.', 'Jakarta — Sepanjang tahun 2025, Direktorat Pendidikan Agama Islam (PAI) Kementerian Agama RI mengukuhkan peran pendidikan agama Islam sebagai bagian integral dari agenda pembangunan nasional. Seluruh...', '/wp-content/uploads/2026/01/direktorat-pai.jpeg', admin_user_id, 'PUBLISHED', 5030, '2025-12-30T13:52:59.000Z', '2025-12-30T13:52:59.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'direktorat-pai-teguhkan-pendidikan-agama-islam-sebagai-investasi-peradaban-bangsa-sepanjang-2025');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2t1gmhc6ue', 'Kemenag Perkuat Literasi Al-Qur’an di Sekolah, Asesmen Nasional Jadi Fondasi Kebijakan Pendidikan Agama', 'kemenag-perkuat-literasi-al-quran-di-sekolah-asesmen-nasional-jadi-fondasi-kebijakan-pendidikan-agama', 'Jakarta (Kemenag) — Kementerian Agama terus memperkuat komitmen peningkatan literasi Al-Qur’an di lingkungan pendidikan nasional. Komitmen tersebut ditegaskan dalam kegiatan Ekspos Hasil Asesmen Baca Al-Qur’an di Sekolah yang merupakan bagian dari Program Bebas Buta Huruf Al-Qur’an, dilaksanakan oleh Direktorat Pendidikan Agama Islam (PAI) bekerja sama dengan Universitas PTIQ Jakarta.
+  SELECT 'cml3059bi44vlcimx', 'Kemenag Perkuat Literasi Al-Qur’an di Sekolah, Asesmen Nasional Jadi Fondasi Kebijakan Pendidikan Agama', 'kemenag-perkuat-literasi-al-quran-di-sekolah-asesmen-nasional-jadi-fondasi-kebijakan-pendidikan-agama', 'Jakarta (Kemenag) — Kementerian Agama terus memperkuat komitmen peningkatan literasi Al-Qur’an di lingkungan pendidikan nasional. Komitmen tersebut ditegaskan dalam kegiatan Ekspos Hasil Asesmen Baca Al-Qur’an di Sekolah yang merupakan bagian dari Program Bebas Buta Huruf Al-Qur’an, dilaksanakan oleh Direktorat Pendidikan Agama Islam (PAI) bekerja sama dengan Universitas PTIQ Jakarta.
 
 Menteri Agama Nasaruddin Umar, menegaskan bahwa Al-Qur’an harus dipahami sebagai petunjuk hidup yang dibaca dengan benar, dilafalkan sesuai kaidah, dan dihayati maknanya.
 
@@ -684,10 +684,10 @@ Ia menambahkan bahwa dukungan pemerintah daerah sangat penting, terutama dalam p
 
 Kementerian Agama menegaskan bahwa hasil asesmen ini akan menjadi baseline nasional dalam penyusunan kebijakan peningkatan kompetensi guru PAI. Ke depan, Kemenag akan menyiapkan program pelatihan berjenjang, penguatan kapasitas guru, serta mendorong peran aktif pemerintah daerah dalam mendukung budaya literasi Al-Qur’an di sekolah.
 
-Asesmen akan terus dilanjutkan secara bertahap ke wilayah lain di luar Jawa, sehingga pemetaan kemampuan baca Al-Qur’an dapat dilakukan secara nasional dan komprehensif, sejalan dengan visi penguatan moderasi beragama dan peningkatan kualitas pendidikan agama Islam di Indonesia.', 'Jakarta (Kemenag) — Kementerian Agama terus memperkuat komitmen peningkatan literasi Al-Qur’an di lingkungan pendidikan nasional. Komitmen tersebut ditegaskan dalam kegiatan Ekspos Hasil Asesmen Baca...', 'https://kilasindonesia.com/wp-content/uploads/2026/01/asasmen-2.jpeg', admin_user_id, 'PUBLISHED', 5397, '2025-12-18T13:28:27.000Z', '2025-12-18T13:28:27.000Z', '2026-02-01T00:20:45.988Z'
+Asesmen akan terus dilanjutkan secara bertahap ke wilayah lain di luar Jawa, sehingga pemetaan kemampuan baca Al-Qur’an dapat dilakukan secara nasional dan komprehensif, sejalan dengan visi penguatan moderasi beragama dan peningkatan kualitas pendidikan agama Islam di Indonesia.', 'Jakarta (Kemenag) — Kementerian Agama terus memperkuat komitmen peningkatan literasi Al-Qur’an di lingkungan pendidikan nasional. Komitmen tersebut ditegaskan dalam kegiatan Ekspos Hasil Asesmen Baca...', '/wp-content/uploads/2026/01/asasmen-2.jpeg', admin_user_id, 'PUBLISHED', 5397, '2025-12-18T13:28:27.000Z', '2025-12-18T13:28:27.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'kemenag-perkuat-literasi-al-quran-di-sekolah-asesmen-nasional-jadi-fondasi-kebijakan-pendidikan-agama');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2t6rvfc1pu', 'Program TBQ Guru Madrasah Resmi Dibuka, Kemenag Catat 403 Ribu Guru Masuk Basis Data', 'program-tbq-guru-madrasah-resmi-dibuka-kemenag-catat-403-ribu-guru-masuk-basis-data', 'Jakarta — Kementerian Agama RI resmi membuka Program Tuntas Baca Al-Qur’an (TBQ) bagi Guru Madrasah se-Indonesia, Selasa (16/12/2025). Program ini menjadi langkah strategis nasional untuk memperkuat kompetensi dasar guru madrasah dalam membaca Al-Qur’an secara baik dan benar.
+  SELECT 'cml3059bismvkhknj', 'Program TBQ Guru Madrasah Resmi Dibuka, Kemenag Catat 403 Ribu Guru Masuk Basis Data', 'program-tbq-guru-madrasah-resmi-dibuka-kemenag-catat-403-ribu-guru-masuk-basis-data', 'Jakarta — Kementerian Agama RI resmi membuka Program Tuntas Baca Al-Qur’an (TBQ) bagi Guru Madrasah se-Indonesia, Selasa (16/12/2025). Program ini menjadi langkah strategis nasional untuk memperkuat kompetensi dasar guru madrasah dalam membaca Al-Qur’an secara baik dan benar.
 
 Berdasarkan data real-time dashboard nasional TBQ per 16 Desember 2025, tercatat 403.996 guru madrasah telah masuk dalam basis data pendaftaran. Dari jumlah tersebut, 105.901 guru telah terverifikasi, atau setara 53 persen dari kuota nasional sebanyak 200.000 peserta. Hingga saat ini, masih tersedia 94.099 slot kosong yang dapat dimanfaatkan oleh guru madrasah di seluruh Indonesia.
 
@@ -707,10 +707,10 @@ Ketua Panitia sekaligus Kepala Subdit Fasilitasi Profesi Guru Direktorat GTK Mad
 
 Pelaksanaan asesmen TBQ dilakukan secara daring melalui mekanisme unggah video, dengan melibatkan ratusan asesor dari PTIQ Jakarta. Skema ini dipilih agar pelaksanaan asesmen dapat menjangkau peserta dalam jumlah besar secara efektif dan efisien, tanpa mengurangi kualitas penilaian.
 
-Program Tuntas Baca Al-Qur’an yang dilaksanakan oleh Direktorat GTK Madrasah diharapkan mampu meningkatkan kompetensi guru dan dapat berlangsung secara merata di seluruh Indonesia. Dengan guru yang memiliki kemampuan baca Al-Qur’an yang baik dan benar, pembelajaran di madrasah diharapkan semakin berkualitas serta berdampak langsung pada penguatan karakter peserta didik.', 'Jakarta — Kementerian Agama RI resmi membuka Program Tuntas Baca Al-Qur’an (TBQ) bagi Guru Madrasah se-Indonesia, Selasa (16/12/2025). Program ini menjadi langkah strategis nasional untuk memperkuat...', 'https://kilasindonesia.com/wp-content/uploads/2026/01/TBQ-Guru-Madrasah.jpeg', admin_user_id, 'PUBLISHED', 2094, '2025-12-17T14:01:26.000Z', '2025-12-17T14:01:26.000Z', '2026-02-01T00:20:45.988Z'
+Program Tuntas Baca Al-Qur’an yang dilaksanakan oleh Direktorat GTK Madrasah diharapkan mampu meningkatkan kompetensi guru dan dapat berlangsung secara merata di seluruh Indonesia. Dengan guru yang memiliki kemampuan baca Al-Qur’an yang baik dan benar, pembelajaran di madrasah diharapkan semakin berkualitas serta berdampak langsung pada penguatan karakter peserta didik.', 'Jakarta — Kementerian Agama RI resmi membuka Program Tuntas Baca Al-Qur’an (TBQ) bagi Guru Madrasah se-Indonesia, Selasa (16/12/2025). Program ini menjadi langkah strategis nasional untuk memperkuat...', '/wp-content/uploads/2026/01/TBQ-Guru-Madrasah.jpeg', admin_user_id, 'PUBLISHED', 2094, '2025-12-17T14:01:26.000Z', '2025-12-17T14:01:26.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'program-tbq-guru-madrasah-resmi-dibuka-kemenag-catat-403-ribu-guru-masuk-basis-data');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tr0wtq83k', '75 Peserta LAPP Siap Berangkat Studi S2 dan S3 ke Luar Negeri', '75-peserta-lapp-siap-berangkat-studi-s2-dan-s3-ke-luar-negeri', '<p style="text-align: left;">Kota Malang — Pusat Pembiayaan Pendidikan Agama dan Pendidikan Keagamaan (Puspenma), Sekretarat Jenderal, Kementerian Agama RI sukses menggelar Language and Academic Preparation Program (LAPP) selama 2 bulan penuh di 5 Perguruan Tinggi Keagamaan Islam Negeri (PTKIN).</p>
+  SELECT 'cml3059bi99zoit3o', '75 Peserta LAPP Siap Berangkat Studi S2 dan S3 ke Luar Negeri', '75-peserta-lapp-siap-berangkat-studi-s2-dan-s3-ke-luar-negeri', '<p style="text-align: left;">Kota Malang — Pusat Pembiayaan Pendidikan Agama dan Pendidikan Keagamaan (Puspenma), Sekretarat Jenderal, Kementerian Agama RI sukses menggelar Language and Academic Preparation Program (LAPP) selama 2 bulan penuh di 5 Perguruan Tinggi Keagamaan Islam Negeri (PTKIN).</p>
 LAPP dimaksudkan sebagai pembekalan kemampuan Bahasa Inggris dan Akademik bagi calon Awardee yang telah dinyatakan lulus seleksi Beasiswa Indonesia Bangkit (BIB) Kemenag, dan selanjutnya berangkat studi lanjut program magister dan doktor ke Luar Negeri.
 
 Kepala Pusat Pembiayaan Pendidikan Agama dan Pendidikan Keagamaan (Puspenma), Sekretariat Jenderal Kemenag, Ruchman Basori mengatakan melalui LAPP calon awardee dapat memperkuat kemampuan bahasa Inggris sesuai level yang ditetapkan oleh PT tujuan sekaligus memperkuat persiapan akademik serta kultur budaya di Luar Negeri.
@@ -727,10 +727,10 @@ Wakil Rektor I UIN Maulana Malik Ibrahim Malang, Basri mengatakan selain kemampu
 
 Pihaknya lanjut Basri memberikan apresiasi kepada Puspenma yang telah menggelar LAPP ini dan mempercayakan kepada UIN Maulana Malik Ibrahim Malang dan 4 PTP lainnya. “Kami sangat serius menggembleng para Awardee dengan menghadirkan tutor dan narasumber yang memiliki reputasi internasional”, katanya.
 
-Kegiatan penutupan LAPP Puspenma Kemenag RI dihadiri oleh Rektor UIN Walisongo Semarang Nizar Ali, Rektor UIN Bandung Rosikhon Anwar, Rektor UIN Sunan Ampel Surabaya Akh. Muzakki, Rektor UIN Alauddin Makasar Hamdan Juhanis, Wakil Rektor I UIN Malang Basri, Wakil Rektor IV UIN Malang Abdul Hamid, Ketua Pusat Pengembangan Bahasa UIN Malang Mamluatul Hasanah dan sejumlah Ketua Pusat Pengembangan Bahasa di 5 PTP. (Maria Ulfah)', 'Kota Malang — Pusat Pembiayaan Pendidikan Agama dan Pendidikan Keagamaan (Puspenma), Sekretarat Jenderal, Kementerian Agama RI sukses menggelar Language and Academic Preparation Program (LAPP) selama...', 'https://kilasindonesia.com/wp-content/uploads/2025/12/77c219fa-d6a2-4cc8-b5eb-f877fecf0514.jpeg', admin_user_id, 'PUBLISHED', 2061, '2025-12-17T12:09:36.000Z', '2025-12-17T12:09:36.000Z', '2026-02-01T00:20:45.988Z'
+Kegiatan penutupan LAPP Puspenma Kemenag RI dihadiri oleh Rektor UIN Walisongo Semarang Nizar Ali, Rektor UIN Bandung Rosikhon Anwar, Rektor UIN Sunan Ampel Surabaya Akh. Muzakki, Rektor UIN Alauddin Makasar Hamdan Juhanis, Wakil Rektor I UIN Malang Basri, Wakil Rektor IV UIN Malang Abdul Hamid, Ketua Pusat Pengembangan Bahasa UIN Malang Mamluatul Hasanah dan sejumlah Ketua Pusat Pengembangan Bahasa di 5 PTP. (Maria Ulfah)', 'Kota Malang — Pusat Pembiayaan Pendidikan Agama dan Pendidikan Keagamaan (Puspenma), Sekretarat Jenderal, Kementerian Agama RI sukses menggelar Language and Academic Preparation Program (LAPP) selama...', '/wp-content/uploads/2025/12/77c219fa-d6a2-4cc8-b5eb-f877fecf0514.jpeg', admin_user_id, 'PUBLISHED', 2061, '2025-12-17T12:09:36.000Z', '2025-12-17T12:09:36.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = '75-peserta-lapp-siap-berangkat-studi-s2-dan-s3-ke-luar-negeri');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2t78qv3cds', 'Kemenag Lakukan Penguatan Mutu Pendidikan MI di Kota Surakarta Melalui Pelatihan Literasi untuk Pengawas dan Kepala Madrasah', 'kemenag-lakukan-penguatan-mutu-pendidikan-mi-di-kota-surakarta-melalui-pelatihan-literasi-untuk-pengawas-dan-kepala-madrasah', 'SURAKARTA – Dalam upaya meningkatkan kualitas pembelajaran dan hasil belajar siswa di Madrasah Ibtidaiyah (MI) se-Surakarta, Kementerian Agama Republik Indonesia telah sukses menyelenggarakan Pelatihan Literasi bagi Kepala dan Pengawas Madrasah Ibtidaiyah. Kegiatan ini dirancang sebagai upaya strategis untuk memperkuat pondasi literasi sebagai kunci utama penguatan mutu pendidikan madrasah. Direktorat GTK Madrasah menghelat kegiatan pelatihan ini di kota Surakarta pada Senin, 15 Desember 2025.
+  SELECT 'cml3059bio6aer3hw', 'Kemenag Lakukan Penguatan Mutu Pendidikan MI di Kota Surakarta Melalui Pelatihan Literasi untuk Pengawas dan Kepala Madrasah', 'kemenag-lakukan-penguatan-mutu-pendidikan-mi-di-kota-surakarta-melalui-pelatihan-literasi-untuk-pengawas-dan-kepala-madrasah', 'SURAKARTA – Dalam upaya meningkatkan kualitas pembelajaran dan hasil belajar siswa di Madrasah Ibtidaiyah (MI) se-Surakarta, Kementerian Agama Republik Indonesia telah sukses menyelenggarakan Pelatihan Literasi bagi Kepala dan Pengawas Madrasah Ibtidaiyah. Kegiatan ini dirancang sebagai upaya strategis untuk memperkuat pondasi literasi sebagai kunci utama penguatan mutu pendidikan madrasah. Direktorat GTK Madrasah menghelat kegiatan pelatihan ini di kota Surakarta pada Senin, 15 Desember 2025.
 
 Pelatihan yang berlangsung selama 1 (satu) hari dari pagi hingga sore, diikuti oleh seluruh Pengawas Madrasah dan Kepala MI di wilayah Karesidenan Surakarta sebanyak 55 peserta. Fokus utama materi adalah pemahaman mendalam terhadap konsep literasi dasar dan implementasinya di lingkungan madrasah.
 
@@ -742,10 +742,10 @@ Materi yang disampaikan oleh para narasumber, termasuk akademisi dan praktisi pe
 
 Salah satu peserta pelatihan peningkatan kompetensi literasi memberikan apresiasinya terhadap kegiatan ini. "Pelatihan ini sangat relevan. Kami mendapatkan tools praktis untuk tidak hanya meningkatkan minat baca, tetapi juga meningkatkan daya nalar kritis siswa. Kami berkomitmen untuk segera menindaklanjuti dengan pembentukan Tim Literasi di madrasah," ungkapnya.
 
-Dengan berakhirnya pelatihan ini, Kantor Kementerian Agama Kota Surakarta berharap terjadi peningkatan signifikan dalam ekosistem literasi di seluruh MI di Kota Surakarta. Penguatan kapasitas pemimpin madrasah ini merupakan langkah nyata dalam mewujudkan visi pendidikan madrasah yang unggul dan berdaya saing, khususnya dalam mempersiapkan generasi emas yang cakap literasi dan numerasi.', 'SURAKARTA – Dalam upaya meningkatkan kualitas pembelajaran dan hasil belajar siswa di Madrasah Ibtidaiyah (MI) se-Surakarta, Kementerian Agama Republik Indonesia telah sukses menyelenggarakan...', 'https://kilasindonesia.com/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-15-at-22.11.57.jpeg', admin_user_id, 'PUBLISHED', 2565, '2025-12-16T13:10:48.000Z', '2025-12-16T13:10:48.000Z', '2026-02-01T00:20:45.988Z'
+Dengan berakhirnya pelatihan ini, Kantor Kementerian Agama Kota Surakarta berharap terjadi peningkatan signifikan dalam ekosistem literasi di seluruh MI di Kota Surakarta. Penguatan kapasitas pemimpin madrasah ini merupakan langkah nyata dalam mewujudkan visi pendidikan madrasah yang unggul dan berdaya saing, khususnya dalam mempersiapkan generasi emas yang cakap literasi dan numerasi.', 'SURAKARTA – Dalam upaya meningkatkan kualitas pembelajaran dan hasil belajar siswa di Madrasah Ibtidaiyah (MI) se-Surakarta, Kementerian Agama Republik Indonesia telah sukses menyelenggarakan...', '/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-15-at-22.11.57.jpeg', admin_user_id, 'PUBLISHED', 2565, '2025-12-16T13:10:48.000Z', '2025-12-16T13:10:48.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'kemenag-lakukan-penguatan-mutu-pendidikan-mi-di-kota-surakarta-melalui-pelatihan-literasi-untuk-pengawas-dan-kepala-madrasah');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tbh5quqlc', 'Kemenag di Wisuda STIT Muhammadiyah Ngawi, Manfaatkan Beasiswa untuk Lanjut Studi Magister', 'kemenag-di-wisuda-stit-muhammadiyah-ngawi-manfaatkan-beasiswa-untuk-lanjut-studi-magister', 'Ngawi — Kementerian Agama melalui Pusat Pembiayaan Pendidikan Agama dan Pendidikan Keagamaan (Puspenma) Sekretariat Jenderal Kementerian Agama RI memberikan kesempatan kepada para Sarjana Ilmu Tarbiyah di Kampus STIT Muhammadiyah Ngawi untuk melanjutkan magister dengan beasiswa.
+  SELECT 'cml3059biq0gcwn6e', 'Kemenag di Wisuda STIT Muhammadiyah Ngawi, Manfaatkan Beasiswa untuk Lanjut Studi Magister', 'kemenag-di-wisuda-stit-muhammadiyah-ngawi-manfaatkan-beasiswa-untuk-lanjut-studi-magister', 'Ngawi — Kementerian Agama melalui Pusat Pembiayaan Pendidikan Agama dan Pendidikan Keagamaan (Puspenma) Sekretariat Jenderal Kementerian Agama RI memberikan kesempatan kepada para Sarjana Ilmu Tarbiyah di Kampus STIT Muhammadiyah Ngawi untuk melanjutkan magister dengan beasiswa.
 
 Harapan itu dikatakan Kepala Puspenma Ruchman Basori, saat memberikan Orasi Ilmiah pada Wisuda Sarjana ke 25, Sekolah Tinggi Ilmu Tarbiyah (STIT) Muhammadiyah Ngawi, pada Sabtu, (13/12/25). “Meningkatkan kualitas diri sangat penting, di tengah persaingan bebas, apalagi bagi sarjana ilmu tarbiyah dan keguruan yang saat ini membludak”, tegas Ruchman.
 
@@ -765,10 +765,10 @@ Ketua STIT Muhammadiyah Ngawi Sumarno, S.Pd.I, M.Pd mengatakan sekolah tinggi in
 
 Kandidat Doktor UIN Raden Mas Said Surakarta ini berterimakasih kepada Kepala Puspenma Kemenag RI yang telah berkenan hadir dan memberikan orasi ilmiah. “Kehadiran Kapuspenma menjadi momentum strategis agar para wisudawan dan wisudawati mengakses layanan beasiswa KIP Kuliah dan Beasiswa Indonesia Bangkit (BIB) Kemenag”, kata Marno, sapaan akrabnya.
 
-Ketua STIT Sumarno dan Ketua Badan Pembina Harian STIT Muhammadiyah Ngawi Suhardi berharap agar Kemenag dapat membantu mempercepat alih status dari Sekolah Tinggi (STIT) menjadi Institut Agama Islam (IAI) yang menjadi cita-cita dari civitas akademika kampus tersebut. (Maria Ulfah)', 'Ngawi — Kementerian Agama melalui Pusat Pembiayaan Pendidikan Agama dan Pendidikan Keagamaan (Puspenma) Sekretariat Jenderal Kementerian Agama RI memberikan kesempatan kepada para Sarjana Ilmu...', 'https://kilasindonesia.com/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-15-at-20.44.43.jpeg', admin_user_id, 'PUBLISHED', 4389, '2025-12-14T13:47:41.000Z', '2025-12-14T13:47:41.000Z', '2026-02-01T00:20:45.988Z'
+Ketua STIT Sumarno dan Ketua Badan Pembina Harian STIT Muhammadiyah Ngawi Suhardi berharap agar Kemenag dapat membantu mempercepat alih status dari Sekolah Tinggi (STIT) menjadi Institut Agama Islam (IAI) yang menjadi cita-cita dari civitas akademika kampus tersebut. (Maria Ulfah)', 'Ngawi — Kementerian Agama melalui Pusat Pembiayaan Pendidikan Agama dan Pendidikan Keagamaan (Puspenma) Sekretariat Jenderal Kementerian Agama RI memberikan kesempatan kepada para Sarjana Ilmu...', '/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-15-at-20.44.43.jpeg', admin_user_id, 'PUBLISHED', 4389, '2025-12-14T13:47:41.000Z', '2025-12-14T13:47:41.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'kemenag-di-wisuda-stit-muhammadiyah-ngawi-manfaatkan-beasiswa-untuk-lanjut-studi-magister');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2th8n489bj', 'Kemenag di FISIP UIN Surabaya, Budaya Mutu Bekal Terbaik Menyambut Indonesia Emas 2045', 'kemenag-di-fisip-uin-surabaya-budaya-mutu-bekal-terbaik-menyambut-indonesia-emas-2045', 'Surabaya — Budaya mutu menjadi bekal terbaik bagi sebuah perguruan tinggi menghadapi era persaingan, menyambut Indonesia Emas 20245. Salah satunya dutentukan dengan penyiapan sumber daya manusia yang berkualitas.
+  SELECT 'cml3059bigr7cecql', 'Kemenag di FISIP UIN Surabaya, Budaya Mutu Bekal Terbaik Menyambut Indonesia Emas 2045', 'kemenag-di-fisip-uin-surabaya-budaya-mutu-bekal-terbaik-menyambut-indonesia-emas-2045', 'Surabaya — Budaya mutu menjadi bekal terbaik bagi sebuah perguruan tinggi menghadapi era persaingan, menyambut Indonesia Emas 20245. Salah satunya dutentukan dengan penyiapan sumber daya manusia yang berkualitas.
 
 Hal itu dikatakan Pusat Pembiayaan Pendidikan Agama dan Pendidikan Keagamaan (Puspenma), Sekretariat Jenderal Kementerian Agama Ruchman Basori, pada kegiatan diskusi terbatas dengan Pimpinan Fakultas Ilmu Sosial dan Ilmu Politik (FISIP) UIN Sunan Ampel Surabaya, pada Kamis (11/12/25) di Kampus Gunung Anyar, Surabaya.
 
@@ -790,10 +790,10 @@ Sementara itu Dekan FISIP UIN Surabaya Abdul Chalik mengatakan, sengaja kita dat
 
 “Kita siap berkolaborasi dan mengimplementasikan program-program pembiayaan Pendidikan, khusunya MoRA The Air Funds dan BIB Kemenag”, tegas Khalik.
 
-Forum terbatas itu berlangsung dengan gayeng, antusias dan produktif. FISIP UIN Surabaya, dipimpin oleh kaum muda yang bersemangat, berdedikasi dan memiliki masa depan yang prospektif. (Maria Ulfah)', 'Surabaya — Budaya mutu menjadi bekal terbaik bagi sebuah perguruan tinggi menghadapi era persaingan, menyambut Indonesia Emas 20245. Salah satunya dutentukan dengan penyiapan sumber daya manusia yang...', 'https://kilasindonesia.com/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-15-at-18.53.00.jpeg', admin_user_id, 'PUBLISHED', 1631, '2025-12-12T12:27:40.000Z', '2025-12-12T12:27:40.000Z', '2026-02-01T00:20:45.988Z'
+Forum terbatas itu berlangsung dengan gayeng, antusias dan produktif. FISIP UIN Surabaya, dipimpin oleh kaum muda yang bersemangat, berdedikasi dan memiliki masa depan yang prospektif. (Maria Ulfah)', 'Surabaya — Budaya mutu menjadi bekal terbaik bagi sebuah perguruan tinggi menghadapi era persaingan, menyambut Indonesia Emas 20245. Salah satunya dutentukan dengan penyiapan sumber daya manusia yang...', '/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-15-at-18.53.00.jpeg', admin_user_id, 'PUBLISHED', 1631, '2025-12-12T12:27:40.000Z', '2025-12-12T12:27:40.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'kemenag-di-fisip-uin-surabaya-budaya-mutu-bekal-terbaik-menyambut-indonesia-emas-2045');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2trvn1180s', 'Kemenag Raih Dua Penghargaan dari KPK di Hari Antikorupsi Sedunia 2025', 'kemenag-raih-dua-penghargaan-dari-kpk-di-hari-antikorupsi-sedunia-2025', 'Kementerian Agama mencatat dua capaian penting pada Peringatan Hari Antikorupsi Sedunia (HAKORDIA) 2025 yang digelar di Kantor Gubernur DIY, Selasa (9/12/2025). Selain meluncurkan Seri Buku Pendidikan Antikorupsi lintas agama hasil kolaborasi dengan KPK, Kemenag juga meraih dua penghargaan nasional atas kontribusinya dalam penguatan integritas di masyarakat.
+  SELECT 'cml3059bibitvw4te', 'Kemenag Raih Dua Penghargaan dari KPK di Hari Antikorupsi Sedunia 2025', 'kemenag-raih-dua-penghargaan-dari-kpk-di-hari-antikorupsi-sedunia-2025', 'Kementerian Agama mencatat dua capaian penting pada Peringatan Hari Antikorupsi Sedunia (HAKORDIA) 2025 yang digelar di Kantor Gubernur DIY, Selasa (9/12/2025). Selain meluncurkan Seri Buku Pendidikan Antikorupsi lintas agama hasil kolaborasi dengan KPK, Kemenag juga meraih dua penghargaan nasional atas kontribusinya dalam penguatan integritas di masyarakat.
 
 Penghargaan pertama diberikan kepada Kementerian Agama atas kerja sama penyusunan Buku Keagamaan Antikorupsi yang diinisiasi bersama Direktorat Pembinaan Peran Serta Masyarakat KPK. Kolaborasi ini dinilai berhasil membuka ruang baru pendidikan antikorupsi melalui pendekatan lintas agama.
 
@@ -824,10 +824,10 @@ Judul Buku Pendidikan Antikorupsi Lintas Agama:
 5. Peran Gereja dalam Mewujudkan Bangsa Tanpa Korupsi (Kristen)
 6. Kebajikan sebagai Landasan Antikorupsi dalam Perspektif Khonghucu
 
-Humas dan Komunikasi Publik', 'Kementerian Agama mencatat dua capaian penting pada Peringatan Hari Antikorupsi Sedunia (HAKORDIA) 2025 yang digelar di Kantor Gubernur DIY, Selasa (9/12/2025). Selain meluncurkan Seri Buku...', 'https://kilasindonesia.com/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-09-at-22.27.581.jpeg', admin_user_id, 'PUBLISHED', 4779, '2025-12-09T15:31:25.000Z', '2025-12-09T15:31:25.000Z', '2026-02-01T00:20:45.988Z'
+Humas dan Komunikasi Publik', 'Kementerian Agama mencatat dua capaian penting pada Peringatan Hari Antikorupsi Sedunia (HAKORDIA) 2025 yang digelar di Kantor Gubernur DIY, Selasa (9/12/2025). Selain meluncurkan Seri Buku...', '/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-09-at-22.27.581.jpeg', admin_user_id, 'PUBLISHED', 4779, '2025-12-09T15:31:25.000Z', '2025-12-09T15:31:25.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'kemenag-raih-dua-penghargaan-dari-kpk-di-hari-antikorupsi-sedunia-2025');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2t0stuvve6', 'Sekjen Kemenag Harap Luaran Penelitian Harus Berdampak', 'sekjen-kemenag-harap-luaran-penelitian-harus-berdampak', 'Jakarta — Sekretaris Jenderal Kementerian Agama Prof. Phil. Kamaruddin Amin, M.A., Ph.D berharap agar penelitian yang dilakukan dalam program riset Indonesia bangkit (MoRA The Air Funds) berdampak pada masyarakat.
+  SELECT 'cml3059bixumhv6gl', 'Sekjen Kemenag Harap Luaran Penelitian Harus Berdampak', 'sekjen-kemenag-harap-luaran-penelitian-harus-berdampak', 'Jakarta — Sekretaris Jenderal Kementerian Agama Prof. Phil. Kamaruddin Amin, M.A., Ph.D berharap agar penelitian yang dilakukan dalam program riset Indonesia bangkit (MoRA The Air Funds) berdampak pada masyarakat.
 
 “Riset-riset dengan anggaran ratusan juta bahkan milyaran harus mendatangkan manfaat dan berdampak langsung kepada masyarakat. Dampak social, ekonomi, budaya dan pembangunan”, tegas Kamaruddin Amin saat membuka acara Evaluasi dan Koordinasi Pendanaan Riset Indonesia Bangkit (MoRA The Air Funds), pada Senin (8/12/25) di Jakarta.
 
@@ -845,10 +845,10 @@ Kepala Puspenma Ruchman Basori mengatakan bahwa dalam tiga tahun terakhir ini, 2
 
 Sementara itu Direktur Diktis Prof. Phil. Sahiron Syamsuddin, M.A., Ph.D berkomitmen menjalin Kerjasama dengan Puspenma untuk melahirkan karya-karya penelitian untuk memperkuat ecotheology, kurikulum berbasis cinta dan pengembangan ekonomi umat.
 
-“Kita akan dorong para periset untuk mengambil tema-tema yang selama ini menjadi konsen Bapak Menteri Agama terutama ecotheology, kurikulum berbasis cinta dan pengembangan ekonomi umat”, kata Sahiron. (Ulfah)', 'Jakarta — Sekretaris Jenderal Kementerian Agama Prof. Phil. Kamaruddin Amin, M.A., Ph.D berharap agar penelitian yang dilakukan dalam program riset Indonesia bangkit (MoRA The Air Funds) berdampak...', 'https://kilasindonesia.com/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-09-at-19.38.07.jpeg', admin_user_id, 'PUBLISHED', 2408, '2025-12-09T15:21:59.000Z', '2025-12-09T15:21:59.000Z', '2026-02-01T00:20:45.988Z'
+“Kita akan dorong para periset untuk mengambil tema-tema yang selama ini menjadi konsen Bapak Menteri Agama terutama ecotheology, kurikulum berbasis cinta dan pengembangan ekonomi umat”, kata Sahiron. (Ulfah)', 'Jakarta — Sekretaris Jenderal Kementerian Agama Prof. Phil. Kamaruddin Amin, M.A., Ph.D berharap agar penelitian yang dilakukan dalam program riset Indonesia bangkit (MoRA The Air Funds) berdampak...', '/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-09-at-19.38.07.jpeg', admin_user_id, 'PUBLISHED', 2408, '2025-12-09T15:21:59.000Z', '2025-12-09T15:21:59.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'sekjen-kemenag-harap-luaran-penelitian-harus-berdampak');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2t58p6t36a', 'Sukses Optimalkan Unit Bisnis, Kemenag Dorong Kampus BLU Contoh Kemandirian Finansial UIN Jakarta', 'sukses-optimalkan-unit-bisnis-kemenag-dorong-kampus-blu-contoh-kemandirian-finansial-uin-jakarta', 'Tangerang Selatan - Universitas Islam Negeri (UIN) Syarif Hidayatullah Jakarta menggelar Focus Group Discussion (FGD) bertema "Transformasi dan Inovasi Bisnis: Sistem, Strategi, dan Sinergi Menuju Pusat Pengembangan Bisnis yang Unggul dan Mandiri di Adia Suites, Tangerang Selatan, Senin (8/12/2025).
+  SELECT 'cml3059bia7bob735', 'Sukses Optimalkan Unit Bisnis, Kemenag Dorong Kampus BLU Contoh Kemandirian Finansial UIN Jakarta', 'sukses-optimalkan-unit-bisnis-kemenag-dorong-kampus-blu-contoh-kemandirian-finansial-uin-jakarta', 'Tangerang Selatan - Universitas Islam Negeri (UIN) Syarif Hidayatullah Jakarta menggelar Focus Group Discussion (FGD) bertema "Transformasi dan Inovasi Bisnis: Sistem, Strategi, dan Sinergi Menuju Pusat Pengembangan Bisnis yang Unggul dan Mandiri di Adia Suites, Tangerang Selatan, Senin (8/12/2025).
 
 Kegiatan ini mempertemukan para pengelola pusat bisnis Perguruan Tinggi Keagamaan Islam Negeri (PTKIN) se-Indonesia untuk merumuskan strategi kemandirian finansial an percepatan menuju status Perguruan Tinggi Negeri Berbadan Hukum (PTNBH).
 
@@ -882,10 +882,10 @@ Selain itu, Rektor Asep Jahar menegaskan komitmen universitas mendorong inovasi 
 
 “Kami ingin memastikan P2B bekerja dengan prinsip transparansi dan akuntabilitas, namun tetap diberi ruang berinovasi agar mampu menghasilkan nilai tambah bagi universitas,” imbuhnya.
 
-Menurut Rektor, tiga kebijakan tersebut menjadi fondasi penting dalam memperkuat tata kelola bisnis UIN Jakarta dan mempercepat langkah universitas menuju kemandirian yang berkelanjutan. “Semoga dengan langkah-langkah ini, UIN Jakarta dapat melanjutkan transformasi menuju kampus modern berbasis tata kelola yang sehat, inovatif, dan siap bersaing,” pungkas Rektor.', 'Tangerang Selatan - Universitas Islam Negeri (UIN) Syarif Hidayatullah Jakarta menggelar Focus Group Discussion (FGD) bertema "Transformasi dan Inovasi Bisnis: Sistem, Strategi, dan Sinergi Menuju...', 'https://kilasindonesia.com/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-12-at-16.53.41.jpeg', admin_user_id, 'PUBLISHED', 3121, '2025-12-09T09:56:23.000Z', '2025-12-09T09:56:23.000Z', '2026-02-01T00:20:45.988Z'
+Menurut Rektor, tiga kebijakan tersebut menjadi fondasi penting dalam memperkuat tata kelola bisnis UIN Jakarta dan mempercepat langkah universitas menuju kemandirian yang berkelanjutan. “Semoga dengan langkah-langkah ini, UIN Jakarta dapat melanjutkan transformasi menuju kampus modern berbasis tata kelola yang sehat, inovatif, dan siap bersaing,” pungkas Rektor.', 'Tangerang Selatan - Universitas Islam Negeri (UIN) Syarif Hidayatullah Jakarta menggelar Focus Group Discussion (FGD) bertema "Transformasi dan Inovasi Bisnis: Sistem, Strategi, dan Sinergi Menuju...', '/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-12-at-16.53.41.jpeg', admin_user_id, 'PUBLISHED', 3121, '2025-12-09T09:56:23.000Z', '2025-12-09T09:56:23.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'sukses-optimalkan-unit-bisnis-kemenag-dorong-kampus-blu-contoh-kemandirian-finansial-uin-jakarta');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tl0sodf9b', 'Stadium General STAI Pati, Kemenag Buka Pendidikan Untuk Semua', 'stadium-general-stai-pati-kemenag-buka-pendidikan-untuk-semua', 'Pati — Layanan pendidikan tinggi pada Kementerian Agama, terbuka untuk semua sebagai implementasi dari education for all, dari berbagai latar belakang sosial, ekonomi dan politik. Karena menjadi mandat undang-undang dan komitmen kementerian.
+  SELECT 'cml3059bitjce7br5', 'Stadium General STAI Pati, Kemenag Buka Pendidikan Untuk Semua', 'stadium-general-stai-pati-kemenag-buka-pendidikan-untuk-semua', 'Pati — Layanan pendidikan tinggi pada Kementerian Agama, terbuka untuk semua sebagai implementasi dari education for all, dari berbagai latar belakang sosial, ekonomi dan politik. Karena menjadi mandat undang-undang dan komitmen kementerian.
 Pernyataan itu ditegaskan oleh Kepala Pusat Pembiayaan Pendidikan Agama dan Pendidikan Keagamaan (Puspenma) Sekretariat Jenderal, Kementerian Agama, Ruchman Basori, pada Stadium General sekolah Tinggi Agama Islam Pati (STAIP), pada pada Sabtu (6/12/25).
 
 Lebih lanjut dikatakan oleh Alumni IAIN Walisongo ini bahwa pemerintah telah menyiapkan skema untuk pembiayaan pendidikan untuk semua warga, agar tercipta keadilan sosial. “Yang pinter-pinter dan memenuhi kualifikasi diberikan beasiswa indonesia bangkit, yang kurang mampu secara ekonomi namun berpotensi untuk studi diberikan layanan Kartu Indonesia Pintar Kuliah untuk jenjang pendidikan tinggi dan PIP untuk jenjang Pendidikan Dasar dan Menengah Keagamaan”, kata Ruchman.
@@ -898,10 +898,10 @@ Kepada para mahasiswa Ruchman yang juga Doktor Manajemen Kependidikan Universita
 
 Bagi para dosen STAIP dan PTKIS lainnya, Ruchman mempersilahkan untuk memanfaatkan layanan beasiswa S3, tentu disesuaikan dengan tugas fungsional yang saat ini di embannya. Kecuali mau balik kanan keilmuannya. “Meningkat jenjang S3 bagi para dosen adalah keharusan untuk menambah modal bagi tercapainya akreditasi kelembagaan dan program studi, termasuk berusaha mengurus jabatan fungsioanl dari Lektor hingga Guru Besar” harap Ruchman dihadapan puluhan para dosen STAIP.
 
-Sementara itu Ketua STAI Pati Abdul Aziz menyampaikan apresiasinya kepada Kemenag yang telah menyapa STAIP dengan program-program layanan Pendidikan seperti KIP Kuliah, Bantuan Penyelesaian Pendidikan (BPP) dan juga bantuan sarpras. Hal itu di amini oleh Sekretaris Yayasan Muhammad Dhofir mengatakan bahwa perhatian pemerintah tidak kurang-kurang, sekarang tinggal kita yang ada di STAI Pati. “Puspenma di bawah Pak Ruchman telah menawarkan pelbagai program peningkatan capacitas tinggal para dosen dan mahasiswa untuk memanfaatkannya”, katanya. (Ulfah)', 'Pati — Layanan pendidikan tinggi pada Kementerian Agama, terbuka untuk semua sebagai implementasi dari education for all, dari berbagai latar belakang sosial, ekonomi dan politik. Karena menjadi...', 'https://kilasindonesia.com/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-09-at-22.07.41.jpeg', admin_user_id, 'PUBLISHED', 1771, '2025-12-07T15:04:10.000Z', '2025-12-07T15:04:10.000Z', '2026-02-01T00:20:45.988Z'
+Sementara itu Ketua STAI Pati Abdul Aziz menyampaikan apresiasinya kepada Kemenag yang telah menyapa STAIP dengan program-program layanan Pendidikan seperti KIP Kuliah, Bantuan Penyelesaian Pendidikan (BPP) dan juga bantuan sarpras. Hal itu di amini oleh Sekretaris Yayasan Muhammad Dhofir mengatakan bahwa perhatian pemerintah tidak kurang-kurang, sekarang tinggal kita yang ada di STAI Pati. “Puspenma di bawah Pak Ruchman telah menawarkan pelbagai program peningkatan capacitas tinggal para dosen dan mahasiswa untuk memanfaatkannya”, katanya. (Ulfah)', 'Pati — Layanan pendidikan tinggi pada Kementerian Agama, terbuka untuk semua sebagai implementasi dari education for all, dari berbagai latar belakang sosial, ekonomi dan politik. Karena menjadi...', '/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-09-at-22.07.41.jpeg', admin_user_id, 'PUBLISHED', 1771, '2025-12-07T15:04:10.000Z', '2025-12-07T15:04:10.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'stadium-general-stai-pati-kemenag-buka-pendidikan-untuk-semua');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tfi1sw2tw', 'Kemenag Umumkan Peraih Anugerah GTK pada Puncak HGN 2025, Berikut Daftarnya!', 'kemenag-umumkan-peraih-anugerah-gtk-pada-puncak-hgn-2025-berikut-daftarnya', 'Jakarta — Kementerian Agama resmi mengumumkan peraih Anugerah GTK 2025 pada Puncak Hari Guru Nasional (HGN) 2025, Sabtu (6/12/2025). Penganugerahan ini diberikan sebagai bentuk apresiasi atas dedikasi, inovasi, karakter, dan keteladanan para pendidik dan tenaga kependidikan dari berbagai daerah di Indonesia.
+  SELECT 'cml3059bi9s3fn45k', 'Kemenag Umumkan Peraih Anugerah GTK pada Puncak HGN 2025, Berikut Daftarnya!', 'kemenag-umumkan-peraih-anugerah-gtk-pada-puncak-hgn-2025-berikut-daftarnya', 'Jakarta — Kementerian Agama resmi mengumumkan peraih Anugerah GTK 2025 pada Puncak Hari Guru Nasional (HGN) 2025, Sabtu (6/12/2025). Penganugerahan ini diberikan sebagai bentuk apresiasi atas dedikasi, inovasi, karakter, dan keteladanan para pendidik dan tenaga kependidikan dari berbagai daerah di Indonesia.
 
 Acara yang diselenggarakan di TMII ini juga menghadirkan suasana haru ketika ribuan guru dari seluruh Indonesia memanjatkan doa bersama untuk masyarakat yang terdampak banjir dan longsor di Aceh, Sumatera Utara, dan Sumatera Barat. Doa yang dipimpin secara serentak itu menjadi simbol kuat bahwa guru tidak hanya hadir sebagai pendidik, tetapi juga sebagai penyangga moral dan spiritual bangsa di tengah ujian.
 
@@ -1001,10 +1001,10 @@ Guru yang Berjuang di Tengah Keterbatasan – Dyah Witasokah, MAN 1 Banyuasin (R
 
 Guru yang Berjuang di Pinggiran Negeri – Irna Kamayanti, Guru Ngaji dari Seko, Sulawesi Selatan (Rp15.000.000)
 
-Melalui doa, empati, dan penghargaan ini, Kementerian Agama menegaskan kembali bahwa kekuatan pendidikan Indonesia tumbuh dari dedikasi para guru yang tidak hanya mengajar, tetapi juga menopang harapan bangsa dengan cinta dan pengabdian yang tulus.', 'Jakarta — Kementerian Agama resmi mengumumkan peraih Anugerah GTK 2025 pada Puncak Hari Guru Nasional (HGN) 2025, Sabtu (6/12/2025). Penganugerahan ini diberikan sebagai bentuk apresiasi atas...', 'https://kilasindonesia.com/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-07-at-12.35.35.jpeg', admin_user_id, 'PUBLISHED', 3422, '2025-12-07T07:51:04.000Z', '2025-12-07T07:51:04.000Z', '2026-02-01T00:20:45.988Z'
+Melalui doa, empati, dan penghargaan ini, Kementerian Agama menegaskan kembali bahwa kekuatan pendidikan Indonesia tumbuh dari dedikasi para guru yang tidak hanya mengajar, tetapi juga menopang harapan bangsa dengan cinta dan pengabdian yang tulus.', 'Jakarta — Kementerian Agama resmi mengumumkan peraih Anugerah GTK 2025 pada Puncak Hari Guru Nasional (HGN) 2025, Sabtu (6/12/2025). Penganugerahan ini diberikan sebagai bentuk apresiasi atas...', '/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-07-at-12.35.35.jpeg', admin_user_id, 'PUBLISHED', 3422, '2025-12-07T07:51:04.000Z', '2025-12-07T07:51:04.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'kemenag-umumkan-peraih-anugerah-gtk-pada-puncak-hgn-2025-berikut-daftarnya');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tb27ntk6h', 'Puncak HGN 2025: Doa Guru, Ekoteologi, Kedermawanan, dan Kolaborasi Nasional Menguatkan Ekosistem Pendidikan Islam', 'puncak-hgn-2025-doa-guru-ekoteologi-kedermawanan-dan-kolaborasi-nasional-menguatkan-ekosistem-pendidikan-islam', 'Jakarta (Kemenag) — Peringatan Puncak Hari Guru Nasional (HGN) 2025 yang dikemas dalam “Doa Guru dan Donasi untuk Negeri" dengan tema "Merawat Semesta dengan Cinta” menjadi momentum refleksi dan konsolidasi nasional bagi dunia pendidikan Indonesia. Rangkaian puncak HGN 2025 memperlihatkan arah besar pembangunan ekosistem pendidikan Islam yang bertumpu pada spiritualitas, karakter, lingkungan, dan kesejahteraan guru.
+  SELECT 'cml3059biz56a87ap', 'Puncak HGN 2025: Doa Guru, Ekoteologi, Kedermawanan, dan Kolaborasi Nasional Menguatkan Ekosistem Pendidikan Islam', 'puncak-hgn-2025-doa-guru-ekoteologi-kedermawanan-dan-kolaborasi-nasional-menguatkan-ekosistem-pendidikan-islam', 'Jakarta (Kemenag) — Peringatan Puncak Hari Guru Nasional (HGN) 2025 yang dikemas dalam “Doa Guru dan Donasi untuk Negeri" dengan tema "Merawat Semesta dengan Cinta” menjadi momentum refleksi dan konsolidasi nasional bagi dunia pendidikan Indonesia. Rangkaian puncak HGN 2025 memperlihatkan arah besar pembangunan ekosistem pendidikan Islam yang bertumpu pada spiritualitas, karakter, lingkungan, dan kesejahteraan guru.
 
 Dalam sambutannya, Menteri Agama menegaskan kembali kedudukan guru sebagai “orang tua intelektual dan spiritual” bagi anak bangsa. Ia menyebut doa guru sebagai kekuatan yang ikut menopang negeri di tengah berbagai ujian, termasuk bencana yang melanda Aceh, Sumatera Utara, dan Sumatera Barat.
 
@@ -1044,10 +1044,10 @@ Puncak HGN 2025 ditutup dengan penyerahan penghargaan bagi guru berprestasi oleh
 
 “Memuliakan guru berarti menjaga masa depan Indonesia. Negeri ini dermawan karena guru menanamkan cinta dan tanggung jawab,” tegas Menag.
 
-Kementerian Agama menegaskan komitmennya untuk terus memperkuat ekosistem pendidikan Islam melalui spiritualitas, karakter, kepedulian lingkungan, kesejahteraan guru, dan kolaborasi nasional lintas sektor.', 'Jakarta (Kemenag) — Peringatan Puncak Hari Guru Nasional (HGN) 2025 yang dikemas dalam “Doa Guru dan Donasi untuk Negeri" dengan tema "Merawat Semesta dengan Cinta” menjadi momentum refleksi dan...', NULL, admin_user_id, 'PUBLISHED', 1255, '2025-12-06T18:44:55.000Z', '2025-12-06T18:44:55.000Z', '2026-02-01T00:20:45.988Z'
+Kementerian Agama menegaskan komitmennya untuk terus memperkuat ekosistem pendidikan Islam melalui spiritualitas, karakter, kepedulian lingkungan, kesejahteraan guru, dan kolaborasi nasional lintas sektor.', 'Jakarta (Kemenag) — Peringatan Puncak Hari Guru Nasional (HGN) 2025 yang dikemas dalam “Doa Guru dan Donasi untuk Negeri" dengan tema "Merawat Semesta dengan Cinta” menjadi momentum refleksi dan...', NULL, admin_user_id, 'PUBLISHED', 1255, '2025-12-06T18:44:55.000Z', '2025-12-06T18:44:55.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'puncak-hgn-2025-doa-guru-ekoteologi-kedermawanan-dan-kolaborasi-nasional-menguatkan-ekosistem-pendidikan-islam');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tu4cx8bcx', 'Delegasi Fakultas Syariah UIN KHAS Jember Raih Juara Favorit Lomba Peradilan Semu Tingkat Nasional 2025', 'delegasi-fakultas-syariah-uin-khas-jember-raih-juara-favorit-lomba-peradilan-semu-tingkat-nasional-2025', 'Jember - Delegasi Fakultas Syariah Universitas Islam Negeri (UIN KHAS) Jember kembali menorehkan prestasi gemilang di kancah nasional. Kali ini, prestasi tersebut ditunjukkan dengan raihan kemenangan sebagai Tim Favorit MCC 2025 pada event Legal Forum and Tournament Moot Court Community (MCC) From Courtroom Practice to Real Justice yang diselenggarakan oleh UIN Raden Fatah Palembang bekerja sama dengan Pengadilan Agama Kelas IA Palembang pada 28 November hingga 1 Desember 2025.
+  SELECT 'cml3059bildqxla58', 'Delegasi Fakultas Syariah UIN KHAS Jember Raih Juara Favorit Lomba Peradilan Semu Tingkat Nasional 2025', 'delegasi-fakultas-syariah-uin-khas-jember-raih-juara-favorit-lomba-peradilan-semu-tingkat-nasional-2025', 'Jember - Delegasi Fakultas Syariah Universitas Islam Negeri (UIN KHAS) Jember kembali menorehkan prestasi gemilang di kancah nasional. Kali ini, prestasi tersebut ditunjukkan dengan raihan kemenangan sebagai Tim Favorit MCC 2025 pada event Legal Forum and Tournament Moot Court Community (MCC) From Courtroom Practice to Real Justice yang diselenggarakan oleh UIN Raden Fatah Palembang bekerja sama dengan Pengadilan Agama Kelas IA Palembang pada 28 November hingga 1 Desember 2025.
 
 Kompetisi bergengsi yang diikuti oleh 12 perguruan tinggi, baik Perguruan Tinggi Keagamaan Islam Negeri (PTKIN) maupun Perguruan Tinggi Umum (PTU) se-Indonesia ini, menjadi ajang adu argumentasi, analisis hukum, dan keterampilan beracara yang ketat. Usai melalui tahapan panjang, enam delegasi terpilih untuk berkompetisi di babak final, dengan melakukan praktik langsung atau peradilan semu.
 
@@ -1065,10 +1065,10 @@ Ditambahkan Dekan, gelar tim favorit sekaligus meraih prestasi juara IV yang dis
 
 Selamat kepada seluruh delegasi atas prestasi yang membanggakan! Teruslah berkarya dan mengukir prestasi.
 
-(Fasya Media).', 'Jember - Delegasi Fakultas Syariah Universitas Islam Negeri (UIN KHAS) Jember kembali menorehkan prestasi gemilang di kancah nasional. Kali ini, prestasi tersebut ditunjukkan dengan raihan kemenangan...', 'https://kilasindonesia.com/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-06-at-16.59.48.jpeg', admin_user_id, 'PUBLISHED', 3947, '2025-12-06T10:00:19.000Z', '2025-12-06T10:00:19.000Z', '2026-02-01T00:20:45.988Z'
+(Fasya Media).', 'Jember - Delegasi Fakultas Syariah Universitas Islam Negeri (UIN KHAS) Jember kembali menorehkan prestasi gemilang di kancah nasional. Kali ini, prestasi tersebut ditunjukkan dengan raihan kemenangan...', '/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-06-at-16.59.48.jpeg', admin_user_id, 'PUBLISHED', 3947, '2025-12-06T10:00:19.000Z', '2025-12-06T10:00:19.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'delegasi-fakultas-syariah-uin-khas-jember-raih-juara-favorit-lomba-peradilan-semu-tingkat-nasional-2025');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tqlr7ep0j', 'Lagi, Fakultas Syariah UIN KHAS Jember Luncurkan 15 Buku dan HKI Karya Dosen dan Mahasiswa', 'lagi-fakultas-syariah-uin-khas-jember-luncurkan-15-buku-dan-hki-karya-dosen-dan-mahasiswa', 'Jember – Fakultas Syariah Universitas Islam Negeri Kiai Haji Achmad Siddiq (UIN KHAS) Jember terus mendorong peningkatan publikasi ilmiah para dosen dengan memfasilitasi penerbitan buku dan Hak Kekayaan Intelektual (HKI). Untuk tahun 2025, Fakultas Syariah UIN KHAS Jember meluncurkan sejumlah 15 buku dan HKI karya dosen dan mahasiswa. Peluncuran buku ini digelar berbarengan dengan acara Sharia Faculty Award (SFA) dan Sharia Faculty Festival and Competition (SFFC) 2025, di Gedung Business and Education Center kampus UIN KHAS Jember, Kamis, (4/12/2025).
+  SELECT 'cml3059bi8nrw02rt', 'Lagi, Fakultas Syariah UIN KHAS Jember Luncurkan 15 Buku dan HKI Karya Dosen dan Mahasiswa', 'lagi-fakultas-syariah-uin-khas-jember-luncurkan-15-buku-dan-hki-karya-dosen-dan-mahasiswa', 'Jember – Fakultas Syariah Universitas Islam Negeri Kiai Haji Achmad Siddiq (UIN KHAS) Jember terus mendorong peningkatan publikasi ilmiah para dosen dengan memfasilitasi penerbitan buku dan Hak Kekayaan Intelektual (HKI). Untuk tahun 2025, Fakultas Syariah UIN KHAS Jember meluncurkan sejumlah 15 buku dan HKI karya dosen dan mahasiswa. Peluncuran buku ini digelar berbarengan dengan acara Sharia Faculty Award (SFA) dan Sharia Faculty Festival and Competition (SFFC) 2025, di Gedung Business and Education Center kampus UIN KHAS Jember, Kamis, (4/12/2025).
 
 Penerbitan buku dan HKI tersebut difasilitasi oleh Fakultas Syariah melalui Unit Penerbitan, Penelitian, dan Pengabdian Masyarakat (UP3M) Fakultas Syariah UIN KHAS Jember bekerjasama dengan salah satu penerbit di Yogyakarta.
 
@@ -1098,10 +1098,10 @@ Adapun judul buku karya dosen dan mahasiswa Fakultas Syariah UIN KHAS Jember yan
 14. Teori Dasar Fiqh Muamalah: Sebuah Pengantar
 15. Pengantar Hukum Tata Negara: Konsep dan Kajian Kantemporer
 
-Kontributor : Fasya Media', 'Jember – Fakultas Syariah Universitas Islam Negeri Kiai Haji Achmad Siddiq (UIN KHAS) Jember terus mendorong peningkatan publikasi ilmiah para dosen dengan memfasilitasi penerbitan buku dan Hak...', 'https://kilasindonesia.com/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-06-at-07.18.02.jpeg', admin_user_id, 'PUBLISHED', 2792, '2025-12-06T09:55:36.000Z', '2025-12-06T09:55:36.000Z', '2026-02-01T00:20:45.988Z'
+Kontributor : Fasya Media', 'Jember – Fakultas Syariah Universitas Islam Negeri Kiai Haji Achmad Siddiq (UIN KHAS) Jember terus mendorong peningkatan publikasi ilmiah para dosen dengan memfasilitasi penerbitan buku dan Hak...', '/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-06-at-07.18.02.jpeg', admin_user_id, 'PUBLISHED', 2792, '2025-12-06T09:55:36.000Z', '2025-12-06T09:55:36.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'lagi-fakultas-syariah-uin-khas-jember-luncurkan-15-buku-dan-hki-karya-dosen-dan-mahasiswa');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tfka3drc1', 'Kemenag Buka Pengajuan Kenaikan Jabatan Akademik Dosen Lektor Kepala dan Guru Besar Rumpun Ilmu Agama Periode III Tahun 2025', 'kemenag-buka-pengajuan-kenaikan-jabatan-akademik-dosen-lektor-kepala-dan-guru-besar-rumpun-ilmu-agama-periode-iii-tahun-2025', 'Jakarta, (4/12) Kementerian Agama Republik Indonesia melalui Direktorat Jenderal Pendidikan Islam secara resmi mengumumkan pembukaan pengajuan kenaikan Jabatan Akademik Dosen (JAD) Lektor Kepala dan Guru Besar/ Profesor rumpun ilmu agama untuk Periode III Tahun 2025. Pengumuman tersebut disampaikan melalui surat bernomor B-728/DJ.I/Dt.I.III/HM.00/12/2025 yang ditujukan kepada Pimpinan PTKN, Koordinator Kopertais Wilayah I–XV, serta Direktur Pendidikan pada Ditjen Bimas Kristen, Protestan, Hindu, Buddha, dan Pusat Bimbingan dan Pembinaan Konghuchu.
+  SELECT 'cml3059biif79unfs', 'Kemenag Buka Pengajuan Kenaikan Jabatan Akademik Dosen Lektor Kepala dan Guru Besar Rumpun Ilmu Agama Periode III Tahun 2025', 'kemenag-buka-pengajuan-kenaikan-jabatan-akademik-dosen-lektor-kepala-dan-guru-besar-rumpun-ilmu-agama-periode-iii-tahun-2025', 'Jakarta, (4/12) Kementerian Agama Republik Indonesia melalui Direktorat Jenderal Pendidikan Islam secara resmi mengumumkan pembukaan pengajuan kenaikan Jabatan Akademik Dosen (JAD) Lektor Kepala dan Guru Besar/ Profesor rumpun ilmu agama untuk Periode III Tahun 2025. Pengumuman tersebut disampaikan melalui surat bernomor B-728/DJ.I/Dt.I.III/HM.00/12/2025 yang ditujukan kepada Pimpinan PTKN, Koordinator Kopertais Wilayah I–XV, serta Direktur Pendidikan pada Ditjen Bimas Kristen, Protestan, Hindu, Buddha, dan Pusat Bimbingan dan Pembinaan Konghuchu.
 
 Direktur Pendidikan Tinggi Keagamaan Islam, Sahiron mengatakan bahwa kebijakan ini merupakan tindak lanjut dari Keputusan Menteri Agama Nomor 828 Tahun 2024 mengenai Pedoman Pembinaan dan Pengembangan Profesi dan Karier Jabatan Fungsional Dosen Rumpun Ilmu Agama serta Surat Edaran Dirjen Pendidikan Islam Nomor B-163/DJ.I/Dt.I.III/HM.00/03/2025. Pengajuan pada periode ini dibuka kembali untuk memberikan kesempatan bagi dosen yang telah siap memenuhi ketentuan serta pengusul pada periode sebelumnya yang belum lolos.
 
@@ -1117,10 +1117,10 @@ Lebih lanjut, Sahiron menyampaikan apresiasi dan harapan atas dibukanya periode 
 
 Kementerian Agama mendorong seluruh PTKI, Kopertais, dan unit terkait untuk memberikan pendampingan optimal bagi para dosen yang mengajukan kenaikan jabatan. Melalui proses yang lebih terstruktur dan berbasis regulasi terbaru, Kemenag berharap semakin banyak dosen Indonesia yang mencapai jabatan Lektor Kepala maupun Guru Besar.
 
-“Sehingga hasilnya memberi dampak, dapat memperluas kontribusi keilmuan dan memperkuat ekosistem akademik nasional.” Pungkasnya.', 'Jakarta, (4/12) Kementerian Agama Republik Indonesia melalui Direktorat Jenderal Pendidikan Islam secara resmi mengumumkan pembukaan pengajuan kenaikan Jabatan Akademik Dosen (JAD) Lektor Kepala dan...', 'https://kilasindonesia.com/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-04-at-22.29.12.jpeg', admin_user_id, 'PUBLISHED', 897, '2025-12-05T06:23:45.000Z', '2025-12-05T06:23:45.000Z', '2026-02-01T00:20:45.988Z'
+“Sehingga hasilnya memberi dampak, dapat memperluas kontribusi keilmuan dan memperkuat ekosistem akademik nasional.” Pungkasnya.', 'Jakarta, (4/12) Kementerian Agama Republik Indonesia melalui Direktorat Jenderal Pendidikan Islam secara resmi mengumumkan pembukaan pengajuan kenaikan Jabatan Akademik Dosen (JAD) Lektor Kepala dan...', '/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-04-at-22.29.12.jpeg', admin_user_id, 'PUBLISHED', 897, '2025-12-05T06:23:45.000Z', '2025-12-05T06:23:45.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'kemenag-buka-pengajuan-kenaikan-jabatan-akademik-dosen-lektor-kepala-dan-guru-besar-rumpun-ilmu-agama-periode-iii-tahun-2025');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2ta69e3g09', 'Kemenag Lakukan Percepatan Penyaluran Beasiswa, Jelang LPDP Tutup Buku 2025', 'kemenag-lakukan-percepatan-penyaluran-beasiswa-jelang-lpdp-tutup-buku-2025', 'Jakarta—Pusat pembiayaan Pendidikan Agama dan Pendidikan Keagamaan (PUSPENMA), Sekretariat Jenderal Kementerian Agama bersama dengan Lembaga Pengelola Dana Pendidikan (LPDP) Kementerian Keuangan RI, melaksanakan rekonsiliasi percepatan penyaluran beasiswa menjelang tutup buku tahun anggaran 2025.
+  SELECT 'cml3059bi0udurb51', 'Kemenag Lakukan Percepatan Penyaluran Beasiswa, Jelang LPDP Tutup Buku 2025', 'kemenag-lakukan-percepatan-penyaluran-beasiswa-jelang-lpdp-tutup-buku-2025', 'Jakarta—Pusat pembiayaan Pendidikan Agama dan Pendidikan Keagamaan (PUSPENMA), Sekretariat Jenderal Kementerian Agama bersama dengan Lembaga Pengelola Dana Pendidikan (LPDP) Kementerian Keuangan RI, melaksanakan rekonsiliasi percepatan penyaluran beasiswa menjelang tutup buku tahun anggaran 2025.
 
 Kegiatan dilaksanakan pada tanggal 2 s.d 4 Desember 2025 membahas tentang akselerasi penyaluran baik program beasiswa gelar maupun program non gelar.
 
@@ -1140,10 +1140,10 @@ Juni berharap proses rekonsiliasi ini lancar dan catatan-catatan verifikasi yang
 
 Sebagaimana diketahui Kemenag telah memberikan layanan beasiswa kepada 7.800-an Awardee sejak tahun 2022 hingga sekarang baik program S1, S2 dan S3 di Dalam dan Luar Negeri. Untuk tahun 2025 telah direkrut sebanyak 1.029 orang semuanya beasiswa degree. Sementara untuk non degree diwujudkan dalam bentuk Language Academic Preperation Program (LAPP) 75 orang, Pelatihan Multimedia Pesantren 240 orang dan Penguatan Moderasi Beragagama 240 orang.
 
-Ketua Tim Beasiswa Pendidikan Tinggi Keagamaan Siti Maria Ulfa, mengatakan kepada seluruh tim penyaluran di PUPENMA, untuk fokus dalam percepatan pencairan ini dan segera menindaklanjuti segala bentuk catatan verifikasi dari tim penyaluran LPDP.(Maul)', 'Jakarta—Pusat pembiayaan Pendidikan Agama dan Pendidikan Keagamaan (PUSPENMA), Sekretariat Jenderal Kementerian Agama bersama dengan Lembaga Pengelola Dana Pendidikan (LPDP) Kementerian Keuangan RI,...', 'https://kilasindonesia.com/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-05-at-06.08.40.jpeg', admin_user_id, 'PUBLISHED', 2405, '2025-12-05T05:01:38.000Z', '2025-12-05T05:01:38.000Z', '2026-02-01T00:20:45.988Z'
+Ketua Tim Beasiswa Pendidikan Tinggi Keagamaan Siti Maria Ulfa, mengatakan kepada seluruh tim penyaluran di PUPENMA, untuk fokus dalam percepatan pencairan ini dan segera menindaklanjuti segala bentuk catatan verifikasi dari tim penyaluran LPDP.(Maul)', 'Jakarta—Pusat pembiayaan Pendidikan Agama dan Pendidikan Keagamaan (PUSPENMA), Sekretariat Jenderal Kementerian Agama bersama dengan Lembaga Pengelola Dana Pendidikan (LPDP) Kementerian Keuangan RI,...', '/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-05-at-06.08.40.jpeg', admin_user_id, 'PUBLISHED', 2405, '2025-12-05T05:01:38.000Z', '2025-12-05T05:01:38.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'kemenag-lakukan-percepatan-penyaluran-beasiswa-jelang-lpdp-tutup-buku-2025');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tebzu3iif', 'Kemenag Teguhkan Ekoteologi sebagai Gerakan Nasional Pendidikan Ramah Iklim', 'kemenag-teguhkan-ekoteologi-sebagai-gerakan-nasional-pendidikan-ramah-iklim', 'Jakarta (Kemenag) — Kementerian Agama menegaskan komitmennya untuk memperkuat implementasi ekoteologi sebagai gerakan nasional dalam pendidikan. Penegasan ini disampaikan Sekretaris Jenderal Kementerian Agama, Kamaruddin Amin, saat membuka International Conference on Moral Teachers yang menjadi bagian dari rangkaian peringatan Hari Guru Nasional. Konferensi ini juga menjadi lanjutan dari agenda internasional bertema “Caring for the Universe with Love” yang sebelumnya digelar untuk memperkuat gerakan pendidikan ramah iklim di lingkungan Kemenag.
+  SELECT 'cml3059bidhuxd557', 'Kemenag Teguhkan Ekoteologi sebagai Gerakan Nasional Pendidikan Ramah Iklim', 'kemenag-teguhkan-ekoteologi-sebagai-gerakan-nasional-pendidikan-ramah-iklim', 'Jakarta (Kemenag) — Kementerian Agama menegaskan komitmennya untuk memperkuat implementasi ekoteologi sebagai gerakan nasional dalam pendidikan. Penegasan ini disampaikan Sekretaris Jenderal Kementerian Agama, Kamaruddin Amin, saat membuka International Conference on Moral Teachers yang menjadi bagian dari rangkaian peringatan Hari Guru Nasional. Konferensi ini juga menjadi lanjutan dari agenda internasional bertema “Caring for the Universe with Love” yang sebelumnya digelar untuk memperkuat gerakan pendidikan ramah iklim di lingkungan Kemenag.
 
 Dalam sambutannya, Sekjen menekankan bahwa ekoteologi kini berada pada fase implementasi, bukan sekadar wacana. Ia menyampaikan bahwa pembahasan teoretis mengenai hubungan spiritual manusia dan alam sudah cukup panjang, dan saat ini Kemenag bergerak menuju langkah teknis yang terukur.
 
@@ -1177,10 +1177,10 @@ Sorotan besar juga muncul dari paparan Dr. Haidar Bagir yang menyampaikan pandan
 
 Selain itu, Irfan Amali dari Peace Generation berbagi pengalaman inspiratif tentang pesantrennya yang telah enam tahun menerapkan konsep zero waste. Semua sampah dikelola menjadi kompos, pakan maggot, hingga bata plastik yang kemudian digunakan untuk membangun masjid—sebuah bukti bahwa pendidikan lingkungan dapat diwujudkan secara nyata, bukan sekadar konsep.
 
-Melalui seminar ini, Kementerian Agama menegaskan bahwa pendidikan adalah kunci untuk menumbuhkan generasi yang tidak hanya cerdas, tetapi juga memiliki kepekaan moral dan cinta yang tulus kepada alam semesta. Gerakan pendidikan ramah iklim bukan sekadar program, melainkan ikhtiar jangka panjang untuk memastikan masa depan bumi tetap terjaga bagi generasi yang akan datang.', 'Jakarta (Kemenag) — Kementerian Agama menegaskan komitmennya untuk memperkuat implementasi ekoteologi sebagai gerakan nasional dalam pendidikan. Penegasan ini disampaikan Sekretaris Jenderal...', 'https://kilasindonesia.com/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-03-at-18.22.57.jpeg', admin_user_id, 'PUBLISHED', 2630, '2025-12-03T11:27:19.000Z', '2025-12-03T11:27:19.000Z', '2026-02-01T00:20:45.988Z'
+Melalui seminar ini, Kementerian Agama menegaskan bahwa pendidikan adalah kunci untuk menumbuhkan generasi yang tidak hanya cerdas, tetapi juga memiliki kepekaan moral dan cinta yang tulus kepada alam semesta. Gerakan pendidikan ramah iklim bukan sekadar program, melainkan ikhtiar jangka panjang untuk memastikan masa depan bumi tetap terjaga bagi generasi yang akan datang.', 'Jakarta (Kemenag) — Kementerian Agama menegaskan komitmennya untuk memperkuat implementasi ekoteologi sebagai gerakan nasional dalam pendidikan. Penegasan ini disampaikan Sekretaris Jenderal...', '/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-03-at-18.22.57.jpeg', admin_user_id, 'PUBLISHED', 2630, '2025-12-03T11:27:19.000Z', '2025-12-03T11:27:19.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'kemenag-teguhkan-ekoteologi-sebagai-gerakan-nasional-pendidikan-ramah-iklim');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2t07uob8ku', 'BIB Kemenag Di University of Groningen, Awardee Studi Theologi Hingga Artivicial Intelligent', 'bib-kemenag-di-university-of-groningen-awardee-studi-theologi-hingga-artivicial-intelligent', 'Groningen — Mahasiswa penerima Beasiswa Indonesia Bangkit Kementerian Agama RI, studi S3 di University of Groningen dari mulai kajian theologi hingga artificial intelligent (AI). Mereka berasal dari beberapa Perguruan Tinggi Keagamaan (PTK) di Indonesia.
+  SELECT 'cml3059bi5wzq872u', 'BIB Kemenag Di University of Groningen, Awardee Studi Theologi Hingga Artivicial Intelligent', 'bib-kemenag-di-university-of-groningen-awardee-studi-theologi-hingga-artivicial-intelligent', 'Groningen — Mahasiswa penerima Beasiswa Indonesia Bangkit Kementerian Agama RI, studi S3 di University of Groningen dari mulai kajian theologi hingga artificial intelligent (AI). Mereka berasal dari beberapa Perguruan Tinggi Keagamaan (PTK) di Indonesia.
 
 Kemenag melakukan monitoring dan evaluasi (Monev) kepada para penerima beasiswa (Awardee) Beasiswa Indonesia Bangkit (BIB) pada tanggal 25 November hingga 02 Desember 2025, ke Inggris dan Belanda. Di Belanda dilakukan kepada para Awardee Program S3 di University of Groningen dan University of Amsterdam. Kegiatan ditempatkan di Universitas Groningen, pada Senin, (1/12/25) waktu setempat.
 
@@ -1210,10 +1210,10 @@ Tim Monev Kemenag mendengarkan dan mencatat aspirasi pelbagai hal dari para Awar
 
 Inspektur II Inspektorat Jenderal Kemenag Ali Irfan menyoroti tentang kewajiban para Awardee untuk kembali mengabdi ke kampusnya masing-masing dan para awardee harusnya diberikan tugas belajar bukan ijin belajar. “Pemberian tugas belajar menjadi penting, jangan ijin belajar karena nanti yang bersangkutan harus menjalankan kewajibannhya sebagai dosen”, katanya.
 
-Sebagaimana diketahui, Kemenag melalui Puspenma telah memberikan pendanaan beasiswa kepada 7.500-an orang sejak tahun 2022, untuk mengambil studi S1, S2, dan S3 pada perguruan tinggi di Dalam maupun Luar Negeri, berkolaborasi dengan Lembaga Pengelola Dana Pendidikan (LPDP). (Alip/Humas)', 'Groningen — Mahasiswa penerima Beasiswa Indonesia Bangkit Kementerian Agama RI, studi S3 di University of Groningen dari mulai kajian theologi hingga artificial intelligent (AI). Mereka berasal dari...', 'https://kilasindonesia.com/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-03-at-18.08.34.jpeg', admin_user_id, 'PUBLISHED', 520, '2025-12-03T11:13:54.000Z', '2025-12-03T11:13:54.000Z', '2026-02-01T00:20:45.988Z'
+Sebagaimana diketahui, Kemenag melalui Puspenma telah memberikan pendanaan beasiswa kepada 7.500-an orang sejak tahun 2022, untuk mengambil studi S1, S2, dan S3 pada perguruan tinggi di Dalam maupun Luar Negeri, berkolaborasi dengan Lembaga Pengelola Dana Pendidikan (LPDP). (Alip/Humas)', 'Groningen — Mahasiswa penerima Beasiswa Indonesia Bangkit Kementerian Agama RI, studi S3 di University of Groningen dari mulai kajian theologi hingga artificial intelligent (AI). Mereka berasal dari...', '/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-03-at-18.08.34.jpeg', admin_user_id, 'PUBLISHED', 520, '2025-12-03T11:13:54.000Z', '2025-12-03T11:13:54.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'bib-kemenag-di-university-of-groningen-awardee-studi-theologi-hingga-artivicial-intelligent');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2t6swr99ly', 'FSH PTKIN Unggul dalam Lomba Debat Hukum Bawaslu RI', 'fsh-ptkin-unggul-dalam-lomba-debat-hukum-bawaslu-ri', 'Jumat, 28 November 2025. Delegasi Fakultas Syariah dan Hukum UIN Jakarta menjuarai lomba Debat Nasional Hukum Pengawasan Pemilu 2025 yang diselenggarakan Badan Pengawas Pemilu Republik Indonesia (Bawaslu RI). Menduduki juara ke-2 juga dari Perguruan Tinggi Keagamaan Islam Negeri (PTKIN) yaitu Fakultas Syariah dan Hukum UIN Yogyakarta. Di posisi ketiga direbut delegasi dari Fakultas Hukum Universitas Indonesia.
+  SELECT 'cml3059bi8q3jsate', 'FSH PTKIN Unggul dalam Lomba Debat Hukum Bawaslu RI', 'fsh-ptkin-unggul-dalam-lomba-debat-hukum-bawaslu-ri', 'Jumat, 28 November 2025. Delegasi Fakultas Syariah dan Hukum UIN Jakarta menjuarai lomba Debat Nasional Hukum Pengawasan Pemilu 2025 yang diselenggarakan Badan Pengawas Pemilu Republik Indonesia (Bawaslu RI). Menduduki juara ke-2 juga dari Perguruan Tinggi Keagamaan Islam Negeri (PTKIN) yaitu Fakultas Syariah dan Hukum UIN Yogyakarta. Di posisi ketiga direbut delegasi dari Fakultas Hukum Universitas Indonesia.
 
 Di babak semifinal, FSH UIN Jakarta dapat mengalahkan FH Universitas Indonesia. Demikian pula, FSH UIN Yogyakarta mengungguli Fakultas Hukum Universitas Airlangga. Dua delegasi tersebut, FSH UIN Jakarta dan FSH UIN Yogyakarta akhirnya bertemu di babak final yang diselenggarakan hari Jumat 28 November 2025 malam hari.
 
@@ -1225,10 +1225,10 @@ Delegasi yang ikut lomba di Bawaslu adalah Sainia Miftahullia, Wahyu Indra Triya
 
 MCC merupakan lembaga semi otonom FSH yang dibentuk untuk membina kemampuan menulis, berdebat, dan sidang semu. Lembaga ini dibina oleh dosen-dosen aktif dan alumni yang sebelumnya aktif di MCC. Setiap tahun, lembaga ini menyeleksi anggota kemudian memberikan pelatihan kompetensi yang relevan. Sudah ratusan perlombaan diikuti dan juara yang diraih.
 
-FSH UIN Jakarta terus mengembangkan kemampuan akademik dan nonakademik mahasiswa. Memberikan fasilitas pendukung untuk pencapaian tersebut. Tahun depan, FSH mencanangkan perlombaan berskala internasional terutama Asia Tenggara. Kesepakatan antara FSH dan University Malaya telah dilakukan untuk penyelenggaraan perlombaan mahasiswa tersebut.', 'Jumat, 28 November 2025. Delegasi Fakultas Syariah dan Hukum UIN Jakarta menjuarai lomba Debat Nasional Hukum Pengawasan Pemilu 2025 yang diselenggarakan Badan Pengawas Pemilu Republik Indonesia...', 'https://kilasindonesia.com/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-02-at-15.05.00.jpeg', admin_user_id, 'PUBLISHED', 1469, '2025-12-02T08:10:37.000Z', '2025-12-02T08:10:37.000Z', '2026-02-01T00:20:45.988Z'
+FSH UIN Jakarta terus mengembangkan kemampuan akademik dan nonakademik mahasiswa. Memberikan fasilitas pendukung untuk pencapaian tersebut. Tahun depan, FSH mencanangkan perlombaan berskala internasional terutama Asia Tenggara. Kesepakatan antara FSH dan University Malaya telah dilakukan untuk penyelenggaraan perlombaan mahasiswa tersebut.', 'Jumat, 28 November 2025. Delegasi Fakultas Syariah dan Hukum UIN Jakarta menjuarai lomba Debat Nasional Hukum Pengawasan Pemilu 2025 yang diselenggarakan Badan Pengawas Pemilu Republik Indonesia...', '/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-02-at-15.05.00.jpeg', admin_user_id, 'PUBLISHED', 1469, '2025-12-02T08:10:37.000Z', '2025-12-02T08:10:37.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'fsh-ptkin-unggul-dalam-lomba-debat-hukum-bawaslu-ri');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tm1tga54t', 'Penguatan Pembentukan Direktorat Jenderal, Pesantren Didorong Jadi Pelopor Ekoteologi Nasional', 'penguatan-pembentukan-direktorat-jenderal-pesantren-didorong-jadi-pelopor-ekoteologi-nasional', 'Jakarta — Upaya modernisasi tata kelola pesantren di Indonesia memasuki fase krusial. Melalui Halaqah Penguatan Kelembagaan bertema “Pesantren, Ekoteologi dan Kemandirian Ekonomi Umat” yang digelar di UIN Jakarta, Kementerian Agama menegaskan arah baru pengembangan pesantren: memperkuat struktur negara, membangun gerakan ekoteologi, dan mendorong kemandirian ekonomi berbasis unit usaha yang profesional.
+  SELECT 'cml3059bibk99icwk', 'Penguatan Pembentukan Direktorat Jenderal, Pesantren Didorong Jadi Pelopor Ekoteologi Nasional', 'penguatan-pembentukan-direktorat-jenderal-pesantren-didorong-jadi-pelopor-ekoteologi-nasional', 'Jakarta — Upaya modernisasi tata kelola pesantren di Indonesia memasuki fase krusial. Melalui Halaqah Penguatan Kelembagaan bertema “Pesantren, Ekoteologi dan Kemandirian Ekonomi Umat” yang digelar di UIN Jakarta, Kementerian Agama menegaskan arah baru pengembangan pesantren: memperkuat struktur negara, membangun gerakan ekoteologi, dan mendorong kemandirian ekonomi berbasis unit usaha yang profesional.
 
 Kehadiran para kiai pengasuh pesantren besar, akademisi, dan pejabat Kemenag dalam forum ini menghadirkan gambaran komprehensif tentang masa depan pesantren sebagai pusat peradaban yang lebih terstruktur dan berdaya saing.
 
@@ -1258,10 +1258,10 @@ Halaqah ini juga memunculkan gagasan jangka panjang, termasuk pengembangan Progr
 
 Seluruh narasumber sepakat bahwa masa depan pesantren Indonesia menuntut tata kelola yang lebih profesional, berkelanjutan, dan terbuka pada kolaborasi. Pesantren diharapkan menjadi model harmonisasi spiritualitas, ekologis, dan ekonomi yang mampu memperkuat kemandirian umat.
 
-Halaqah ditutup dengan optimisme bahwa pengasuh pesantren akan menjadi motor utama dalam merumuskan kebutuhan teknis pembentukan Ditjen Pesantren. “Struktur ini hadir untuk melayani pesantren, bukan sebaliknya,” ujar Ismail.', 'Jakarta — Upaya modernisasi tata kelola pesantren di Indonesia memasuki fase krusial. Melalui Halaqah Penguatan Kelembagaan bertema “Pesantren, Ekoteologi dan Kemandirian Ekonomi Umat” yang digelar...', 'https://kilasindonesia.com/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-28-at-21.12.47.jpeg', admin_user_id, 'PUBLISHED', 4531, '2025-11-28T14:42:23.000Z', '2025-11-28T14:42:23.000Z', '2026-02-01T00:20:45.988Z'
+Halaqah ditutup dengan optimisme bahwa pengasuh pesantren akan menjadi motor utama dalam merumuskan kebutuhan teknis pembentukan Ditjen Pesantren. “Struktur ini hadir untuk melayani pesantren, bukan sebaliknya,” ujar Ismail.', 'Jakarta — Upaya modernisasi tata kelola pesantren di Indonesia memasuki fase krusial. Melalui Halaqah Penguatan Kelembagaan bertema “Pesantren, Ekoteologi dan Kemandirian Ekonomi Umat” yang digelar...', '/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-28-at-21.12.47.jpeg', admin_user_id, 'PUBLISHED', 4531, '2025-11-28T14:42:23.000Z', '2025-11-28T14:42:23.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'penguatan-pembentukan-direktorat-jenderal-pesantren-didorong-jadi-pelopor-ekoteologi-nasional');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2twzl8sem1', 'Pendirian Ditjen Pesantren Dimantapkan, Para Kiai di Yogyakarta Soroti Transformasi Digital, Penguatan Karakter, dan Kepemimpinan Santri', 'pendirian-ditjen-pesantren-dimantapkan-para-kiai-di-yogyakarta-soroti-transformasi-digital-penguatan-karakter-dan-kepemimpinan-santri', 'Yogyakarta — Kementerian Agama RI menggelar Halaqah Penguatan Kelembagaan Pendirian Direktorat Jenderal Pesantren di UIN Sunan Kalijaga Yogyakarta, Kamis (27/11/2025). Forum strategis yang mempertemukan akademisi, para kiai, nyai, habib, pengasuh pesantren, dan pimpinan perguruan tinggi Islam ini menjadi ajang penghimpunan gagasan substantif sebagai fondasi pembentukan Ditjen Pesantren.
+  SELECT 'cml3059bifnh31s6d', 'Pendirian Ditjen Pesantren Dimantapkan, Para Kiai di Yogyakarta Soroti Transformasi Digital, Penguatan Karakter, dan Kepemimpinan Santri', 'pendirian-ditjen-pesantren-dimantapkan-para-kiai-di-yogyakarta-soroti-transformasi-digital-penguatan-karakter-dan-kepemimpinan-santri', 'Yogyakarta — Kementerian Agama RI menggelar Halaqah Penguatan Kelembagaan Pendirian Direktorat Jenderal Pesantren di UIN Sunan Kalijaga Yogyakarta, Kamis (27/11/2025). Forum strategis yang mempertemukan akademisi, para kiai, nyai, habib, pengasuh pesantren, dan pimpinan perguruan tinggi Islam ini menjadi ajang penghimpunan gagasan substantif sebagai fondasi pembentukan Ditjen Pesantren.
 
 Mewakili Menteri Agama, Direktur Pendidikan Tinggi Keagamaan Islam Ditjen Pendidikan Islam, Sahiron membuka halaqah sekaligus membawa kabar penting: Presiden RI telah menyetujui pendirian Direktorat Jenderal Pesantren.
 
@@ -1296,10 +1296,10 @@ Rektor UIN Sunan Kalijaga menegaskan dukungan penuh kampusnya.
 
 Rektor mengingatkan bahwa pesantren tidak hanya penjaga tradisi keilmuan Islam, tetapi juga benteng kebangsaan yang sejak dulu berkontribusi pada perjuangan dan kemerdekaan Indonesia.
 
-Halaqah ini meneguhkan komitmen pemerintah dan komunitas pesantren dalam merumuskan arah kelembagaan baru yang lebih kuat, strategis, dan relevan dengan perkembangan zaman. Semua masukan yang dihimpun akan menjadi bahan penyusunan desain kelembagaan Ditjen Pesantren, yang akan menjadi tonggak baru dalam penguatan pendidikan pesantren di Indonesia.', 'Yogyakarta — Kementerian Agama RI menggelar Halaqah Penguatan Kelembagaan Pendirian Direktorat Jenderal Pesantren di UIN Sunan Kalijaga Yogyakarta, Kamis (27/11/2025). Forum strategis yang...', 'https://kilasindonesia.com/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-28-at-14.40.18.jpeg', admin_user_id, 'PUBLISHED', 1931, '2025-11-28T07:51:31.000Z', '2025-11-28T07:51:31.000Z', '2026-02-01T00:20:45.988Z'
+Halaqah ini meneguhkan komitmen pemerintah dan komunitas pesantren dalam merumuskan arah kelembagaan baru yang lebih kuat, strategis, dan relevan dengan perkembangan zaman. Semua masukan yang dihimpun akan menjadi bahan penyusunan desain kelembagaan Ditjen Pesantren, yang akan menjadi tonggak baru dalam penguatan pendidikan pesantren di Indonesia.', 'Yogyakarta — Kementerian Agama RI menggelar Halaqah Penguatan Kelembagaan Pendirian Direktorat Jenderal Pesantren di UIN Sunan Kalijaga Yogyakarta, Kamis (27/11/2025). Forum strategis yang...', '/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-28-at-14.40.18.jpeg', admin_user_id, 'PUBLISHED', 1931, '2025-11-28T07:51:31.000Z', '2025-11-28T07:51:31.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'pendirian-ditjen-pesantren-dimantapkan-para-kiai-di-yogyakarta-soroti-transformasi-digital-penguatan-karakter-dan-kepemimpinan-santri');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2t535ne1la', 'Negara Dorong Era Baru Transformasi Pesantren, Santri Ditarget Lebih Mandiri dan Kompetitif', 'negara-dorong-era-baru-transformasi-pesantren-santri-ditarget-lebih-mandiri-dan-kompetitif', 'Makassar — Pemerintah dalam hal ini Kementerian Agama menegaskan pentingnya transformasi tata kelola pesantren sebagai agenda strategis nasional. Penegasan tersebut disampaikan Direktur Pesantren, Basnang Said, dalam Halaqah Penguatan Kelembagaan Pendirian Direktorat Jenderal Pesantren bertema “Transformasi Pendidikan Pesantren”, yang berlangsung di UIN Alauddin Makassar, Rabu (26/11/2025).
+  SELECT 'cml3059bim1cy7aud', 'Negara Dorong Era Baru Transformasi Pesantren, Santri Ditarget Lebih Mandiri dan Kompetitif', 'negara-dorong-era-baru-transformasi-pesantren-santri-ditarget-lebih-mandiri-dan-kompetitif', 'Makassar — Pemerintah dalam hal ini Kementerian Agama menegaskan pentingnya transformasi tata kelola pesantren sebagai agenda strategis nasional. Penegasan tersebut disampaikan Direktur Pesantren, Basnang Said, dalam Halaqah Penguatan Kelembagaan Pendirian Direktorat Jenderal Pesantren bertema “Transformasi Pendidikan Pesantren”, yang berlangsung di UIN Alauddin Makassar, Rabu (26/11/2025).
 
 Kegiatan yang dihadiri puluhan pimpinan pesantren dan akademisi dengan menghadirkan dua narasumber yakni Prof. Dr. K.H. Hamzah Harun Ar-Rasyid selaku Pimpinan PPTQ Halaqah Hafizhah dan Ketua Tanfidziyah PWNU Sulawesi Selatan, dan Dr. Hj. Nurfadjri Fadeli Luran, M.Pd selaku Ketua Umum Yasdic IMMIM.
 
@@ -1325,10 +1325,10 @@ Transformasi menurutnya meliputi tiga dimensi, Struktur (penguatan organisasi da
 
 Halaqah ini menjadi ruang strategis untuk merumuskan arah baru transformasi pesantren Indonesia. Diskusi para pimpinan pesantren menegaskan bahwa perubahan tidak lagi dapat ditunda. Pesantren harus memastikan santri tidak hanya kuat secara spiritual, tetapi juga kompetitif di tingkat nasional maupun global.
 
-Menutup acara, Dr. Basnang Said menyampaikan pesan tegas bahwa pesantren harus tetap kokoh pada tradisi, tetapi tidak boleh berjalan mundur dari zaman. Inilah saatnya pesantren menjadi pusat lahirnya pemimpin bangsa yang berilmu, berakhlak, dan berdaya saing.', 'Makassar — Pemerintah dalam hal ini Kementerian Agama menegaskan pentingnya transformasi tata kelola pesantren sebagai agenda strategis nasional. Penegasan tersebut disampaikan Direktur Pesantren,...', 'https://kilasindonesia.com/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-28-at-13.53.43.jpeg', admin_user_id, 'PUBLISHED', 3363, '2025-11-28T07:03:51.000Z', '2025-11-28T07:03:51.000Z', '2026-02-01T00:20:45.988Z'
+Menutup acara, Dr. Basnang Said menyampaikan pesan tegas bahwa pesantren harus tetap kokoh pada tradisi, tetapi tidak boleh berjalan mundur dari zaman. Inilah saatnya pesantren menjadi pusat lahirnya pemimpin bangsa yang berilmu, berakhlak, dan berdaya saing.', 'Makassar — Pemerintah dalam hal ini Kementerian Agama menegaskan pentingnya transformasi tata kelola pesantren sebagai agenda strategis nasional. Penegasan tersebut disampaikan Direktur Pesantren,...', '/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-28-at-13.53.43.jpeg', admin_user_id, 'PUBLISHED', 3363, '2025-11-28T07:03:51.000Z', '2025-11-28T07:03:51.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'negara-dorong-era-baru-transformasi-pesantren-santri-ditarget-lebih-mandiri-dan-kompetitif');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tq1uqdpwf', 'Transformasi Pesantren, Ulama Jawa Tengah Tekankan Rekognisi Alumni, Etika Teknologi, dan Penguatan Ruang Publik Santri', 'transformasi-pesantren-ulama-jawa-tengah-tekankan-rekognisi-alumni-etika-teknologi-dan-penguatan-ruang-publik-santri', 'Semarang — Transformasi besar dunia pesantren kembali mendapat penegasan dari para tokoh penting dalam ekosistem pesantren. Wakil Menteri Agama RI bersama KH. A. Fadhullah Turmudzi dan KH. Ubaidillah Shodaqoh menyampaikan arahan strategis mengenai masa depan pesantren, meliputi rekognisi alumni, penguatan kapasitas keilmuan, serta etika penggunaan teknologi dalam belajar.
+  SELECT 'cml3059bieyn62jip', 'Transformasi Pesantren, Ulama Jawa Tengah Tekankan Rekognisi Alumni, Etika Teknologi, dan Penguatan Ruang Publik Santri', 'transformasi-pesantren-ulama-jawa-tengah-tekankan-rekognisi-alumni-etika-teknologi-dan-penguatan-ruang-publik-santri', 'Semarang — Transformasi besar dunia pesantren kembali mendapat penegasan dari para tokoh penting dalam ekosistem pesantren. Wakil Menteri Agama RI bersama KH. A. Fadhullah Turmudzi dan KH. Ubaidillah Shodaqoh menyampaikan arahan strategis mengenai masa depan pesantren, meliputi rekognisi alumni, penguatan kapasitas keilmuan, serta etika penggunaan teknologi dalam belajar.
 
 Ketiga tokoh tersebut sepakat bahwa era baru pesantren menuntut penguatan tradisi, moral, dan kapasitas akademik, sekaligus kemampuan santri mengisi ruang digital dan ruang publik secara cerdas. Hal ini disampaikan saat Halaqah Pesantren Penguatan Kelembagaan Pendirian Direktorat Jenderal Pesantren di UIN Walisongo Semarang pada Rabu (26/11/2025).
 
@@ -1360,10 +1360,10 @@ Menurut Mbah Ubed, tantangan terbesar saat ini bukan lagi akses pengetahuan, tet
 
 “Tugas kita hari ini adalah mengontrol moral. Ilmu bisa didapat di mana saja, tetapi adab dan bimbingan kyai tidak bisa digantikan,” ungkapnya.
 
-Kementerian Agama menyambut pandangan para ulama tersebut sebagai langkah memperkuat Ditjen Pesantren dalam menyusun program rekognisi alumni, penguatan literasi digital, dan pengembangan ekosistem pembelajaran yang tetap menjaga adab, etika, dan integritas keilmuan pesantren.', 'Semarang — Transformasi besar dunia pesantren kembali mendapat penegasan dari para tokoh penting dalam ekosistem pesantren. Wakil Menteri Agama RI bersama KH. A. Fadhullah Turmudzi dan KH. Ubaidillah...', 'https://kilasindonesia.com/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-27-at-14.37.501.jpeg', admin_user_id, 'PUBLISHED', 2846, '2025-11-27T10:16:35.000Z', '2025-11-27T10:16:35.000Z', '2026-02-01T00:20:45.988Z'
+Kementerian Agama menyambut pandangan para ulama tersebut sebagai langkah memperkuat Ditjen Pesantren dalam menyusun program rekognisi alumni, penguatan literasi digital, dan pengembangan ekosistem pembelajaran yang tetap menjaga adab, etika, dan integritas keilmuan pesantren.', 'Semarang — Transformasi besar dunia pesantren kembali mendapat penegasan dari para tokoh penting dalam ekosistem pesantren. Wakil Menteri Agama RI bersama KH. A. Fadhullah Turmudzi dan KH. Ubaidillah...', '/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-27-at-14.37.501.jpeg', admin_user_id, 'PUBLISHED', 2846, '2025-11-27T10:16:35.000Z', '2025-11-27T10:16:35.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'transformasi-pesantren-ulama-jawa-tengah-tekankan-rekognisi-alumni-etika-teknologi-dan-penguatan-ruang-publik-santri');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2trsqvae6f', 'Halaqah Pesantren di UIN Malang : Momentum Penguatan Mutu dan Kemandirian Ditjen Pesantren', 'halaqah-pesantren-di-uin-malang-momentum-penguatan-mutu-dan-kemandirian-ditjen-pesantren', 'Malang (Pendis) — Gelaran Halaqah Penguatan Kelembagaan di UIN Maulana Malik Ibrahim Malang pada Senin (24/11/2025) menjadi salah satu rangkaian penting yang menegaskan komitmen berbagai pihak terhadap kemajuan pesantren di Indonesia. Dengan dukungan akademisi, pemerintah, dan komunitas pesantren, gagasan pembentukan Direktorat Jenderal Pesantren semakin mendapat legitimasi publik dan akademis.
+  SELECT 'cml3059bjf6zs2sf0', 'Halaqah Pesantren di UIN Malang : Momentum Penguatan Mutu dan Kemandirian Ditjen Pesantren', 'halaqah-pesantren-di-uin-malang-momentum-penguatan-mutu-dan-kemandirian-ditjen-pesantren', 'Malang (Pendis) — Gelaran Halaqah Penguatan Kelembagaan di UIN Maulana Malik Ibrahim Malang pada Senin (24/11/2025) menjadi salah satu rangkaian penting yang menegaskan komitmen berbagai pihak terhadap kemajuan pesantren di Indonesia. Dengan dukungan akademisi, pemerintah, dan komunitas pesantren, gagasan pembentukan Direktorat Jenderal Pesantren semakin mendapat legitimasi publik dan akademis.
 
 Kegiatan yang dipusatkan di Aula Lantai 5 Gedung Rektorat UIN Maliki Malang menegaskan komitmen untuk meningkatkan mutu pendidikan Islam dan tata kelola pesantren di Indonesia. Salah satu langkah strategis yang ditempuh adalah penyelenggaraan Halaqah bekerja sama dengan Direktorat Jenderal Pesantren Kementerian Agama RI sebagai upaya memperkuat tata kelola pesantren yang mandiri, modern, dan berkelanjutan.
 
@@ -1382,10 +1382,10 @@ Kegiatan ini dihadiri para pimpinan pesantren, ulama, akademisi, dan para pemang
 
 Halaqah ini diharapkan menjadi wadah strategis untuk membangun kolaborasi, memperkuat kapasitas kelembagaan pesantren, serta merumuskan arah kebijakan bersama untuk mendorong kemandirian pesantren dalam menghadapi tantangan zaman.
 
-Hadir sebagai narasumber Prof. Dr. KH. Asep Saifuddin Chalim, MA (Pimpinan PP Amanatul Ummah, Mojokerto), Prof. Dr. KH. Ali Masykur Musa, M.Si., M.Hum (Mudir Aly JATMAN) dan Prof. Dr. H.M. Zainuddin, MA (Guru Besar UIN Maulana Malik Ibrahim Malang).', 'Malang (Pendis) — Gelaran Halaqah Penguatan Kelembagaan di UIN Maulana Malik Ibrahim Malang pada Senin (24/11/2025) menjadi salah satu rangkaian penting yang menegaskan komitmen berbagai pihak...', 'https://kilasindonesia.com/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-25-at-05.31.02.jpeg', admin_user_id, 'PUBLISHED', 1527, '2025-11-25T06:17:45.000Z', '2025-11-25T06:17:45.000Z', '2026-02-01T00:20:45.988Z'
+Hadir sebagai narasumber Prof. Dr. KH. Asep Saifuddin Chalim, MA (Pimpinan PP Amanatul Ummah, Mojokerto), Prof. Dr. KH. Ali Masykur Musa, M.Si., M.Hum (Mudir Aly JATMAN) dan Prof. Dr. H.M. Zainuddin, MA (Guru Besar UIN Maulana Malik Ibrahim Malang).', 'Malang (Pendis) — Gelaran Halaqah Penguatan Kelembagaan di UIN Maulana Malik Ibrahim Malang pada Senin (24/11/2025) menjadi salah satu rangkaian penting yang menegaskan komitmen berbagai pihak...', '/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-25-at-05.31.02.jpeg', admin_user_id, 'PUBLISHED', 1527, '2025-11-25T06:17:45.000Z', '2025-11-25T06:17:45.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'halaqah-pesantren-di-uin-malang-momentum-penguatan-mutu-dan-kemandirian-ditjen-pesantren');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2txdd1kunh', 'Harmonisasi Tradisi dan Modernitas Warnai Gagasan Penguatan Pesantren di Sumatera Barat', 'harmonisasi-tradisi-dan-modernitas-warnai-gagasan-penguatan-pesantren-di-sumatera-barat', 'Padang – Upaya pemerintah memperkuat ekosistem pendidikan Islam melalui pembentukan Direktorat Jenderal Pesantren mendapat respons kuat dari para tokoh pesantren dan akademisi Sumatera Barat. Dalam Halaqah Penguatan Kelembagaan Pesantren yang digelar di UIN Imam Bonjol Padang, Senin (24/11), para narasumber menegaskan perlunya menjaga tradisi pesantren yang berakar pada nilai-nilai surau sekaligus mendorong modernisasi agar pesantren mampu bersaing di tingkat global. Kegiatan ini diikuti sekitar 150 perwakilan pesantren se-Sumatera Barat.
+  SELECT 'cml3059bj3h5a5kcz', 'Harmonisasi Tradisi dan Modernitas Warnai Gagasan Penguatan Pesantren di Sumatera Barat', 'harmonisasi-tradisi-dan-modernitas-warnai-gagasan-penguatan-pesantren-di-sumatera-barat', 'Padang – Upaya pemerintah memperkuat ekosistem pendidikan Islam melalui pembentukan Direktorat Jenderal Pesantren mendapat respons kuat dari para tokoh pesantren dan akademisi Sumatera Barat. Dalam Halaqah Penguatan Kelembagaan Pesantren yang digelar di UIN Imam Bonjol Padang, Senin (24/11), para narasumber menegaskan perlunya menjaga tradisi pesantren yang berakar pada nilai-nilai surau sekaligus mendorong modernisasi agar pesantren mampu bersaing di tingkat global. Kegiatan ini diikuti sekitar 150 perwakilan pesantren se-Sumatera Barat.
 
 Staf Khusus Menteri Agama Bidang Kerukunan Umat Beragama, Pengawasan, dan Kerja Sama Luar Negeri, Gugun Gumilar, membuka halaqah dengan penegasan bahwa pesantren adalah pusat ilmu sekaligus pusat peradaban yang membentuk karakter bangsa. Menurutnya, kehadiran negara melalui Ditjen Pesantren merupakan langkah strategis dalam memperkuat peran pesantren pada level nasional maupun internasional.
 
@@ -1405,10 +1405,10 @@ Rektor UIN Imam Bonjol Padang, Martin Kustati, menyatakan bahwa pesantren merupa
 
 Mewakili Direktorat Pesantren dan Ditjen Pendidikan Islam, Yusi Damayanti menegaskan bahwa pembentukan Ditjen Pesantren menjadi kebutuhan mendesak guna mengintegrasikan trifungsi pesantren: pendidikan, dakwah, dan pemberdayaan masyarakat. Ia menyampaikan bahwa pemerintah telah menunjukkan komitmen kuat melalui Hari Santri, Undang-Undang Pesantren, Keppres Pendanaan Pesantren, serta pelibatan pesantren dalam program nasional seperti Makan Bergizi Gratis dan Cek Kesehatan Gratis.
 
-Halaqah yang berlangsung di 14 PTKIN ini menjadi ruang konsolidasi penting untuk menyatukan visi pengembangan pesantren nasional. Dengan harmonisasi tradisi dan modernitas, pesantren diharapkan mampu melompat ke era baru tanpa kehilangan identitasnya sebagai pilar peradaban Nusantara.', 'Padang – Upaya pemerintah memperkuat ekosistem pendidikan Islam melalui pembentukan Direktorat Jenderal Pesantren mendapat respons kuat dari para tokoh pesantren dan akademisi Sumatera Barat. Dalam...', 'https://kilasindonesia.com/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-25-at-13.08.21.jpeg', admin_user_id, 'PUBLISHED', 5431, '2025-11-25T06:09:31.000Z', '2025-11-25T06:09:31.000Z', '2026-02-01T00:20:45.988Z'
+Halaqah yang berlangsung di 14 PTKIN ini menjadi ruang konsolidasi penting untuk menyatukan visi pengembangan pesantren nasional. Dengan harmonisasi tradisi dan modernitas, pesantren diharapkan mampu melompat ke era baru tanpa kehilangan identitasnya sebagai pilar peradaban Nusantara.', 'Padang – Upaya pemerintah memperkuat ekosistem pendidikan Islam melalui pembentukan Direktorat Jenderal Pesantren mendapat respons kuat dari para tokoh pesantren dan akademisi Sumatera Barat. Dalam...', '/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-25-at-13.08.21.jpeg', admin_user_id, 'PUBLISHED', 5431, '2025-11-25T06:09:31.000Z', '2025-11-25T06:09:31.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'harmonisasi-tradisi-dan-modernitas-warnai-gagasan-penguatan-pesantren-di-sumatera-barat');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tl7r3qxat', 'Kemenag Dorong Asosiasi Prodi Manajemen Pendidikan Islam se-Indonesia Manfaatkan Layanan Beasiswa dan Riset Kolaboratif', 'kemenag-dorong-asosiasi-prodi-manajemen-pendidikan-islam-se-indonesia-manfaatkan-layanan-beasiswa-dan-riset-kolaboratif', 'Tangerang Selatan — Kementerian Agama melalui Pusat Pembiayaan Pendidikan Agama dan Pendidikan Keagamaan (PUSPENMA), Sekretariat Jenderal mendorong agar para civitas akademika Prodi Manajemen Pendidikan Islam se-Indonesia memanfaatkan Layanan Beasiswa dan Riset Kolaboratif.
+  SELECT 'cml3059bjaezidkvf', 'Kemenag Dorong Asosiasi Prodi Manajemen Pendidikan Islam se-Indonesia Manfaatkan Layanan Beasiswa dan Riset Kolaboratif', 'kemenag-dorong-asosiasi-prodi-manajemen-pendidikan-islam-se-indonesia-manfaatkan-layanan-beasiswa-dan-riset-kolaboratif', 'Tangerang Selatan — Kementerian Agama melalui Pusat Pembiayaan Pendidikan Agama dan Pendidikan Keagamaan (PUSPENMA), Sekretariat Jenderal mendorong agar para civitas akademika Prodi Manajemen Pendidikan Islam se-Indonesia memanfaatkan Layanan Beasiswa dan Riset Kolaboratif.
 
 “Layanan beasiswa menjadi piranti penting untuk meningkatkan kualitas dosen, tenaga kependidikan sekaligus para kader yang notabenenya mahasiswa program studi Manajemen Pendidikan Islam serta alumninya”, kata Kepala PUSPENMA saat menjadi Keynote Spaker, “Pengembangan SDM MPI Melalui Layanan Beasiswa dan MoRA The Air Funds”, pada Temu Tahunan Perkumpulan Program Studi Manajemen Pendidikan Islam (PPMPI) Indonesia, Kamis (19/11/2025) di Tangerang Selatan.
 
@@ -1432,10 +1432,10 @@ UIN Syarif Hidayatullah Jakarta didapuk sebagai tuan rumah Temu Nasional PPMPI k
 
 Sementara Ketua Umum PPMPI Dr. Sri Rahmi, M.A mengatakan MPI secara nasional semakin lama semakin eksis, menjadi tempat terbaik bagi para dosen MPI untuk berkumpul dan berkolaborasi. “Kita harus optimis, beberapa anggota Perkumpulan sudah banyaj kiprahnya di sektor public dan menjadi pejabat-pejabat di kampus, bahkan ada yang menjadi Rektor UIN”, kata Sri Rahmi.
 
-Sampai berita ini diturunkan, Dr. Sri Rahmi, M.A juga terpilih kembali sebagai Ketua Umum PPMPI Periode 2025-2029, Dr. Zainal Arifin, M.Si sebagai Sekretaris Jenderal dan Dr. Febi Ismail, M.Pd sebagai Bendahara Umum. (Humas Puspenma/Ulfah)', 'Tangerang Selatan — Kementerian Agama melalui Pusat Pembiayaan Pendidikan Agama dan Pendidikan Keagamaan (PUSPENMA), Sekretariat Jenderal mendorong agar para civitas akademika Prodi Manajemen...', 'https://kilasindonesia.com/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-23-at-13.55.17.jpeg', admin_user_id, 'PUBLISHED', 2892, '2025-11-23T07:01:23.000Z', '2025-11-23T07:01:23.000Z', '2026-02-01T00:20:45.988Z'
+Sampai berita ini diturunkan, Dr. Sri Rahmi, M.A juga terpilih kembali sebagai Ketua Umum PPMPI Periode 2025-2029, Dr. Zainal Arifin, M.Si sebagai Sekretaris Jenderal dan Dr. Febi Ismail, M.Pd sebagai Bendahara Umum. (Humas Puspenma/Ulfah)', 'Tangerang Selatan — Kementerian Agama melalui Pusat Pembiayaan Pendidikan Agama dan Pendidikan Keagamaan (PUSPENMA), Sekretariat Jenderal mendorong agar para civitas akademika Prodi Manajemen...', '/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-23-at-13.55.17.jpeg', admin_user_id, 'PUBLISHED', 2892, '2025-11-23T07:01:23.000Z', '2025-11-23T07:01:23.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'kemenag-dorong-asosiasi-prodi-manajemen-pendidikan-islam-se-indonesia-manfaatkan-layanan-beasiswa-dan-riset-kolaboratif');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2t3t5nyn28', 'Menag Dapat Anugerah Penggerak Nusantara 2025 Bidang Harmoni dan Ekoteologi', 'menag-dapat-anugerah-penggerak-nusantara-2025-bidang-harmoni-dan-ekoteologi', 'Menteri Agama Nasaruddin Umar mendapat Anugerah Penggerak Nusantara 2025 di bidang Harmoni dan Ekoteologi. Penghargaan ini diberikan pada Malam Anugerah Penggerak Nusantara yang digelar iNewsTV.
+  SELECT 'cml3059bj9pks06xh', 'Menag Dapat Anugerah Penggerak Nusantara 2025 Bidang Harmoni dan Ekoteologi', 'menag-dapat-anugerah-penggerak-nusantara-2025-bidang-harmoni-dan-ekoteologi', 'Menteri Agama Nasaruddin Umar mendapat Anugerah Penggerak Nusantara 2025 di bidang Harmoni dan Ekoteologi. Penghargaan ini diberikan pada Malam Anugerah Penggerak Nusantara yang digelar iNewsTV.
 
 Penghargaan diterima langsung oleh Menteri Agama Nasaruddin Umar. Hadir mendampingi, Staf Khusus Menag bidang Pengambangan SDM dan Media Ismail Cawidu, Staff Khusus Menag bidang Kerukunan dn Layanan Keagamaan, Pengawasan dan Kerjasama Luar Negeri Gugun Gumilar, serta Kepala Biro Humas dan Komunikasi Publik Thobib Al Asyhar.
 
@@ -1457,10 +1457,10 @@ Terkait ekoteologi, Menag mengatakan bahwa menjaga kelestarian alam adalah ajara
 
 “Penghargaan ini saya dedikasikan kepada seluruh keluarga besar Kementerian Agama. Semoga ini menjadi motivasi bersama untuk terus merawat kerukunan umat dan harmoni semesta,” tandasnya.
 
-Humas dan Komunikasi Publik', 'Menteri Agama Nasaruddin Umar mendapat Anugerah Penggerak Nusantara 2025 di bidang Harmoni dan Ekoteologi. Penghargaan ini diberikan pada Malam Anugerah Penggerak Nusantara yang digelar iNewsTV....', 'https://kilasindonesia.com/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-23-at-13.44.07.jpeg', admin_user_id, 'PUBLISHED', 4228, '2025-11-23T06:48:29.000Z', '2025-11-23T06:48:29.000Z', '2026-02-01T00:20:45.988Z'
+Humas dan Komunikasi Publik', 'Menteri Agama Nasaruddin Umar mendapat Anugerah Penggerak Nusantara 2025 di bidang Harmoni dan Ekoteologi. Penghargaan ini diberikan pada Malam Anugerah Penggerak Nusantara yang digelar iNewsTV....', '/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-23-at-13.44.07.jpeg', admin_user_id, 'PUBLISHED', 4228, '2025-11-23T06:48:29.000Z', '2025-11-23T06:48:29.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'menag-dapat-anugerah-penggerak-nusantara-2025-bidang-harmoni-dan-ekoteologi');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2t8owt4n41', 'Gagas Intelektualisasi Santri, Pesantren Didorong Lahirkan Generasi Berwawasan Luas dan Adaptif', 'gagas-intelektualisasi-santri-pesantren-didorong-lahirkan-generasi-berwawasan-luas-dan-adaptif', 'Palembang – Gagasan besar tentang Intelektualisasi Santri mengemuka kuat dalam Halaqoh Penguatan Kelembagaan Pendirian Direktorat Jenderal Pesantren Kementerian Agama RI yang digelar di Auditorium Lantai 4 Gedung Perpustakaan UIN Raden Fatah Palembang, Kampus Jakabaring, Jum’at (21/11/2025). UIN Raden Fatah menjadi tuan rumah bagi forum strategis yang mempertemukan pemangku kebijakan nasional dan para pimpinan pesantren dari berbagai daerah.
+  SELECT 'cml3059bjbf35rsuu', 'Gagas Intelektualisasi Santri, Pesantren Didorong Lahirkan Generasi Berwawasan Luas dan Adaptif', 'gagas-intelektualisasi-santri-pesantren-didorong-lahirkan-generasi-berwawasan-luas-dan-adaptif', 'Palembang – Gagasan besar tentang Intelektualisasi Santri mengemuka kuat dalam Halaqoh Penguatan Kelembagaan Pendirian Direktorat Jenderal Pesantren Kementerian Agama RI yang digelar di Auditorium Lantai 4 Gedung Perpustakaan UIN Raden Fatah Palembang, Kampus Jakabaring, Jum’at (21/11/2025). UIN Raden Fatah menjadi tuan rumah bagi forum strategis yang mempertemukan pemangku kebijakan nasional dan para pimpinan pesantren dari berbagai daerah.
 
 Wakil Menteri Agama RI, Dr. KH. Romo R. Muhammad Syafi’i, S.H., M.Hum, menegaskan bahwa pesantren sejak lama menjadi pusat gerakan moral bangsa. Namun di tengah perubahan zaman, pesantren kini memikul mandat ganda: menjaga tradisi keilmuan Islam sekaligus melahirkan generasi yang unggul dalam sains, teknologi, ekonomi, kedokteran, serta disiplin ilmu kontemporer lainnya.
 
@@ -1502,10 +1502,10 @@ Menurutnya, pesantren harus mampu menjadi ruang pendidikan transformatif yang me
 
 Dari keseluruhan diskursus, menguat sebuah kesadaran kolektif bahwa pesantren tidak hanya benteng moral bangsa, tetapi juga pusat lahirnya generasi pemikir, inovator, dan ilmuwan masa depan. Intelektualisasi Santri menjadi agenda strategis yang menuntut kolaborasi serius antara pemerintah, pesantren, perguruan tinggi, dan masyarakat.
 
-Pesantren kini diposisikan bukan hanya sebagai penjaga tradisi, tetapi juga sebagai laboratorium peradaban—tempat lahirnya generasi yang memadukan kedalaman spiritual dengan keluasan pengetahuan modern, siap berkontribusi dalam lanskap global yang terus berubah.', 'Palembang – Gagasan besar tentang Intelektualisasi Santri mengemuka kuat dalam Halaqoh Penguatan Kelembagaan Pendirian Direktorat Jenderal Pesantren Kementerian Agama RI yang digelar di Auditorium...', 'https://kilasindonesia.com/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-23-at-13.28.44.jpeg', admin_user_id, 'PUBLISHED', 3508, '2025-11-23T06:36:44.000Z', '2025-11-23T06:36:44.000Z', '2026-02-01T00:20:45.988Z'
+Pesantren kini diposisikan bukan hanya sebagai penjaga tradisi, tetapi juga sebagai laboratorium peradaban—tempat lahirnya generasi yang memadukan kedalaman spiritual dengan keluasan pengetahuan modern, siap berkontribusi dalam lanskap global yang terus berubah.', 'Palembang – Gagasan besar tentang Intelektualisasi Santri mengemuka kuat dalam Halaqoh Penguatan Kelembagaan Pendirian Direktorat Jenderal Pesantren Kementerian Agama RI yang digelar di Auditorium...', '/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-23-at-13.28.44.jpeg', admin_user_id, 'PUBLISHED', 3508, '2025-11-23T06:36:44.000Z', '2025-11-23T06:36:44.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'gagas-intelektualisasi-santri-pesantren-didorong-lahirkan-generasi-berwawasan-luas-dan-adaptif');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2txv1cval9', 'British Council dan Kementerian Agama Perkuat Hubungan Melalui Kolaborasi di Bidang Pendidikan dan Kerukunan Antarumat Beragama', 'british-council-dan-kementerian-agama-perkuat-hubungan-melalui-kolaborasi-di-bidang-pendidikan-dan-kerukunan-antarumat-beragama', 'Jakarta (Pendis) – British Council dan Kementerian Agama Republik Indonesia (Kemenag) memperkuat kolaborasi mereka melalui penandatanganan Nota Kesepahaman (MoU) untuk meningkatkan pengajaran Bahasa Inggris dan memperluas akses terhadap peluang pendidikan internasional. Penandatanganan ini dilakukan dalam acara Forum Pendidikan UK–Kemenag: Connecting Opportunities, Creating Impact, yang diselenggarakan di Jakarta, Senin (20/11/2025).
+  SELECT 'cml3059bjzzbxt2ab', 'British Council dan Kementerian Agama Perkuat Hubungan Melalui Kolaborasi di Bidang Pendidikan dan Kerukunan Antarumat Beragama', 'british-council-dan-kementerian-agama-perkuat-hubungan-melalui-kolaborasi-di-bidang-pendidikan-dan-kerukunan-antarumat-beragama', 'Jakarta (Pendis) – British Council dan Kementerian Agama Republik Indonesia (Kemenag) memperkuat kolaborasi mereka melalui penandatanganan Nota Kesepahaman (MoU) untuk meningkatkan pengajaran Bahasa Inggris dan memperluas akses terhadap peluang pendidikan internasional. Penandatanganan ini dilakukan dalam acara Forum Pendidikan UK–Kemenag: Connecting Opportunities, Creating Impact, yang diselenggarakan di Jakarta, Senin (20/11/2025).
 
 “MoU yang kita tanda tangani hari ini bukan sekadar perjanjian formal. Dokumen ini mencerminkan keyakinan kolektif bahwa peningkatan kualitas guru, peningkatan peluang global, dan penguatan lembaga pendidikan merupakan hal yang esensial untuk mewujudkan visi Kementerian, yaitu Maju, Bermutu, Mendunia. Ini adalah tujuan yang ambisius, dan pencapaiannya membutuhkan kemitraan internasional yang kuat. Karena itu, kami berterima kasih kepada Pemerintah Britania Raya, melalui British Council, yang terus mendampingi kami dalam perjalanan ini,” Sekretaris Jenderal Kementerian Agama Republik Indonesia, Kamaruddin Amin dalam sambutannya.
 
@@ -1522,10 +1522,10 @@ Duta Besar Inggris untuk Indonesia, Dominic Jermey, menambahkan:
 
 Pendidikan adalah salah satu pilar utama di dalam Kemitraan Strategis Inggris–Indonesia yang akan ditandatangani oleh Presiden Prabowo dan Perdana Menteri Sir Keir Starmer awal tahun depan, dan perjanjian hari ini mencerminkan komitmen bersama kita untuk membangun lingkungan belajar yang inklusif dan berkualitas tinggi, yang membuka pintu bagi generasi mendatang. Inggris bangga mendukung visi Indonesia dalam memajukan pendidikan dan mempromosikan dialog lintas budaya. Bersama, kita akan terus menciptakan peluang yang memperkaya kehidupan dan mempererat hubungan antara masyarakat kedua negara. Diplomasi, Kolaborasi, Prestasi!”
 
-Turut hadir Sekretaris Jenderal Kemenag RI, Kamaruddin Amin, Dominic Jermey, Duta Besar Inggris untuk Indonesia; Summer Xia, Direktur British Council untuk Indonesia dan Asia Tenggara, Sekretaris Ditjen Pendidikan Islams, M. Arskal Salim GP, Direktur Perguruan Tinggi Keagamaan Islam, Sahiron beserta jajaran terkait.', 'Jakarta (Pendis) – British Council dan Kementerian Agama Republik Indonesia (Kemenag) memperkuat kolaborasi mereka melalui penandatanganan Nota Kesepahaman (MoU) untuk meningkatkan pengajaran Bahasa...', 'https://kilasindonesia.com/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-23-at-13.20.23.jpeg', admin_user_id, 'PUBLISHED', 1698, '2025-11-23T06:22:29.000Z', '2025-11-23T06:22:29.000Z', '2026-02-01T00:20:45.988Z'
+Turut hadir Sekretaris Jenderal Kemenag RI, Kamaruddin Amin, Dominic Jermey, Duta Besar Inggris untuk Indonesia; Summer Xia, Direktur British Council untuk Indonesia dan Asia Tenggara, Sekretaris Ditjen Pendidikan Islams, M. Arskal Salim GP, Direktur Perguruan Tinggi Keagamaan Islam, Sahiron beserta jajaran terkait.', 'Jakarta (Pendis) – British Council dan Kementerian Agama Republik Indonesia (Kemenag) memperkuat kolaborasi mereka melalui penandatanganan Nota Kesepahaman (MoU) untuk meningkatkan pengajaran Bahasa...', '/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-23-at-13.20.23.jpeg', admin_user_id, 'PUBLISHED', 1698, '2025-11-23T06:22:29.000Z', '2025-11-23T06:22:29.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'british-council-dan-kementerian-agama-perkuat-hubungan-melalui-kolaborasi-di-bidang-pendidikan-dan-kerukunan-antarumat-beragama');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tpjmpqth0', 'Majelis Taklim Datokarama Menggelar Haul Ke-21 KH. Mansyur Muchtar Perintis FDKI UIN Palu', 'majelis-taklim-datokarama-menggelar-haul-ke-21-kh-mansyur-muchtar-perintis-fdki-uin-palu', 'Palu — Haul ke-21 dan doa untuk perintis Fakultas Dakwah UIN Datokarama Palu, almarhum Drs. KH. Mansyur Muchtar, digelar khidmat dalam Rutinan Majelis Taklim Datokarama pada Minggu (16/11/2025). Kegiatan tersebut berlangsung di Kedai Taman Ria, Jalan Diponegoro, Kecamatan Palu Barat, mulai pukul 19.00 Wita hingga selesai.
+  SELECT 'cml3059bjskz8d7cr', 'Majelis Taklim Datokarama Menggelar Haul Ke-21 KH. Mansyur Muchtar Perintis FDKI UIN Palu', 'majelis-taklim-datokarama-menggelar-haul-ke-21-kh-mansyur-muchtar-perintis-fdki-uin-palu', 'Palu — Haul ke-21 dan doa untuk perintis Fakultas Dakwah UIN Datokarama Palu, almarhum Drs. KH. Mansyur Muchtar, digelar khidmat dalam Rutinan Majelis Taklim Datokarama pada Minggu (16/11/2025). Kegiatan tersebut berlangsung di Kedai Taman Ria, Jalan Diponegoro, Kecamatan Palu Barat, mulai pukul 19.00 Wita hingga selesai.
 
 Acara diawali dengan pembacaan tahlil dan doa untuk almarhum, dilanjutkan dengan Maulid, ceramah agama oleh Da’i Cilik An Naqib dan Wakil Dekan I FDKI, Mokh Ulil Hidayat S.Ag., M.Fil.I, serta pembacaan manaqib atau riwayat singkat KH. Mansyur Muchtar.
 
@@ -1545,10 +1545,10 @@ Ia juga menegaskan pentingnya kesungguhan seluruh civitas akademika dalam memban
 
 “Mahasiswa Dakwah memiliki identitas dan harus menjadi teladan. Dari sisi penampilan, mahasiswi harus memakai rok dan pakaian yang menutupi lekuk tubuh. Tidak boleh ada mahasiswi FDKI yang mengenakan celana, karena kita adalah Fakultas Dakwah,” dikutip dari Adam dalam sambutannya
 
-Kegiatan rutinan tersebut ditutup dengan perayaan hari lahir AKBP Muhammad Ilham SH., S.IK., MH, salah satu putra almarhum KH. Mansyur Muchtar.', 'Palu — Haul ke-21 dan doa untuk perintis Fakultas Dakwah UIN Datokarama Palu, almarhum Drs. KH. Mansyur Muchtar, digelar khidmat dalam Rutinan Majelis Taklim Datokarama pada Minggu (16/11/2025)....', 'https://kilasindonesia.com/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-21-at-19.32.16.jpeg', admin_user_id, 'PUBLISHED', 5206, '2025-11-21T14:51:16.000Z', '2025-11-21T14:51:16.000Z', '2026-02-01T00:20:45.988Z'
+Kegiatan rutinan tersebut ditutup dengan perayaan hari lahir AKBP Muhammad Ilham SH., S.IK., MH, salah satu putra almarhum KH. Mansyur Muchtar.', 'Palu — Haul ke-21 dan doa untuk perintis Fakultas Dakwah UIN Datokarama Palu, almarhum Drs. KH. Mansyur Muchtar, digelar khidmat dalam Rutinan Majelis Taklim Datokarama pada Minggu (16/11/2025)....', '/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-21-at-19.32.16.jpeg', admin_user_id, 'PUBLISHED', 5206, '2025-11-21T14:51:16.000Z', '2025-11-21T14:51:16.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'majelis-taklim-datokarama-menggelar-haul-ke-21-kh-mansyur-muchtar-perintis-fdki-uin-palu');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2t0e9fawlf', 'Menag Dorong Kajian Ontologi Pendidikan sebagai Rumusan Arah Baru Pesantren', 'menag-dorong-kajian-ontologi-pendidikan-sebagai-rumusan-arah-baru-pesantren', 'andung — Menteri Agama Nasaruddin Umar menegaskan perlunya perumusan yang komprehensif sebelum Direktorat Jenderal Pesantren resmi berjalan sebagai satuan kerja Eselon I di Kementerian Agama. Ia menekankan bahwa fondasi konseptual lembaga baru ini harus dibangun melalui kajian ontologis tiga arus besar pendidikan: sekuler, pendidikan Islam, dan pendidikan pesantren.
+  SELECT 'cml3059bjroq6j60r', 'Menag Dorong Kajian Ontologi Pendidikan sebagai Rumusan Arah Baru Pesantren', 'menag-dorong-kajian-ontologi-pendidikan-sebagai-rumusan-arah-baru-pesantren', 'andung — Menteri Agama Nasaruddin Umar menegaskan perlunya perumusan yang komprehensif sebelum Direktorat Jenderal Pesantren resmi berjalan sebagai satuan kerja Eselon I di Kementerian Agama. Ia menekankan bahwa fondasi konseptual lembaga baru ini harus dibangun melalui kajian ontologis tiga arus besar pendidikan: sekuler, pendidikan Islam, dan pendidikan pesantren.
 
 Dalam pidato kuncinya pada Halaqah Penguatan Kelembagaan Ditjen Pesantren di Kampus II UIN Sunan Gunung Djati Bandung, Jumat (21/11/2025), Menag menyebut Ditjen Pesantren sebagai “cek kosong” yang memerlukan pengisian matang agar tidak melahirkan kebijakan prematur. “Road map pesantren dan pendidikan Islam harus jelas. Jangan sampai jalannya sama, tetapi memakai nama berbeda,” tegasnya.
 
@@ -1574,10 +1574,10 @@ Integrasi ketiganya dipandang sangat relevan untuk membentuk santri yang kuat se
 
 Halaqah ini menjadi bagian dari langkah Kementerian Agama menyiapkan kerangka besar Ditjen Pesantren sebagai institusi yang akan menangani pembinaan pesantren secara nasional. Melalui kajian ontologi pendidikan, pemerintah berharap penyusunan kebijakan tidak hanya responsif terhadap kebutuhan masyarakat, tetapi juga berakar pada tradisi keilmuan yang telah menghidupi pesantren berabad-abad lamanya.
 
-Turut hadir sebagai narasumber Prof. Dr. K.H. Said Aqil Siradj, M.A., Hj. Alissa Qutrotunnada Wahid, M.Psi (Direktur Nasional Gusdurian Indonesia), Dr. K.H. Aziz Afandi (Pimpinan Ponpes Miftahul Huda Tasikmalaya) serta Dr. K.H. Abun Bunyamin, M.A. (Pimpinan Ponpes Al-Muhajirin Purwakarta).', 'andung — Menteri Agama Nasaruddin Umar menegaskan perlunya perumusan yang komprehensif sebelum Direktorat Jenderal Pesantren resmi berjalan sebagai satuan kerja Eselon I di Kementerian Agama. Ia...', 'https://kilasindonesia.com/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-05-at-01.17.37.jpeg', admin_user_id, 'PUBLISHED', 893, '2025-11-21T12:57:52.000Z', '2025-11-21T12:57:52.000Z', '2026-02-01T00:20:45.988Z'
+Turut hadir sebagai narasumber Prof. Dr. K.H. Said Aqil Siradj, M.A., Hj. Alissa Qutrotunnada Wahid, M.Psi (Direktur Nasional Gusdurian Indonesia), Dr. K.H. Aziz Afandi (Pimpinan Ponpes Miftahul Huda Tasikmalaya) serta Dr. K.H. Abun Bunyamin, M.A. (Pimpinan Ponpes Al-Muhajirin Purwakarta).', 'andung — Menteri Agama Nasaruddin Umar menegaskan perlunya perumusan yang komprehensif sebelum Direktorat Jenderal Pesantren resmi berjalan sebagai satuan kerja Eselon I di Kementerian Agama. Ia...', '/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-05-at-01.17.37.jpeg', admin_user_id, 'PUBLISHED', 893, '2025-11-21T12:57:52.000Z', '2025-11-21T12:57:52.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'menag-dorong-kajian-ontologi-pendidikan-sebagai-rumusan-arah-baru-pesantren');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2t0flj52vu', 'Kemenag Matangkan Pembentukan Ditjen Pesantren sebagai Penguat Moderasi, Inklusivitas, dan Mutu Pendidikan Pesantren', 'kemenag-matangkan-pembentukan-ditjen-pesantren', 'Tulungagung — Upaya Kementerian Agama dalam memperkuat tata kelola pendidikan pesantren memasuki tahap strategis dengan dimatangkannya rencana pembentukan Direktorat Jenderal Pesantren. Langkah ini dinilai sebagai momentum penting bagi peningkatan mutu pendidikan pesantren yang selama berabad-abad menjadi pilar peradaban Islam di Indonesia.
+  SELECT 'cml3059bj986b0e8z', 'Kemenag Matangkan Pembentukan Ditjen Pesantren sebagai Penguat Moderasi, Inklusivitas, dan Mutu Pendidikan Pesantren', 'kemenag-matangkan-pembentukan-ditjen-pesantren', 'Tulungagung — Upaya Kementerian Agama dalam memperkuat tata kelola pendidikan pesantren memasuki tahap strategis dengan dimatangkannya rencana pembentukan Direktorat Jenderal Pesantren. Langkah ini dinilai sebagai momentum penting bagi peningkatan mutu pendidikan pesantren yang selama berabad-abad menjadi pilar peradaban Islam di Indonesia.
 
 Dalam Halaqah Penguatan Pendirian Pesantren di UIN Tulungagung, Direktur Pesantren Kementerian Agama, Basnang Said, menegaskan bahwa kehadiran Direktorat Jenderal Pesantren merupakan kebutuhan mendesak agar pesantren memiliki ruang kelembagaan yang sebanding dengan peran historis dan kontribusi besarnya terhadap bangsa.
 
@@ -1611,10 +1611,10 @@ Kementerian Agama memastikan proses finalisasi pembentukan Direktorat Jenderal P
 
 Dengan langkah ini, pemerintah berharap pesantren semakin siap menghadapi tantangan global, memperkuat tradisi keilmuan, dan melahirkan generasi yang berkarakter moderat, inklusif, serta berkontribusi bagi Indonesia Emas 2045.
 
-“Pesantren masa depan harus berakar pada tradisi, tetapi juga mampu bergerak maju mengikuti perkembangan zaman. Itulah misi besar yang ingin kita wujudkan bersama,” tutup Basnang.', 'Tulungagung — Upaya Kementerian Agama dalam memperkuat tata kelola pendidikan pesantren memasuki tahap strategis dengan dimatangkannya rencana pembentukan Direktorat Jenderal Pesantren. Langkah ini...', 'https://kilasindonesia.com/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-20-at-21.04.54.jpeg', admin_user_id, 'PUBLISHED', 1051, '2025-11-20T14:54:32.000Z', '2025-11-20T14:54:32.000Z', '2026-02-01T00:20:45.988Z'
+“Pesantren masa depan harus berakar pada tradisi, tetapi juga mampu bergerak maju mengikuti perkembangan zaman. Itulah misi besar yang ingin kita wujudkan bersama,” tutup Basnang.', 'Tulungagung — Upaya Kementerian Agama dalam memperkuat tata kelola pendidikan pesantren memasuki tahap strategis dengan dimatangkannya rencana pembentukan Direktorat Jenderal Pesantren. Langkah ini...', '/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-20-at-21.04.54.jpeg', admin_user_id, 'PUBLISHED', 1051, '2025-11-20T14:54:32.000Z', '2025-11-20T14:54:32.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'kemenag-matangkan-pembentukan-ditjen-pesantren');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tyvgkj8gu', 'Kemenag Kolaborasi dengan LPDP Gelar Penguatan Moderasi Beragama di 4 Perguruan Tinggi Keagamaan', 'kemenag-kolaborasi-lpdp-penguatan-moderasi-beragama', 'Jakarta—Kementerian agama melalui Pusat Pembiayaan Pendidikan Agama dan Pendidikan Keagamaan (PUSPENMA) Sekretariat Jenderal berkolaborasi dengan Lembaga Pengelola Dana Pendidikan (LPDP), menggelar Penguatan Moderasi Beragama di empat Perguruan Tinggi Keagamaan (PTK).
+  SELECT 'cml3059bj0v3cyali', 'Kemenag Kolaborasi dengan LPDP Gelar Penguatan Moderasi Beragama di 4 Perguruan Tinggi Keagamaan', 'kemenag-kolaborasi-lpdp-penguatan-moderasi-beragama', 'Jakarta—Kementerian agama melalui Pusat Pembiayaan Pendidikan Agama dan Pendidikan Keagamaan (PUSPENMA) Sekretariat Jenderal berkolaborasi dengan Lembaga Pengelola Dana Pendidikan (LPDP), menggelar Penguatan Moderasi Beragama di empat Perguruan Tinggi Keagamaan (PTK).
 
 Empat perguruan tinggi penyelenggara (PTP) sebagai Mitra Kementerian Agama tersebut adalah UIN Syarif Hidayatullah Jakarta, UIN Sunan Gunungdjati Bandung, UIN Sunan Kudus dan UIN Sayyid Ali Rahmatullah (UIN SATU) Tulungagung.
 
@@ -1636,10 +1636,10 @@ Rosikhon menegaskan apa yang dilakukan oleh Kemenag melalui Puspenma adalah bent
 
 Kepala Pusat Rumah Moderasi Beragama UIN Jakarta Prof. Dr. Arif Zamhari, M.A memberikan apresiasi atas penyelenggaraan penguatan moderasi beragama yang merupakan kolaborasi Kemenag dengan LPDP. “Kami berterimakasih komitmen Kemenag dan LPDP mencetak para aktivis penggerak moderasi beragama, yang akan berada di garda terdepan pengarusutamaan nilai-nilai agama yang moderat”, katanya.
 
-“Para peserta sangat antusias dan siap mengawal Islam yang rahmatan lil ‘alamin di tengah Indon esia yang multikultural”, tegas Arif. (Maria Ulfah)', 'Jakarta—Kementerian agama melalui Pusat Pembiayaan Pendidikan Agama dan Pendidikan Keagamaan (PUSPENMA) Sekretariat Jenderal berkolaborasi dengan Lembaga Pengelola Dana Pendidikan (LPDP), menggelar...', 'https://kilasindonesia.com/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-19-at-15.00.14.jpeg', admin_user_id, 'PUBLISHED', 4680, '2025-11-19T11:07:35.000Z', '2025-11-19T11:07:35.000Z', '2026-02-01T00:20:45.988Z'
+“Para peserta sangat antusias dan siap mengawal Islam yang rahmatan lil ‘alamin di tengah Indon esia yang multikultural”, tegas Arif. (Maria Ulfah)', 'Jakarta—Kementerian agama melalui Pusat Pembiayaan Pendidikan Agama dan Pendidikan Keagamaan (PUSPENMA) Sekretariat Jenderal berkolaborasi dengan Lembaga Pengelola Dana Pendidikan (LPDP), menggelar...', '/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-19-at-15.00.14.jpeg', admin_user_id, 'PUBLISHED', 4680, '2025-11-19T11:07:35.000Z', '2025-11-19T11:07:35.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'kemenag-kolaborasi-lpdp-penguatan-moderasi-beragama');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2ttr2ygmsj', 'Kongres Rohis Nasional I 2025 Ditutup, Terpilih Presiden Rohis Indonesia Pertama dan Arah Baru Pembinaan Pelajar Muslim', 'kongres-rohis-nasional-i-2025-ditutup-terpilih-presiden-rohis-indonesia-pertama-dan-arah-baru-pembinaan-pelajar-muslim', '<p style="text-align: left;">KILAS INDONESIA — Untuk pertama kalinya dalam sejarah, Indonesia resmi memiliki Presiden Rohis Indonesia. Muhamad Ridanara Adiyatma, delegasi dari Jawa Tengah, terpilih melalui mekanisme e-voting dalam Kongres Rohis Nasional I 2025 yang diselenggarakan di Jakarta, 12-15 November 2025. Kongres perdana ini menjadi momentum strategis yang memayungi arah pembinaan Rohani Islam di sekolah umum seluruh Indonesia.</p>
+  SELECT 'cml3059bjx8rb2izo', 'Kongres Rohis Nasional I 2025 Ditutup, Terpilih Presiden Rohis Indonesia Pertama dan Arah Baru Pembinaan Pelajar Muslim', 'kongres-rohis-nasional-i-2025-ditutup-terpilih-presiden-rohis-indonesia-pertama-dan-arah-baru-pembinaan-pelajar-muslim', '<p style="text-align: left;">KILAS INDONESIA — Untuk pertama kalinya dalam sejarah, Indonesia resmi memiliki Presiden Rohis Indonesia. Muhamad Ridanara Adiyatma, delegasi dari Jawa Tengah, terpilih melalui mekanisme e-voting dalam Kongres Rohis Nasional I 2025 yang diselenggarakan di Jakarta, 12-15 November 2025. Kongres perdana ini menjadi momentum strategis yang memayungi arah pembinaan Rohani Islam di sekolah umum seluruh Indonesia.</p>
 Kongres yang mempertemukan ratusan peserta muslim yang tergabung dalam organisasi Rohis dari seluruh provinsi ini menandai keseriusan pemerintah dalam membangun ekosistem kepemimpinan pelajar yang modern, inklusif, dan berintegritas. Dari total 306 peserta, 34 ketua Rohis provinsi tercatat sebagai pemilik suara sah, sekaligus menentukan masa depan kepemimpinan Rohis nasional.
 
 Menteri Agama Nasaruddin Umar menegaskan bahwa kepemimpinan sejati tidak hanya dibangun dari kecerdasan, tetapi juga keluhuran akhlak dan kerendahan hati.
@@ -1668,10 +1668,10 @@ Kemenag menegaskan bahwa Kongres Rohis Nasional I adalah investasi jangka panjan
 
 Dirjen Pendis menyimpulkan, “Kongres ini bukan sekadar pertemuan. Ini adalah pijakan penting lahirnya generasi muslim yang cerdas, moderat, adaptif, dan siap memimpin perubahan.”
 
-Dengan terpilihnya Presiden Rohis Indonesia pertama, babak baru pembinaan pelajar muslim resmi dimulai. Sebuah langkah bersejarah yang tidak hanya memperkuat organisasi Rohis di sekolah, tetapi juga mengokohkan komitmen negara dalam menyiapkan pemimpin masa depan yang berilmu, berakhlak, dan berwawasan luas.', 'KILAS INDONESIA — Untuk pertama kalinya dalam sejarah, Indonesia resmi memiliki Presiden Rohis Indonesia. Muhamad Ridanara Adiyatma, delegasi dari Jawa Tengah, terpilih melalui mekanisme e-voting...', 'https://kilasindonesia.com/wp-content/uploads/2025/11/IMG-20251117-WA0003.jpg', admin_user_id, 'PUBLISHED', 946, '2025-11-16T23:08:08.000Z', '2025-11-16T23:08:08.000Z', '2026-02-01T00:20:45.988Z'
+Dengan terpilihnya Presiden Rohis Indonesia pertama, babak baru pembinaan pelajar muslim resmi dimulai. Sebuah langkah bersejarah yang tidak hanya memperkuat organisasi Rohis di sekolah, tetapi juga mengokohkan komitmen negara dalam menyiapkan pemimpin masa depan yang berilmu, berakhlak, dan berwawasan luas.', 'KILAS INDONESIA — Untuk pertama kalinya dalam sejarah, Indonesia resmi memiliki Presiden Rohis Indonesia. Muhamad Ridanara Adiyatma, delegasi dari Jawa Tengah, terpilih melalui mekanisme e-voting...', '/wp-content/uploads/2025/11/IMG-20251117-WA0003.jpg', admin_user_id, 'PUBLISHED', 946, '2025-11-16T23:08:08.000Z', '2025-11-16T23:08:08.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'kongres-rohis-nasional-i-2025-ditutup-terpilih-presiden-rohis-indonesia-pertama-dan-arah-baru-pembinaan-pelajar-muslim');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2txylww05e', 'UIN Mataram Tegaskan Peran Strategis dalam Penguatan Ekosistem Pesantren dan Riset Manuskrip Nusantara', 'uin-mataram-tegaskan-peran-strategis-dalam-penguatan-ekosistem-pesantren-dan-riset-manuskrip-nusantara', 'Mataram — Serangkaian kegiatan halaqah tingkat nasional yang digelar di Universitas Islam Negeri (UIN) Mataram, Sabtu (15/11/2025), menegaskan arah baru pembangunan ekosistem pesantren di Indonesia. Forum yang menghadirkan tokoh nasional, akademisi, hingga pimpinan pesantren dari berbagai daerah ini merumuskan pentingnya sinergi antara pesantren dan perguruan tinggi untuk memperkuat mutu pendidikan Islam sekaligus merawat kekayaan intelektual Nusantara.
+  SELECT 'cml3059bjvnqzm2yr', 'UIN Mataram Tegaskan Peran Strategis dalam Penguatan Ekosistem Pesantren dan Riset Manuskrip Nusantara', 'uin-mataram-tegaskan-peran-strategis-dalam-penguatan-ekosistem-pesantren-dan-riset-manuskrip-nusantara', 'Mataram — Serangkaian kegiatan halaqah tingkat nasional yang digelar di Universitas Islam Negeri (UIN) Mataram, Sabtu (15/11/2025), menegaskan arah baru pembangunan ekosistem pesantren di Indonesia. Forum yang menghadirkan tokoh nasional, akademisi, hingga pimpinan pesantren dari berbagai daerah ini merumuskan pentingnya sinergi antara pesantren dan perguruan tinggi untuk memperkuat mutu pendidikan Islam sekaligus merawat kekayaan intelektual Nusantara.
 
 Halaqah yang dibuka oleh Kasubdit Pendidikan Ma’had Aly, Dr. Mahrus, mewakili Dirjen Pendidikan Islam, menjadi panggung bagi UIN Mataram dalam menunjukkan komitmen jangka panjangnya untuk menjadi pusat studi pesantren dan manuskrip Nusantara.
 
@@ -1697,10 +1697,10 @@ Dalam konteks inilah, keberadaan Pustunastren dipandang sebagai tonggak penting.
 
 Kegiatan halaqah ditutup dengan penegasan kolaborasi antara Kementerian Agama dan UIN Mataram untuk memperkuat mutu pendidikan, riset, serta pengabdian masyarakat berbasis pesantren. UIN Mataram disebut siap menjadi salah satu kampus PTKIN paling aktif dalam mengembangkan inovasi akademik yang berakar pada khazanah intelektual Nusantara.
 
-Dengan langkah ini, UIN Mataram menempatkan diri di garis depan upaya nasional membangun pendidikan Islam yang inklusif, riset-driven, dan berdaya saing global—seraya tetap menjejak kuat pada tradisi dan identitas pesantren yang selama ratusan tahun menjadi penyangga peradaban Islam Indonesia.', 'Mataram — Serangkaian kegiatan halaqah tingkat nasional yang digelar di Universitas Islam Negeri (UIN) Mataram, Sabtu (15/11/2025), menegaskan arah baru pembangunan ekosistem pesantren di Indonesia....', 'https://kilasindonesia.com/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-05-at-01.11.51.jpeg', admin_user_id, 'PUBLISHED', 4270, '2025-11-16T07:52:11.000Z', '2025-11-16T07:52:11.000Z', '2026-02-01T00:20:45.988Z'
+Dengan langkah ini, UIN Mataram menempatkan diri di garis depan upaya nasional membangun pendidikan Islam yang inklusif, riset-driven, dan berdaya saing global—seraya tetap menjejak kuat pada tradisi dan identitas pesantren yang selama ratusan tahun menjadi penyangga peradaban Islam Indonesia.', 'Mataram — Serangkaian kegiatan halaqah tingkat nasional yang digelar di Universitas Islam Negeri (UIN) Mataram, Sabtu (15/11/2025), menegaskan arah baru pembangunan ekosistem pesantren di Indonesia....', '/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-05-at-01.11.51.jpeg', admin_user_id, 'PUBLISHED', 4270, '2025-11-16T07:52:11.000Z', '2025-11-16T07:52:11.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'uin-mataram-tegaskan-peran-strategis-dalam-penguatan-ekosistem-pesantren-dan-riset-manuskrip-nusantara');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2t33guryvo', 'Halaqah UIN Raden Intan Lampung Dorong Pembentukan Ditjen Pesantren sebagai Penguat Ekosistem Pesantren', 'halaqah-uin-raden-intan-lampung-dorong-pembentukan-ditjen-pesantren-sebagai-penguat-ekosistem-pesantren', 'Lampung — Halaqah Penguatan Kelembagaan yang digelar di UIN Raden Intan Lampung, Sabtu (15/11/2025), melahirkan satu benang merah yaitu pembentukan Direktorat Jenderal Pesantren merupakan kebutuhan mendesak bagi masa depan ekosistem pesantren di Indonesia. Inilah inti utama yang mengikat seluruh pandangan para ulama, akademisi, dan pimpinan pesantren dalam forum tersebut.
+  SELECT 'cml3059bjkxcqx32h', 'Halaqah UIN Raden Intan Lampung Dorong Pembentukan Ditjen Pesantren sebagai Penguat Ekosistem Pesantren', 'halaqah-uin-raden-intan-lampung-dorong-pembentukan-ditjen-pesantren-sebagai-penguat-ekosistem-pesantren', 'Lampung — Halaqah Penguatan Kelembagaan yang digelar di UIN Raden Intan Lampung, Sabtu (15/11/2025), melahirkan satu benang merah yaitu pembentukan Direktorat Jenderal Pesantren merupakan kebutuhan mendesak bagi masa depan ekosistem pesantren di Indonesia. Inilah inti utama yang mengikat seluruh pandangan para ulama, akademisi, dan pimpinan pesantren dalam forum tersebut.
 
 Acara yang menghadirkan para pimpinan pesantren, ulama, akademisi, serta pejabat Kementerian Agama ini memantik diskusi mendalam mengenai urgensi pembentukan Direktorat Jenderal Pesantren sebagai institusi yang fokus, komprehensif, dan berdaya dorong kuat dalam mengelola tata kelola pesantren di era transformasi digital.
 
@@ -1726,10 +1726,10 @@ Ia menegaskan bahwa penguatan kelembagaan pesantren harus bertumpu pada tiga fun
 
 “Karena itu, Ditjen Pesantren bukan sekadar kebutuhan, tetapi keniscayaan bagi masa depan pendidikan Islam di Indonesia,” tandasnya.
 
-Halaqah di UIN Raden Intan Lampung ini akhirnya meneguhkan satu pesan kuat yaitu ekosistem pesantren membutuhkan ruang kebijakan yang lebih kokoh agar mampu menjaga tradisi sekaligus memimpin transformasi. Pendirian Ditjen Pesantren dipandang sebagai tonggak penting menuju tata kelola pesantren yang modern, berdaya saing, namun tetap berakar pada turats keilmuan yang telah membentuk peradaban Islam di Nusantara.', 'Lampung — Halaqah Penguatan Kelembagaan yang digelar di UIN Raden Intan Lampung, Sabtu (15/11/2025), melahirkan satu benang merah yaitu pembentukan Direktorat Jenderal Pesantren merupakan kebutuhan...', 'https://kilasindonesia.com/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-04-at-23.23.35.jpeg', admin_user_id, 'PUBLISHED', 1658, '2025-11-16T05:48:57.000Z', '2025-11-16T05:48:57.000Z', '2026-02-01T00:20:45.988Z'
+Halaqah di UIN Raden Intan Lampung ini akhirnya meneguhkan satu pesan kuat yaitu ekosistem pesantren membutuhkan ruang kebijakan yang lebih kokoh agar mampu menjaga tradisi sekaligus memimpin transformasi. Pendirian Ditjen Pesantren dipandang sebagai tonggak penting menuju tata kelola pesantren yang modern, berdaya saing, namun tetap berakar pada turats keilmuan yang telah membentuk peradaban Islam di Nusantara.', 'Lampung — Halaqah Penguatan Kelembagaan yang digelar di UIN Raden Intan Lampung, Sabtu (15/11/2025), melahirkan satu benang merah yaitu pembentukan Direktorat Jenderal Pesantren merupakan kebutuhan...', '/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-04-at-23.23.35.jpeg', admin_user_id, 'PUBLISHED', 1658, '2025-11-16T05:48:57.000Z', '2025-11-16T05:48:57.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'halaqah-uin-raden-intan-lampung-dorong-pembentukan-ditjen-pesantren-sebagai-penguat-ekosistem-pesantren');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tbu35kbxe', 'Ulama Kalimantan Menekankan Standarisasi Kitab Kuning, Sertifikasi Guru, dan Arah Kebijakan Direktorat Jenderal Pesantren', 'ulama-kalimantan-menekankan-standarisasi-kitab-kuning-sertifikasi-guru-dan-arah-kebijakan-direktorat-jenderal-pesantren', 'Banjarmasin (Kemenag) - Agenda penguatan mutu pesantren memasuki fase penting setelah pemerintah menyiapkan pembentukan Direktorat Jenderal Pesantren. Isu ini menjadi titik bahasan utama dalam Halaqah Pesantren Penguatan Kelembagaan Pendirian Direktorat Jenderal Pesantren yang digelar di UIN Antasari Banjarmasin, Jumat (14/11/2025). Dua narasumber, KH Wildan Salman dan Prof Dr Mujiburrahman, menekankan perlunya standardisasi keilmuan tanpa menghilangkan kemandirian pesantren sebagai lembaga pendidikan tertua di Indonesia.
+  SELECT 'cml3059bj1rrmpekg', 'Ulama Kalimantan Menekankan Standarisasi Kitab Kuning, Sertifikasi Guru, dan Arah Kebijakan Direktorat Jenderal Pesantren', 'ulama-kalimantan-menekankan-standarisasi-kitab-kuning-sertifikasi-guru-dan-arah-kebijakan-direktorat-jenderal-pesantren', 'Banjarmasin (Kemenag) - Agenda penguatan mutu pesantren memasuki fase penting setelah pemerintah menyiapkan pembentukan Direktorat Jenderal Pesantren. Isu ini menjadi titik bahasan utama dalam Halaqah Pesantren Penguatan Kelembagaan Pendirian Direktorat Jenderal Pesantren yang digelar di UIN Antasari Banjarmasin, Jumat (14/11/2025). Dua narasumber, KH Wildan Salman dan Prof Dr Mujiburrahman, menekankan perlunya standardisasi keilmuan tanpa menghilangkan kemandirian pesantren sebagai lembaga pendidikan tertua di Indonesia.
 
 Dalam forum yang dihadiri ulama, pimpinan pesantren, pengajar, dan perwakilan Kementerian Agama itu, kedua narasumber mengingatkan bahwa tantangan pesantren kini bukan lagi semata soal sarana, melainkan penguatan otoritas ilmu dan tata kelola kelembagaan.
 
@@ -1773,10 +1773,10 @@ Halaqah ditutup dengan kesimpulan bahwa penguatan pesantren harus mencakup tiga 
 2. ⁠Peningkatan mutu SDM melalui sertifikasi yang berbasis tradisi pesantren;
 3. ⁠Kebijakan negara yang memfasilitasi, bukan mendikte.
 
-Pembentukan Direktorat Jenderal Pesantren dinilai peluang besar untuk mendorong transformasi pesantren, tanpa menghilangkan watak khasnya sebagai pusat keilmuan Islam yang lahir dari tradisi Nusantara.', 'Banjarmasin (Kemenag) - Agenda penguatan mutu pesantren memasuki fase penting setelah pemerintah menyiapkan pembentukan Direktorat Jenderal Pesantren. Isu ini menjadi titik bahasan utama dalam...', 'https://kilasindonesia.com/wp-content/uploads/2025/11/WhatsApp-Image-2025-12-05-at-01.14.52.jpeg', admin_user_id, 'PUBLISHED', 1241, '2025-11-15T05:45:17.000Z', '2025-11-15T05:45:17.000Z', '2026-02-01T00:20:45.988Z'
+Pembentukan Direktorat Jenderal Pesantren dinilai peluang besar untuk mendorong transformasi pesantren, tanpa menghilangkan watak khasnya sebagai pusat keilmuan Islam yang lahir dari tradisi Nusantara.', 'Banjarmasin (Kemenag) - Agenda penguatan mutu pesantren memasuki fase penting setelah pemerintah menyiapkan pembentukan Direktorat Jenderal Pesantren. Isu ini menjadi titik bahasan utama dalam...', '/wp-content/uploads/2025/11/WhatsApp-Image-2025-12-05-at-01.14.52.jpeg', admin_user_id, 'PUBLISHED', 1241, '2025-11-15T05:45:17.000Z', '2025-11-15T05:45:17.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'ulama-kalimantan-menekankan-standarisasi-kitab-kuning-sertifikasi-guru-dan-arah-kebijakan-direktorat-jenderal-pesantren');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tqk1xaffo', 'UIN Ar-Raniry Aceh Dorong Penguatan Peran Pesantren dalam Sistem Pendidikan Nasional', 'uin-ar-raniry-aceh-dorong-penguatan-peran-pesantren-dalam-sistem-pendidikan-nasional', 'Banda Aceh — Universitas Islam Negeri (UIN) Ar-Raniry Banda Aceh menegaskan komitmennya memperkuat eksistensi dan kontribusi pesantren dalam sistem pendidikan nasional. Komitmen itu diwujudkan melalui penyelenggaraan Halaqah Penguatan Kelembagaan menuju pembentukan Direktorat Jenderal (Ditjen) Pesantren Kementerian Agama RI, yang digelar di Auditorium Ali Hasjmy Aceh, Kamis (13/11/2025).
+  SELECT 'cml3059bjuxbc7tae', 'UIN Ar-Raniry Aceh Dorong Penguatan Peran Pesantren dalam Sistem Pendidikan Nasional', 'uin-ar-raniry-aceh-dorong-penguatan-peran-pesantren-dalam-sistem-pendidikan-nasional', 'Banda Aceh — Universitas Islam Negeri (UIN) Ar-Raniry Banda Aceh menegaskan komitmennya memperkuat eksistensi dan kontribusi pesantren dalam sistem pendidikan nasional. Komitmen itu diwujudkan melalui penyelenggaraan Halaqah Penguatan Kelembagaan menuju pembentukan Direktorat Jenderal (Ditjen) Pesantren Kementerian Agama RI, yang digelar di Auditorium Ali Hasjmy Aceh, Kamis (13/11/2025).
 
 Kegiatan berskala nasional ini menghadirkan pimpinan dayah (pesantren khas Aceh), akademisi, dan pejabat Kementerian Agama. Forum tersebut menjadi ruang strategis untuk menyatukan visi dalam memperkuat posisi pesantren sebagai pilar penting pendidikan keagamaan di Indonesia.
 
@@ -1806,10 +1806,10 @@ Menurutnya, sinergi tersebut menjadi bagian dari upaya besar menuju Indonesia Em
 
 Sebagai penutup, halaqah tersebut menghadirkan diskusi panel bertajuk “Penguatan Kelembagaan Pesantren untuk Pembangunan Berkelanjutan dan Kemandirian Umat.” Hadir sebagai narasumber di antaranya Tgk H. Nuruzzahri Yahya (Waled NU), Tgk H. Faisal Ali dan Irwan, S.Hi., M.Si. Diskusi dipandu oleh Dr. Abd Razak, Lc., M.A., Pimpinan Dayah Daruzzahidin.
 
-Dari forum tersebut, para peserta sepakat bahwa masa depan pendidikan Islam Indonesia harus berakar pada nilai-nilai pesantren yang adaptif terhadap kemajuan zaman, sehingga pesantren bukan hanya penjaga tradisi, tetapi juga penggerak kemajuan bangsa.', 'Banda Aceh — Universitas Islam Negeri (UIN) Ar-Raniry Banda Aceh menegaskan komitmennya memperkuat eksistensi dan kontribusi pesantren dalam sistem pendidikan nasional. Komitmen itu diwujudkan...', 'https://kilasindonesia.com/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-04-at-22.39.25.jpeg', admin_user_id, 'PUBLISHED', 1521, '2025-11-14T07:40:33.000Z', '2025-11-14T07:40:33.000Z', '2026-02-01T00:20:45.988Z'
+Dari forum tersebut, para peserta sepakat bahwa masa depan pendidikan Islam Indonesia harus berakar pada nilai-nilai pesantren yang adaptif terhadap kemajuan zaman, sehingga pesantren bukan hanya penjaga tradisi, tetapi juga penggerak kemajuan bangsa.', 'Banda Aceh — Universitas Islam Negeri (UIN) Ar-Raniry Banda Aceh menegaskan komitmennya memperkuat eksistensi dan kontribusi pesantren dalam sistem pendidikan nasional. Komitmen itu diwujudkan...', '/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-04-at-22.39.25.jpeg', admin_user_id, 'PUBLISHED', 1521, '2025-11-14T07:40:33.000Z', '2025-11-14T07:40:33.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'uin-ar-raniry-aceh-dorong-penguatan-peran-pesantren-dalam-sistem-pendidikan-nasional');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tkprilno6', 'Lahirkan Santri Berilmu dan Berakhlak, Pesantren jadi Pilar Ketahanan dan Kebangkitan Bangsa', 'lahirkan-santri-berilmu-dan-berakhlak-pesantren-jadi-pilar-ketahanan-dan-kebangkitan-bangsa', 'Surabaya — Pesantren bukan sekadar lembaga pendidikan tradisional, melainkan institusi peradaban yang terus menyalakan cahaya ilmu dan moral di tengah dinamika zaman. Pesantren juga bukan lagi dipandang sebagai lembaga pendidikan alternatif, tetapi mitra strategis negara dalam membangun peradaban.
+  SELECT 'cml3059bjc32yvh61', 'Lahirkan Santri Berilmu dan Berakhlak, Pesantren jadi Pilar Ketahanan dan Kebangkitan Bangsa', 'lahirkan-santri-berilmu-dan-berakhlak-pesantren-jadi-pilar-ketahanan-dan-kebangkitan-bangsa', 'Surabaya — Pesantren bukan sekadar lembaga pendidikan tradisional, melainkan institusi peradaban yang terus menyalakan cahaya ilmu dan moral di tengah dinamika zaman. Pesantren juga bukan lagi dipandang sebagai lembaga pendidikan alternatif, tetapi mitra strategis negara dalam membangun peradaban.
 
 Pandangan itu mengemuka dalam Halaqah Penguatan Kelembagaan Pendirian Direktorat Jenderal Pesantren yang digelar di UIN Sunan Ampel Surabaya, Kamis (13/11/2025). Forum tersebut menjadi momentum penting lahirnya kesadaran kolektif bahwa pesantren bukan hanya bagian dari sistem pendidikan nasional, melainkan penopang utama ketahanan sosial dan spiritual bangsa.
 
@@ -1841,10 +1841,10 @@ Ia mengingatkan, fondasi pengakuan negara terhadap pesantren telah diletakkan ol
 
 Basnang menegaskan, berbagai kebijakan seperti penetapan Hari Santri, Undang-Undang Nomor 18 Tahun 2019 tentang Pesantren, hingga Peraturan Menteri Agama tentang Rekognisi Pembelajaran Lampau (RPL) menjadi tonggak kuat pengakuan negara. “Negara tidak mengintervensi, tapi merekognisi. Segala praktik pendidikan di pesantren adalah kekayaan bangsa yang harus dijaga,” ujarnya.
 
-Melalui lahirnya Direktorat Jenderal Pesantren, negara ingin memastikan bahwa pesantren tidak sekadar bertahan, tetapi juga memimpin transformasi pendidikan berbasis nilai. Dari pesantren, lahir generasi yang berakar pada tradisi keilmuan Islam sekaligus terbuka terhadap inovasi.', 'Surabaya — Pesantren bukan sekadar lembaga pendidikan tradisional, melainkan institusi peradaban yang terus menyalakan cahaya ilmu dan moral di tengah dinamika zaman. Pesantren juga bukan lagi...', 'https://kilasindonesia.com/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-05-at-12.26.03.jpeg', admin_user_id, 'PUBLISHED', 5120, '2025-11-14T05:34:44.000Z', '2025-11-14T05:34:44.000Z', '2026-02-01T00:20:45.988Z'
+Melalui lahirnya Direktorat Jenderal Pesantren, negara ingin memastikan bahwa pesantren tidak sekadar bertahan, tetapi juga memimpin transformasi pendidikan berbasis nilai. Dari pesantren, lahir generasi yang berakar pada tradisi keilmuan Islam sekaligus terbuka terhadap inovasi.', 'Surabaya — Pesantren bukan sekadar lembaga pendidikan tradisional, melainkan institusi peradaban yang terus menyalakan cahaya ilmu dan moral di tengah dinamika zaman. Pesantren juga bukan lagi...', '/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-05-at-12.26.03.jpeg', admin_user_id, 'PUBLISHED', 5120, '2025-11-14T05:34:44.000Z', '2025-11-14T05:34:44.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'lahirkan-santri-berilmu-dan-berakhlak-pesantren-jadi-pilar-ketahanan-dan-kebangkitan-bangsa');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tuzo5zypt', 'Buka Kick Off HGN 2025, Menag Nasaruddin Tekankan Pentingnya Integrasi Ilmu dan Iman bagi Para Guru', 'buka-kick-off-hgn-2025-menag-nasaruddin-tekankan-pentingnya-integrasi-ilmu-dan-iman-bagi-para-guru', '<strong>KILAS INDONESIA</strong> —Menteri Agama Nasaruddin Umar, membuka secara resmi kegiatan Kick Off Hari Guru Nasional (HGN) Tahun 2025 di Universitas Islam Negeri (UIN) Syber Syekh Nurjati Cirebon, Rabu (12/11/2025). Kegiatan ini menjadi pembuka rangkaian peringatan Hari Guru Nasional yang akan digelar secara serentak di berbagai daerah di Indonesia.
+  SELECT 'cml3059bj1rwb3p36', 'Buka Kick Off HGN 2025, Menag Nasaruddin Tekankan Pentingnya Integrasi Ilmu dan Iman bagi Para Guru', 'buka-kick-off-hgn-2025-menag-nasaruddin-tekankan-pentingnya-integrasi-ilmu-dan-iman-bagi-para-guru', '<strong>KILAS INDONESIA</strong> —Menteri Agama Nasaruddin Umar, membuka secara resmi kegiatan Kick Off Hari Guru Nasional (HGN) Tahun 2025 di Universitas Islam Negeri (UIN) Syber Syekh Nurjati Cirebon, Rabu (12/11/2025). Kegiatan ini menjadi pembuka rangkaian peringatan Hari Guru Nasional yang akan digelar secara serentak di berbagai daerah di Indonesia.
 
 Dalam sambutannya, Menag Nasaruddin menyampaikan pandangan filosofis tentang makna dan keteladanan seorang guru. Menurutnya, guru bukan sekadar pengajar ilmu, tetapi juga penyalur cahaya bagi jiwa manusia.
 
@@ -1896,10 +1896,10 @@ Melalui peringatan Hari Guru Nasional 2025, Kementerian Agama menegaskan kembali
 
 “Bangsa yang besar lahir dari guru-guru yang mencintai muridnya dengan tulus. Mari terus menyalakan obor ilmu dan iman, menjadikan madrasah dan sekolah sebagai rumah peradaban,” pesan Menag Nasaruddin Umar menutup sambutannya.
 
-Hadir dalam kegiatan tersebut, Menteri Agama, Penasihat DWP Kementerian Agama, Direktur Jenderal Pendidikan Islam, Wali Kota Cirebon, anggota Komisi VIII DPR RI, para pejabat eselon I Kementerian Agama, Pejabat eselon II dan III serta ratusan guru madrasah dan tenaga pendidik dari berbagai daerah.***', 'KILAS INDONESIA —Menteri Agama Nasaruddin Umar, membuka secara resmi kegiatan Kick Off Hari Guru Nasional (HGN) Tahun 2025 di Universitas Islam Negeri (UIN) Syber Syekh Nurjati Cirebon, Rabu...', 'https://kilasindonesia.com/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-12-at-21.28.58.jpeg', admin_user_id, 'PUBLISHED', 2357, '2025-11-13T03:04:08.000Z', '2025-11-13T03:04:08.000Z', '2026-02-01T00:20:45.988Z'
+Hadir dalam kegiatan tersebut, Menteri Agama, Penasihat DWP Kementerian Agama, Direktur Jenderal Pendidikan Islam, Wali Kota Cirebon, anggota Komisi VIII DPR RI, para pejabat eselon I Kementerian Agama, Pejabat eselon II dan III serta ratusan guru madrasah dan tenaga pendidik dari berbagai daerah.***', 'KILAS INDONESIA —Menteri Agama Nasaruddin Umar, membuka secara resmi kegiatan Kick Off Hari Guru Nasional (HGN) Tahun 2025 di Universitas Islam Negeri (UIN) Syber Syekh Nurjati Cirebon, Rabu...', '/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-12-at-21.28.58.jpeg', admin_user_id, 'PUBLISHED', 2357, '2025-11-13T03:04:08.000Z', '2025-11-13T03:04:08.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'buka-kick-off-hgn-2025-menag-nasaruddin-tekankan-pentingnya-integrasi-ilmu-dan-iman-bagi-para-guru');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2txqtpo4tt', 'Olimpiade Madrasah Dorong SDM Unggul dan Berdaya Saing Global', 'olimpiade-madrasah-dorong-sdm-unggul-dan-berdaya-saing-global', '<strong>KILAS INDONESIA </strong>- Kementerian Agama (Kemenag) menggelar Welcoming Dinner dalam rangka Grand Final Olimpiade Madrasah Indonesia (OMI) 2025 di Kantor Wali Kota Tangerang, Jalan Satria-Sudirman, Kota Tangerang, Banten, Senin (10/11/2025) malam. Acara tersebut menjadi penanda rangkaian ajang kompetisi sains dan teknologi tingkat nasional bagi siswa madrasah di bawah naungan Kemenag.
+  SELECT 'cml3059bjn98felwm', 'Olimpiade Madrasah Dorong SDM Unggul dan Berdaya Saing Global', 'olimpiade-madrasah-dorong-sdm-unggul-dan-berdaya-saing-global', '<strong>KILAS INDONESIA </strong>- Kementerian Agama (Kemenag) menggelar Welcoming Dinner dalam rangka Grand Final Olimpiade Madrasah Indonesia (OMI) 2025 di Kantor Wali Kota Tangerang, Jalan Satria-Sudirman, Kota Tangerang, Banten, Senin (10/11/2025) malam. Acara tersebut menjadi penanda rangkaian ajang kompetisi sains dan teknologi tingkat nasional bagi siswa madrasah di bawah naungan Kemenag.
 
 Direktur Jenderal Pendidikan Islam (Pendis) Kemenag, Prof. Amien Suyitno, menjelaskan bahwa OMI bertujuan untuk mendukung program Asta Cita Presiden Prabowo Subianto.
 
@@ -1935,10 +1935,10 @@ Ia mengungkapkan, pendidikan madrasah memiliki peran penting dalam sejarah perju
 
 “Pelaku perjuangan kemerdekaan banyak berasal dari kalangan santri dan siswa pendidikan agama. Itu bukti bahwa madrasah dan pesantren berperan besar dalam sejarah bangsa,” katanya.
 
-Turut hadir dalam acara tersebut Gubernur Banten Andra Soni, Ketua DPRD Banten Fahmi Hakim, Wali Kota Tangerang Sachrudin beserta Wakil Wali Kota Maryono Hasan, para pejabat eselon I dan II Kemenag, serta pendamping peserta OMI dari berbagai Kemenag kabupaten/kota se-Indonesia.***', 'KILAS INDONESIA - Kementerian Agama (Kemenag) menggelar Welcoming Dinner dalam rangka Grand Final Olimpiade Madrasah Indonesia (OMI) 2025 di Kantor Wali Kota Tangerang, Jalan Satria-Sudirman, Kota...', 'https://kilasindonesia.com/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-11-at-08.31.46.jpeg', admin_user_id, 'PUBLISHED', 1122, '2025-11-13T02:43:56.000Z', '2025-11-13T02:43:56.000Z', '2026-02-01T00:20:45.988Z'
+Turut hadir dalam acara tersebut Gubernur Banten Andra Soni, Ketua DPRD Banten Fahmi Hakim, Wali Kota Tangerang Sachrudin beserta Wakil Wali Kota Maryono Hasan, para pejabat eselon I dan II Kemenag, serta pendamping peserta OMI dari berbagai Kemenag kabupaten/kota se-Indonesia.***', 'KILAS INDONESIA - Kementerian Agama (Kemenag) menggelar Welcoming Dinner dalam rangka Grand Final Olimpiade Madrasah Indonesia (OMI) 2025 di Kantor Wali Kota Tangerang, Jalan Satria-Sudirman, Kota...', '/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-11-at-08.31.46.jpeg', admin_user_id, 'PUBLISHED', 1122, '2025-11-13T02:43:56.000Z', '2025-11-13T02:43:56.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'olimpiade-madrasah-dorong-sdm-unggul-dan-berdaya-saing-global');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2ti2gdj1ht', 'Kemenag Umumkan Juara Madrasah Robotics Competition 2025, Berikut Daftarnya!', 'kemenag-umumkan-juara-madrasah-robotics-competition-2025-berikut-daftarnya', 'KILAS INDONESIA — Kementerian Agama Republik Indonesia resmi mengumumkan para pemenang Madrasah Robotics Competition (MRC) 2025) pada malam puncak yang digelar di Atrium Utama Living World, Kota Wisata Cibubur, Sabtu (1/11/2025) malam.
+  SELECT 'cml3059bj0y1pwlk7', 'Kemenag Umumkan Juara Madrasah Robotics Competition 2025, Berikut Daftarnya!', 'kemenag-umumkan-juara-madrasah-robotics-competition-2025-berikut-daftarnya', 'KILAS INDONESIA — Kementerian Agama Republik Indonesia resmi mengumumkan para pemenang Madrasah Robotics Competition (MRC) 2025) pada malam puncak yang digelar di Atrium Utama Living World, Kota Wisata Cibubur, Sabtu (1/11/2025) malam.
 
 Mengusung tema “Robotic Technology for a Green Future”, ajang bergengsi ini menjadi wadah bagi pelajar madrasah dari seluruh Indonesia untuk menunjukkan kreativitas dan inovasi teknologi yang mendukung masa depan hijau dan berkelanjutan.
 
@@ -2062,10 +2062,10 @@ Juara 10: Romantsa – MA Negeri 2 Kota Malang, Jawa Timur
 
 Melalui ajang ini, Kementerian Agama menegaskan komitmennya untuk mendorong transformasi pendidikan Islam berbasis teknologi dan mengukuhkan posisi madrasah sebagai pusat inovasi yang melahirkan generasi kreatif, adaptif, dan berdaya saing global.
 
-“Tema ‘Robotic Technology for a Green Future’ merefleksikan semangat generasi madrasah dalam menciptakan solusi teknologi yang ramah lingkungan dan membawa maslahat bagi umat,” tutup Romo Syafi’i.', 'KILAS INDONESIA — Kementerian Agama Republik Indonesia resmi mengumumkan para pemenang Madrasah Robotics Competition (MRC) 2025) pada malam puncak yang digelar di Atrium Utama Living World, Kota...', 'https://kilasindonesia.com/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-02-at-11.50.49.jpeg', admin_user_id, 'PUBLISHED', 4083, '2025-11-02T11:51:14.000Z', '2025-11-02T11:51:14.000Z', '2026-02-01T00:20:45.988Z'
+“Tema ‘Robotic Technology for a Green Future’ merefleksikan semangat generasi madrasah dalam menciptakan solusi teknologi yang ramah lingkungan dan membawa maslahat bagi umat,” tutup Romo Syafi’i.', 'KILAS INDONESIA — Kementerian Agama Republik Indonesia resmi mengumumkan para pemenang Madrasah Robotics Competition (MRC) 2025) pada malam puncak yang digelar di Atrium Utama Living World, Kota...', '/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-02-at-11.50.49.jpeg', admin_user_id, 'PUBLISHED', 4083, '2025-11-02T11:51:14.000Z', '2025-11-02T11:51:14.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'kemenag-umumkan-juara-madrasah-robotics-competition-2025-berikut-daftarnya');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2t57a4evh3', 'Curi Perhatian, Mahasiswa UIN Jakarta Pamerkan Robot Pengumpul Sampah Berbasis AI di AICIS+ 2025', '351-2', 'KILAS INDONESIA - Ada pemandangan menarik dalam perhelatan Annual International Conference on Islamic Studies (AICIS+) 2025 yang digelar di Kampus UIII Depok 29-31 Oktober 2025. Adalah Mahasiswa Program Studi Teknik Informatika, Fakultas Sains dan Teknologi (FST) UIN Syarif Hidayatullah Jakarta, Muhamad Daffa Muis yang berhasil menarik perhatian pengunjung dalam ajang melalui karyanya berjudul “Robot Pengumpul Sampah Menggunakan MobileNet-SSD Berbasis Raspberry Pi.”
+  SELECT 'cml3059bjw5wr7eco', 'Curi Perhatian, Mahasiswa UIN Jakarta Pamerkan Robot Pengumpul Sampah Berbasis AI di AICIS+ 2025', '351-2', 'KILAS INDONESIA - Ada pemandangan menarik dalam perhelatan Annual International Conference on Islamic Studies (AICIS+) 2025 yang digelar di Kampus UIII Depok 29-31 Oktober 2025. Adalah Mahasiswa Program Studi Teknik Informatika, Fakultas Sains dan Teknologi (FST) UIN Syarif Hidayatullah Jakarta, Muhamad Daffa Muis yang berhasil menarik perhatian pengunjung dalam ajang melalui karyanya berjudul “Robot Pengumpul Sampah Menggunakan MobileNet-SSD Berbasis Raspberry Pi.”
 
 Karya robotik ini menjadi salah satu inovasi mahasiswa UIN Jakarta yang dipamerkan pada kegiatan bergengsi tersebut. Daffa menjelaskan, robot ciptaannya dirancang untuk membantu mengumpulkan sampah secara otomatis menggunakan teknologi Artificial Intelligence (AI).
 
@@ -2087,20 +2087,20 @@ Selain dari fakultas, Pusat Penelitian, Pusat Rumah Jurnal, Pusat Halal, dan Pus
 
 Rektor UIN Jakarta Prof. Asep Saepudin Jahar, M.A., Ph.D. menyampaikan apresiasinya atas semangat sivitas akademika yang aktif berinovasi. “Partisipasi UIN Jakarta dalam AICIS+ menunjukkan bahwa semangat riset dan inovasi di kampus kita terus tumbuh dan memberikan dampak nyata bagi masyarakat. Ini juga mencerminkan semangat integrasi ilmu dan iman yang menjadi karakter UIN Jakarta,” ujarnya.
 
-Partisipasi Daffa dan para dosen serta mahasiswa UIN Jakarta di AICIS+ 2025 lanjut Rektor menjadi bukti nyata bahwa kampus ini terus mengembangkan potensi riset dan inovasi teknologi sejalan dengan visinya sebagai Green, Smart, and Humanistic University — universitas yang mengintegrasikan ilmu pengetahuan, teknologi, dan nilai kemanusiaan untuk kemaslahatan masyarakat.', 'KILAS INDONESIA - Ada pemandangan menarik dalam perhelatan Annual International Conference on Islamic Studies (AICIS+) 2025 yang digelar di Kampus UIII Depok 29-31 Oktober 2025. Adalah Mahasiswa...', 'https://kilasindonesia.com/wp-content/uploads/2025/11/WhatsApp-Image-2025-10-31-at-07.00.02.jpeg', admin_user_id, 'PUBLISHED', 3465, '2025-11-01T13:18:50.000Z', '2025-11-01T13:18:50.000Z', '2026-02-01T00:20:45.988Z'
+Partisipasi Daffa dan para dosen serta mahasiswa UIN Jakarta di AICIS+ 2025 lanjut Rektor menjadi bukti nyata bahwa kampus ini terus mengembangkan potensi riset dan inovasi teknologi sejalan dengan visinya sebagai Green, Smart, and Humanistic University — universitas yang mengintegrasikan ilmu pengetahuan, teknologi, dan nilai kemanusiaan untuk kemaslahatan masyarakat.', 'KILAS INDONESIA - Ada pemandangan menarik dalam perhelatan Annual International Conference on Islamic Studies (AICIS+) 2025 yang digelar di Kampus UIII Depok 29-31 Oktober 2025. Adalah Mahasiswa...', '/wp-content/uploads/2025/11/WhatsApp-Image-2025-10-31-at-07.00.02.jpeg', admin_user_id, 'PUBLISHED', 3465, '2025-11-01T13:18:50.000Z', '2025-11-01T13:18:50.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = '351-2');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2t9dzktrr5', 'MAN 3 Bantul Sabet Medali Emas FIKSI 2025', 'man-3-bantul-sabet-medali-emas-fiksi-2025', 'KILAS INDONESIA - Prestasi luar biasa ditorehkan siswa MAN 3 Bantul (Mantaba) dalam ajang Festival Inovasi dan Kewirausahaan Siswa Indonesia (FIKSI) Tingkat Nasional Tahun 2025. Dua siswa yang tergabung dalam Excellent Entrepreneurs Club (EEC) MAN 3 Bantul, Muhammad Fauzan (XI-E) dan Muhammad Iqwan (XI-D) berhasil melaju final hingga sukses meraih medali emas bidang pariwisata FIKSI 2025. Ajang bergengsi diselenggarakan atas kolaborasi Balai Pengembangan Talenta Indonesia (BPTI), Kementerian Pendidikan Dasar dan Menengah (Kemendikdasmen), serta Pusat Prestasi Nasional (Puspresnas) . Pengumuman pemenang digelar dalam final FIKSI 2025 di Smesco Exhibition Hall, Jakarta, Jumat (30/10/2025).
+  SELECT 'cml3059bjs33mdtl0', 'MAN 3 Bantul Sabet Medali Emas FIKSI 2025', 'man-3-bantul-sabet-medali-emas-fiksi-2025', 'KILAS INDONESIA - Prestasi luar biasa ditorehkan siswa MAN 3 Bantul (Mantaba) dalam ajang Festival Inovasi dan Kewirausahaan Siswa Indonesia (FIKSI) Tingkat Nasional Tahun 2025. Dua siswa yang tergabung dalam Excellent Entrepreneurs Club (EEC) MAN 3 Bantul, Muhammad Fauzan (XI-E) dan Muhammad Iqwan (XI-D) berhasil melaju final hingga sukses meraih medali emas bidang pariwisata FIKSI 2025. Ajang bergengsi diselenggarakan atas kolaborasi Balai Pengembangan Talenta Indonesia (BPTI), Kementerian Pendidikan Dasar dan Menengah (Kemendikdasmen), serta Pusat Prestasi Nasional (Puspresnas) . Pengumuman pemenang digelar dalam final FIKSI 2025 di Smesco Exhibition Hall, Jakarta, Jumat (30/10/2025).
 Kemenangan tersebut diraih setelah kedua inovator muda ini mempresentasikan Wukirtech hasil karya aplikasi untuk mengembangkan pariwisata daerah. Proses penyusunan karya, penampilan dan penguasaan materi, serta kecakapan dalam presentasi telah membuahkan hasil membanggakan dengan meraih juara 1 di tingkat nasional.
 Suasana haru terasa saat Fauzan dan Iqwan terpanggil untuk maju ke panggung untuk menerima medali. "Alhamdulillah, puji syukur tak henti-hentinya kami panjatkan atas kesuksesan dalam FIKSI ini. Terima kasih atas doa restu, bimbingan bapak ibu guru dan orang tua, dukungan bapak ibu pegawai, keluarga, dan seluruh keluarga besar MAN 3 Bantul,” ungkap Iqwan.
 “Kami sangat terharu sampai di titik ini. Doa dan dukungan bapak ibu guru, keluarga, dan seluruh keluarga besar MAN 3 Bantul menguatkan kami hingga dapat meraih medali emas FIKSI 2025. Semoga karya yang tercipta melalui FIKSI ini dapat bermanfaat untuk masyarakat luas," imbuh Fauzan.
 Kepala MAN 3 Bantul, Suyanto mengungkapkan apresiasi atas raihan prestasi FIKSI 2025, “MasyaAllah haru dan bangga dengan anak-anak yang meraih prestasi dalam FIKSI. Saya menyaksikan anak-anak sangat telaten mempersiapkan semuanya, turut mendampingi proses latihan hingga acara puncak. Anak-anak sangat menguasai konten yang telah disiapkan. Karya tersebut sangat bermanfaat untuk pengempangan pariwisata Wukirsari. Prestasi ini menjadi inspirasi bagi siswa-siswi di MAN 3 Bantul untuk semangat meraih prestasi. Selamat untuk Ananda Fauzan, Ananda Iqwan,” tutur Suyanto.
 Guru pembimbing EEC MAN 3 Bantul, Ismariyati bangga atas raihan anak-anak didiknya. "Kami senang dan bangga dengan anak-anak kami. Mereka belajar begitu semangat. Anak-anak totalitas dalam menyusun karyanya. Lomba demi lomba mereka ikuti hingga kali ini menuai buah keberhasilan," ungkap Isma.
 Kabar prestasi ini menjadi kebahagiaan seluruh civitas MAN 3 Bantul. Wakil kepala madrasah bidang kesiswaan, M. Munawar Yasin menjelaskan prestasi ini diraih melalui sinergi yang dibangun MAN 3 Bantul. “Bersyukur atas prestasi yang diraih siswa MAN 3 Bantul. Prestasi yang diraih ini adalah buah kerja keras, semangat, dan kerja sama yang baik antara anak-anak dengan pembimbing. Selain itu, dukungan dan doa segenap civitas MAN 3 Bantul serta Panti Asuhan Al Dzikro, tempat tinggal salah satu murid kami yang mengikuti FIKSI mendorong anak-anak semakin semangat hingga sukses berprestasi,” terang Yasin.
-Lebih lanjut, wakil kepala madrasah bidang kurikulum, Wahyudi mengungkapkan bahwa MAN 3 Bantul senantiasa memberikan bimbingan kepada siswa untuk menumbuhkan potensi, minat dan bakat di berbagai bidang, salah satunya kewirausahaan, . “Dalam pengembangan potensi siswa, MAN 3 Bantul membentuk Excellent Entrepreneurs Club (ERC). Siswa mendapatkan bimbingan untuk menumbuhkan dan mengembangkan potensi kewirausahaan mereka mulalui EEC hingga meraih berbagai prestasi, salah satunya dalam ajang bergengsi FIKSI. Selamat atas prestasi yang diraih anak-anak,” ungkap Wahyudi.', 'KILAS INDONESIA - Prestasi luar biasa ditorehkan siswa MAN 3 Bantul (Mantaba) dalam ajang Festival Inovasi dan Kewirausahaan Siswa Indonesia (FIKSI) Tingkat Nasional Tahun 2025. Dua siswa yang...', 'https://kilasindonesia.com/wp-content/uploads/2025/11/WhatsApp-Image-2025-10-31-at-13.17.35.jpeg', admin_user_id, 'PUBLISHED', 5324, '2025-11-01T13:16:33.000Z', '2025-11-01T13:16:33.000Z', '2026-02-01T00:20:45.988Z'
+Lebih lanjut, wakil kepala madrasah bidang kurikulum, Wahyudi mengungkapkan bahwa MAN 3 Bantul senantiasa memberikan bimbingan kepada siswa untuk menumbuhkan potensi, minat dan bakat di berbagai bidang, salah satunya kewirausahaan, . “Dalam pengembangan potensi siswa, MAN 3 Bantul membentuk Excellent Entrepreneurs Club (ERC). Siswa mendapatkan bimbingan untuk menumbuhkan dan mengembangkan potensi kewirausahaan mereka mulalui EEC hingga meraih berbagai prestasi, salah satunya dalam ajang bergengsi FIKSI. Selamat atas prestasi yang diraih anak-anak,” ungkap Wahyudi.', 'KILAS INDONESIA - Prestasi luar biasa ditorehkan siswa MAN 3 Bantul (Mantaba) dalam ajang Festival Inovasi dan Kewirausahaan Siswa Indonesia (FIKSI) Tingkat Nasional Tahun 2025. Dua siswa yang...', '/wp-content/uploads/2025/11/WhatsApp-Image-2025-10-31-at-13.17.35.jpeg', admin_user_id, 'PUBLISHED', 5324, '2025-11-01T13:16:33.000Z', '2025-11-01T13:16:33.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'man-3-bantul-sabet-medali-emas-fiksi-2025');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tx4wjt92d', 'Menag Nasaruddin Dorong Siswa Madrasah Bukan Hanya Unggul dalam Agama tapi juga Teknologi', 'menag-nasaruddin-dorong-siswa-madrasah-bukan-hanya-unggul-dalam-agama-tapi-juga-teknologi', 'KILASINDONESIA.COM – Menteri Agama Nasaruddin Umar membuka ajang Madrasah Robotics Competition (MRC) 2025 yang digelar di Atrium Utama Living World Kota Wisata Cibubur, Sabtu (1/11/2025). Dalam arahannya, Menag menegaskan bahwa madrasah hari ini harus menjadi simbol kemajuan — tidak hanya dalam ilmu agama, tetapi juga sains dan teknologi.
+  SELECT 'cml3059bjee1fvyua', 'Menag Nasaruddin Dorong Siswa Madrasah Bukan Hanya Unggul dalam Agama tapi juga Teknologi', 'menag-nasaruddin-dorong-siswa-madrasah-bukan-hanya-unggul-dalam-agama-tapi-juga-teknologi', 'KILASINDONESIA.COM – Menteri Agama Nasaruddin Umar membuka ajang Madrasah Robotics Competition (MRC) 2025 yang digelar di Atrium Utama Living World Kota Wisata Cibubur, Sabtu (1/11/2025). Dalam arahannya, Menag menegaskan bahwa madrasah hari ini harus menjadi simbol kemajuan — tidak hanya dalam ilmu agama, tetapi juga sains dan teknologi.
 
 “Anak-anak madrasah jangan hanya bisa mengaji dan berdoa, tapi juga harus mampu menciptakan robot, meneliti, dan berinovasi. Itu baru madrasah masa depan,” ujar Nasaruddin.
 
@@ -2130,10 +2130,10 @@ Tahun ini, kompetisi terbagi menjadi dua kategori utama yaitu Robot Karya Inovas
 
 Tahun ini merupakan kompetisi robot dengan jumlah peserta terbesar sepanjang sejarah MRC. Tema yang diusung, “Robotic Technology for a Green Future”, sejalan dengan visi Kementerian Agama dalam membangun madrasah hijau, pondok pesantren hijau, dan kampus hijau.
 
-Pembukaan MRC 2025 dihadiri para pejabat eselon I dan II Kementerian Agama, khususnya di lingkungan Direktorat Jenderal Pendidikan Islam, Dirjen Bimas Islam, para staf ahli dan staf khusus Menteri, para juri, guru, kepala madrasah, dan peserta MRC 2025.***', 'KILASINDONESIA.COM – Menteri Agama Nasaruddin Umar membuka ajang Madrasah Robotics Competition (MRC) 2025 yang digelar di Atrium Utama Living World Kota Wisata Cibubur, Sabtu (1/11/2025). Dalam...', 'https://kilasindonesia.com/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-01-at-15.31.05.jpeg', admin_user_id, 'PUBLISHED', 595, '2025-11-01T13:13:51.000Z', '2025-11-01T13:13:51.000Z', '2026-02-01T00:20:45.988Z'
+Pembukaan MRC 2025 dihadiri para pejabat eselon I dan II Kementerian Agama, khususnya di lingkungan Direktorat Jenderal Pendidikan Islam, Dirjen Bimas Islam, para staf ahli dan staf khusus Menteri, para juri, guru, kepala madrasah, dan peserta MRC 2025.***', 'KILASINDONESIA.COM – Menteri Agama Nasaruddin Umar membuka ajang Madrasah Robotics Competition (MRC) 2025 yang digelar di Atrium Utama Living World Kota Wisata Cibubur, Sabtu (1/11/2025). Dalam...', '/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-01-at-15.31.05.jpeg', admin_user_id, 'PUBLISHED', 595, '2025-11-01T13:13:51.000Z', '2025-11-01T13:13:51.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'menag-nasaruddin-dorong-siswa-madrasah-bukan-hanya-unggul-dalam-agama-tapi-juga-teknologi');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2t8e5jzcyo', 'Malam Bakti Santri, Menag Sampaikan Terima Kasih atas Perhatian Presiden ke Pesantren', 'malam-bakti-santri-menag-sampaikan-terima-kasih-atas-perhatian-presiden-ke-pesantren', '<strong>KILASINDONESIA.COM</strong> --- Menteri Agama Nasaruddin Umar menyampakan terima kasih kepada Presiden Prabowo atas perhatiannya ke dunia pesantren. Hal ini disampaikan Menag Nasaruddin Umar saat memberikan sambutan pada malam Bakti Santri untuk Negeri di TMII, Jakarta.
+  SELECT 'cml3059bjx83kfkrl', 'Malam Bakti Santri, Menag Sampaikan Terima Kasih atas Perhatian Presiden ke Pesantren', 'malam-bakti-santri-menag-sampaikan-terima-kasih-atas-perhatian-presiden-ke-pesantren', '<strong>KILASINDONESIA.COM</strong> --- Menteri Agama Nasaruddin Umar menyampakan terima kasih kepada Presiden Prabowo atas perhatiannya ke dunia pesantren. Hal ini disampaikan Menag Nasaruddin Umar saat memberikan sambutan pada malam Bakti Santri untuk Negeri di TMII, Jakarta.
 
 Giat ini menjadi rangkaian dari peringata Hari Santri 2025. Hadir, keluarga besar Kementerian Agama, serta ratusan santri dan pengasuh pondok pesantren. Hadir juga sejumlah santri penerima manfaat beasiswa sehingga bisa melanjutkan kuliah pada beragam program studi dan perguruan tinggi ternama di Indonesia.
 
@@ -2160,10 +2160,10 @@ Sebanyak 7.973 santri telah menerima beasiswa penuh dari negara melalui Program 
 Kemenag telah menyalurkan bantuan inkubasi bisnis mencapai Rp499,55 miliar untuk 4.186 pesantren (2021 – 2024). Program ini berhasil melahirkan 1.052 Badan Usaha Milik Pesantren (BUMP).
 
 3. Koperasi Pesantren
-Hingga saat ini, ada 2.347 koperasi pesantren telah berdiri dan beroperasi. Koperasi pesantren menjadi penggerak ekonomi umat di berbagai daerah.', 'KILASINDONESIA.COM --- Menteri Agama Nasaruddin Umar menyampakan terima kasih kepada Presiden Prabowo atas perhatiannya ke dunia pesantren. Hal ini disampaikan Menag Nasaruddin Umar saat memberikan...', 'https://kilasindonesia.com/wp-content/uploads/2025/10/WhatsApp-Image-2025-10-25-at-07.33.38-1.jpeg', admin_user_id, 'PUBLISHED', 1418, '2025-10-25T03:38:10.000Z', '2025-10-25T03:38:10.000Z', '2026-02-01T00:20:45.988Z'
+Hingga saat ini, ada 2.347 koperasi pesantren telah berdiri dan beroperasi. Koperasi pesantren menjadi penggerak ekonomi umat di berbagai daerah.', 'KILASINDONESIA.COM --- Menteri Agama Nasaruddin Umar menyampakan terima kasih kepada Presiden Prabowo atas perhatiannya ke dunia pesantren. Hal ini disampaikan Menag Nasaruddin Umar saat memberikan...', '/wp-content/uploads/2025/10/WhatsApp-Image-2025-10-25-at-07.33.38-1.jpeg', admin_user_id, 'PUBLISHED', 1418, '2025-10-25T03:38:10.000Z', '2025-10-25T03:38:10.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'malam-bakti-santri-menag-sampaikan-terima-kasih-atas-perhatian-presiden-ke-pesantren');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2ty868bvrk', 'Gelar Peringatan HSN 2025, Rektor UIN Jakarta Harap Para Santri Terus Tingkatkan Ilmu dan Akhlak', 'gelar-peringatan-hsn-2025-rektor-uin-jakarta-harap-para-santri-terus-tingkatkan-ilmu-dan-akhlak', '<strong>KILASINDONESIA.COM</strong>  - Rektor UIN Syarif Hidayatullah Jakarta, Prof Asep Saepudin Jahar, memimpin Upacara Peringatan Hari Santri Nasional (HSN) 2025 di Lapangan Student Center Kampus 1, Ciputat, Tangerang Selatan, Banten, Rabu 22 Oktober 2025.
+  SELECT 'cml3059bjflg2nsvg', 'Gelar Peringatan HSN 2025, Rektor UIN Jakarta Harap Para Santri Terus Tingkatkan Ilmu dan Akhlak', 'gelar-peringatan-hsn-2025-rektor-uin-jakarta-harap-para-santri-terus-tingkatkan-ilmu-dan-akhlak', '<strong>KILASINDONESIA.COM</strong>  - Rektor UIN Syarif Hidayatullah Jakarta, Prof Asep Saepudin Jahar, memimpin Upacara Peringatan Hari Santri Nasional (HSN) 2025 di Lapangan Student Center Kampus 1, Ciputat, Tangerang Selatan, Banten, Rabu 22 Oktober 2025.
 
 Mengenakan sarung, jas dan kopiah hitam, Prof Asep pun menyampaikan amanat dari Menteri Agama (Menag) Prof Nasaruddin Umar. Dalam amanatnya yang dibacakan Prof Asep, Menag menyampaikan belasungkawa terhadap insiden di Pondok Pesantren Al-Khoziny, Sidoarjo, Jawa Timur.
 
@@ -2179,10 +2179,10 @@ Sementara itu, Prof Asep berharap, agar ke depannya para santri terus berkembang
 
 Prof Asep pun menilai, tema Hari Santri Nasional 2025 ‘Mengawal Indonesia Merdeka Menuju Peradaban Dunia’ sangatlah tepat. Karena, menurut Prof Asep, hal ini sejalan dengan cita-cita Presiden Prabowo Subianto yang ingin mencapai Indonesia Emas 2045.
 
-“Di hari santri ini saya harapkan menjadi penggugah kembali bagaimana peran santri dan peran Indonesia di dunia internasional. Ini juga adalah komitmen Presiden Prabowo untuk ikut mencerdaskan bangsa dan menjaga ketertiban dunia,” ungkapnya.***(Sut)', 'KILASINDONESIA.COM - Rektor UIN Syarif Hidayatullah Jakarta, Prof Asep Saepudin Jahar, memimpin Upacara Peringatan Hari Santri Nasional (HSN) 2025 di Lapangan Student Center Kampus 1, Ciputat,...', 'https://kilasindonesia.com/wp-content/uploads/2025/10/WhatsApp-Image-2025-10-22-at-11.31.45.jpeg', admin_user_id, 'PUBLISHED', 2874, '2025-10-23T04:50:06.000Z', '2025-10-23T04:50:06.000Z', '2026-02-01T00:20:45.988Z'
+“Di hari santri ini saya harapkan menjadi penggugah kembali bagaimana peran santri dan peran Indonesia di dunia internasional. Ini juga adalah komitmen Presiden Prabowo untuk ikut mencerdaskan bangsa dan menjaga ketertiban dunia,” ungkapnya.***(Sut)', 'KILASINDONESIA.COM - Rektor UIN Syarif Hidayatullah Jakarta, Prof Asep Saepudin Jahar, memimpin Upacara Peringatan Hari Santri Nasional (HSN) 2025 di Lapangan Student Center Kampus 1, Ciputat,...', '/wp-content/uploads/2025/10/WhatsApp-Image-2025-10-22-at-11.31.45.jpeg', admin_user_id, 'PUBLISHED', 2874, '2025-10-23T04:50:06.000Z', '2025-10-23T04:50:06.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'gelar-peringatan-hsn-2025-rektor-uin-jakarta-harap-para-santri-terus-tingkatkan-ilmu-dan-akhlak');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2t2pplzys4', 'Langkah Kemenag Wujudkan Asta Cita: dari Jaga Kerukunan untuk Pembangunan hingga Sejahterakan Guru', 'langkah-kemenag-wujudkan-asta-cita-dari-jaga-kerukunan-untuk-pembangunan-hingga-sejahterakan-guru', '<strong>KILASINDONESIA.COM</strong> - Setahun pemerintahan Presiden Prabowo Subianto–Gibran Rakabuming Raka menjadi momentum penting bagi Kementerian Agama (Kemenag) untuk menghadirkan wajah kehidupan beragama yang lebih inklusif, produktif, dan menyejahterakan.
+  SELECT 'cml3059bj187g4jqx', 'Langkah Kemenag Wujudkan Asta Cita: dari Jaga Kerukunan untuk Pembangunan hingga Sejahterakan Guru', 'langkah-kemenag-wujudkan-asta-cita-dari-jaga-kerukunan-untuk-pembangunan-hingga-sejahterakan-guru', '<strong>KILASINDONESIA.COM</strong> - Setahun pemerintahan Presiden Prabowo Subianto–Gibran Rakabuming Raka menjadi momentum penting bagi Kementerian Agama (Kemenag) untuk menghadirkan wajah kehidupan beragama yang lebih inklusif, produktif, dan menyejahterakan.
 
 Di bawah kepemimpinan Menteri Agama Nasaruddin Umar, Kemenag meneguhkan komitmennya untuk menerjemahkan Asta Cita ke dalam langkah nyata: menjaga kerukunan yang menjasi prasyarat pembangunan, memperkuat pendidikan keagamaan, serta meningkatkan kesejahteraan guru pendidikan agama dan keagamaan.
 
@@ -2250,10 +2250,10 @@ Menutup refleksi setahun perjalanan, Menag Nasaruddin Umar menegaskan bahwa kebe
 
 Menag menyampaikan apresiasi kepada seluruh jajarannya yang terus bekerja keras dalam ikut mewujudkan Asta Protas Presiden Prabowo dan Wakil Presiden Gibran Rakabuming Raka. Menag juga menyampaikan apresiasi kepada media dan masyarakat yang terus mengawal perjalanan Kemenag dengan kritis dan konstruktif.
 
-“Terima kasih kepada insan pers yang telah menjaga ruang publik tetap sehat. Kritik dan dukungan Anda adalah bagian dari ibadah kami dalam melayani umat,” pungkas Menag.***(sut)', 'KILASINDONESIA.COM - Setahun pemerintahan Presiden Prabowo Subianto–Gibran Rakabuming Raka menjadi momentum penting bagi Kementerian Agama (Kemenag) untuk menghadirkan wajah kehidupan beragama yang...', 'https://kilasindonesia.com/wp-content/uploads/2025/10/WhatsApp-Image-2025-10-21-at-20.58.00.jpeg', admin_user_id, 'PUBLISHED', 3511, '2025-10-23T04:46:36.000Z', '2025-10-23T04:46:36.000Z', '2026-02-01T00:20:45.988Z'
+“Terima kasih kepada insan pers yang telah menjaga ruang publik tetap sehat. Kritik dan dukungan Anda adalah bagian dari ibadah kami dalam melayani umat,” pungkas Menag.***(sut)', 'KILASINDONESIA.COM - Setahun pemerintahan Presiden Prabowo Subianto–Gibran Rakabuming Raka menjadi momentum penting bagi Kementerian Agama (Kemenag) untuk menghadirkan wajah kehidupan beragama yang...', '/wp-content/uploads/2025/10/WhatsApp-Image-2025-10-21-at-20.58.00.jpeg', admin_user_id, 'PUBLISHED', 3511, '2025-10-23T04:46:36.000Z', '2025-10-23T04:46:36.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'langkah-kemenag-wujudkan-asta-cita-dari-jaga-kerukunan-untuk-pembangunan-hingga-sejahterakan-guru');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tnbizm64c', 'Kado Hari Santri, Presiden Setujui Pembentukan Ditjen Pesantren', 'kado-hari-santri-presiden-setujui-pembentukan-ditjen-pesantren', 'KILASINDONESIA.COM-Kabar gembira datang bertepatan dengan peringatan Hari Santri 2025. Presiden Prabowo Subianto menyetujui pembentukan Direktorat Jenderal (Ditjen) Pesantren di lingkungan Kementerian Agama.
+  SELECT 'cml3059bje58udptc', 'Kado Hari Santri, Presiden Setujui Pembentukan Ditjen Pesantren', 'kado-hari-santri-presiden-setujui-pembentukan-ditjen-pesantren', 'KILASINDONESIA.COM-Kabar gembira datang bertepatan dengan peringatan Hari Santri 2025. Presiden Prabowo Subianto menyetujui pembentukan Direktorat Jenderal (Ditjen) Pesantren di lingkungan Kementerian Agama.
 
 Menteri Agama Nasaruddin Umar bersyukur atas kabar ini. Ia mengapresiasi para pihak yang telah mengawal terbitnya izin prakarsa pembentukan Ditjen Pesantren, khususnya Wakil Menteri Agama Romo Muhammad Syafi’i.
 
@@ -2301,19 +2301,19 @@ Dirjen Pendidikan Islam Amien Suyitno dan Kepala Badan Moderasi Beragama dan Pen
 
 Dirjen Bimas Kristen Jeane Marie Tulung bertugas sebagai pembawa acara, diiringi paduan suara dari Ditjen Bimas Kristen.
 
-Apel ini dihadiri para pejabat eselon II, ASN Kemenag, dan ratusan santri dari berbagai lembaga pendidikan keagamaan.***', 'KILASINDONESIA.COM-Kabar gembira datang bertepatan dengan peringatan Hari Santri 2025. Presiden Prabowo Subianto menyetujui pembentukan Direktorat Jenderal (Ditjen) Pesantren di lingkungan...', 'https://kilasindonesia.com/wp-content/uploads/2025/10/IMG-20251022-WA0002.jpg', admin_user_id, 'PUBLISHED', 1633, '2025-10-22T14:29:27.000Z', '2025-10-22T14:29:27.000Z', '2026-02-01T00:20:45.988Z'
+Apel ini dihadiri para pejabat eselon II, ASN Kemenag, dan ratusan santri dari berbagai lembaga pendidikan keagamaan.***', 'KILASINDONESIA.COM-Kabar gembira datang bertepatan dengan peringatan Hari Santri 2025. Presiden Prabowo Subianto menyetujui pembentukan Direktorat Jenderal (Ditjen) Pesantren di lingkungan...', '/wp-content/uploads/2025/10/IMG-20251022-WA0002.jpg', admin_user_id, 'PUBLISHED', 1633, '2025-10-22T14:29:27.000Z', '2025-10-22T14:29:27.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'kado-hari-santri-presiden-setujui-pembentukan-ditjen-pesantren');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2t35hhm02w', 'Tunggal Putra Paceklik Gelar All England 25 Tahun, Ini Saran Untuk Jonatan dkk', 'tunggal-putra-paceklik-gelar-all-england-25-tahun-ini-saran-untuk-jonatan-dkk', 'Sudah 25 tahun tunggal putra puasa gelar juara All England 2019. Legenda bulutangkis, Haryanto Arbi, meminta agar Jonatan Christie dkk berlatih lebih keras lagi.
+  SELECT 'cml3059bjjsg26exp', 'Tunggal Putra Paceklik Gelar All England 25 Tahun, Ini Saran Untuk Jonatan dkk', 'tunggal-putra-paceklik-gelar-all-england-25-tahun-ini-saran-untuk-jonatan-dkk', 'Sudah 25 tahun tunggal putra puasa gelar juara All England 2019. Legenda bulutangkis, Haryanto Arbi, meminta agar Jonatan Christie dkk berlatih lebih keras lagi.
 
 Indonesia hanya merebut satu gelar juara dari All England 2019, yakni dari pasangan nonpelatnas, Hendra Setiawan/Mohammad Ahsan.
 
 Dengan kekuatan tiga pemain di sektor tunggal, tak satupun yang lolos ke semifinal.
 
-Anthony Sinisuka Ginting tersingkir di babak pertama, Jonatan Christie menyudahi penampilan di babak kedua, sedangkan Tommy harus pulang setelah kalah di perempatfinal.', 'Sudah 25 tahun tunggal putra puasa gelar juara All England 2019. Legenda bulutangkis, Haryanto Arbi, meminta agar Jonatan Christie dkk berlatih lebih keras lagi. Indonesia hanya merebut satu gelar...', 'http://demo.idtheme.com/bloggingpro/wp-content/uploads/2019/03/jonatan-christie-min.jpg', admin_user_id, 'PUBLISHED', 5299, '2019-03-17T08:48:07.000Z', '2019-03-17T08:48:07.000Z', '2026-02-01T00:20:45.988Z'
+Anthony Sinisuka Ginting tersingkir di babak pertama, Jonatan Christie menyudahi penampilan di babak kedua, sedangkan Tommy harus pulang setelah kalah di perempatfinal.', 'Sudah 25 tahun tunggal putra puasa gelar juara All England 2019. Legenda bulutangkis, Haryanto Arbi, meminta agar Jonatan Christie dkk berlatih lebih keras lagi. Indonesia hanya merebut satu gelar...', NULL, admin_user_id, 'PUBLISHED', 5299, '2019-03-17T08:48:07.000Z', '2019-03-17T08:48:07.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'tunggal-putra-paceklik-gelar-all-england-25-tahun-ini-saran-untuk-jonatan-dkk');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tcpp0t3wg', 'Klasemen F1 2019 Usai Bottas Menangi GP Australia', 'klasemen-f1-2019-usai-bottas-menangi-gp-australia', 'Driver Mercedes Valtteri Bottas memenangi seri pembuka Formula 1 2019 dalam Grand Prix Australia. Berikut klasemen pebalap usai race tersebut.
+  SELECT 'cml3059bjtz193q4m', 'Klasemen F1 2019 Usai Bottas Menangi GP Australia', 'klasemen-f1-2019-usai-bottas-menangi-gp-australia', 'Driver Mercedes Valtteri Bottas memenangi seri pembuka Formula 1 2019 dalam Grand Prix Australia. Berikut klasemen pebalap usai race tersebut.
 
 Di Sirkuit Melbourne Park, Australia, Minggu (17/3/2019), Bottas menjadi yang tercepat dengan waktu 1 jam 25 menit 27.325 detik, unggul 20,8 detik dari rekan setimnya di Mercedes Lewis Hamilton.
 
@@ -2323,10 +2323,10 @@ Di tempat ketiga ada driver Red Bull Max Verstapen, disusul duo Ferrari Sebastia
 
 Sementara Bottas pun memimpin klasemen pebalap dengan 26 poin. Driver asal Finlandia itu mendapat tambahan satu poin usai juga berhasil menorehkan waktu lap tercepat dalam balapan kali ini.
 
-Aturan baru F1 sendiri akan memberi peraih waktu lap tercepat dalam posisi 10 besar tambahan satu angka.', 'Driver Mercedes Valtteri Bottas memenangi seri pembuka Formula 1 2019 dalam Grand Prix Australia. Berikut klasemen pebalap usai race tersebut. Di Sirkuit Melbourne Park, Australia, Minggu...', 'http://demo.idtheme.com/bloggingpro/wp-content/uploads/2019/03/olahraga-f1-min.jpg', admin_user_id, 'PUBLISHED', 903, '2019-03-17T08:43:26.000Z', '2019-03-17T08:43:26.000Z', '2026-02-01T00:20:45.988Z'
+Aturan baru F1 sendiri akan memberi peraih waktu lap tercepat dalam posisi 10 besar tambahan satu angka.', 'Driver Mercedes Valtteri Bottas memenangi seri pembuka Formula 1 2019 dalam Grand Prix Australia. Berikut klasemen pebalap usai race tersebut. Di Sirkuit Melbourne Park, Australia, Minggu...', NULL, admin_user_id, 'PUBLISHED', 903, '2019-03-17T08:43:26.000Z', '2019-03-17T08:43:26.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'klasemen-f1-2019-usai-bottas-menangi-gp-australia');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2t112816u9', 'Tontowi Ahmad/Liliyana Natsir Sabet Gelar Juara Dunia Kedua', 'tontowi-ahmad-liliyana-natsir-sabet-gelar-juara-dunia-kedua', 'Ganda campuran Indonesia, Tontowi Ahmad/Liliyana Natsir menjadi juara pada Kejuaraan Dunia Bulu Tangkis 2017 di Glasgow, Skotlandia, Senin (28/8/2017) WIB.
+  SELECT 'cml3059bj4cjbgwxw', 'Tontowi Ahmad/Liliyana Natsir Sabet Gelar Juara Dunia Kedua', 'tontowi-ahmad-liliyana-natsir-sabet-gelar-juara-dunia-kedua', 'Ganda campuran Indonesia, Tontowi Ahmad/Liliyana Natsir menjadi juara pada Kejuaraan Dunia Bulu Tangkis 2017 di Glasgow, Skotlandia, Senin (28/8/2017) WIB.
 
 Owi/Butet mengalahkan pasangan asal China, Zheng Siwei/Chen Qingchen, dengan skor 15-21, 21-16, 21-15.
 
@@ -2336,10 +2336,10 @@ Penempatan bola yang mereka lakukan beberapa kali sukses mengelabui Tontowi/Lili
 
 Owi/Butet bangkit pada gim kedua berkat sejumlah kesalahan yang dilakukan Zheng/Chen.
 
-Gim kedua akhirnya dimenangi oleh Tontowi/Liliyana dan pertandingan harus ditentukan melalui rubber game.', 'Ganda campuran Indonesia, Tontowi Ahmad/Liliyana Natsir menjadi juara pada Kejuaraan Dunia Bulu Tangkis 2017 di Glasgow, Skotlandia, Senin (28/8/2017) WIB. Owi/Butet mengalahkan pasangan asal China,...', 'http://demo.idtheme.com/bloggingpro/wp-content/uploads/2019/03/tontowi-ahmadliliyana-natsir-min.jpg', admin_user_id, 'PUBLISHED', 1857, '2019-03-17T08:32:45.000Z', '2019-03-17T08:32:45.000Z', '2026-02-01T00:20:45.988Z'
+Gim kedua akhirnya dimenangi oleh Tontowi/Liliyana dan pertandingan harus ditentukan melalui rubber game.', 'Ganda campuran Indonesia, Tontowi Ahmad/Liliyana Natsir menjadi juara pada Kejuaraan Dunia Bulu Tangkis 2017 di Glasgow, Skotlandia, Senin (28/8/2017) WIB. Owi/Butet mengalahkan pasangan asal China,...', NULL, admin_user_id, 'PUBLISHED', 1857, '2019-03-17T08:32:45.000Z', '2019-03-17T08:32:45.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'tontowi-ahmad-liliyana-natsir-sabet-gelar-juara-dunia-kedua');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2t981os92y', 'Pergantian Jitu Luis Milla yang Mengantar Indonesia ke Semifinal', 'pergantian-jitu-luis-milla-yang-mengantar-indonesia-ke-semifinal', 'Jakarta - Indonesia berhasil mengalahkan Kamboja 2-0. Sempat buntu di babak pertama, Luis Milla mengubah taktik dan berbuah hasil.
+  SELECT 'cml3059bjc7nye6ub', 'Pergantian Jitu Luis Milla yang Mengantar Indonesia ke Semifinal', 'pergantian-jitu-luis-milla-yang-mengantar-indonesia-ke-semifinal', 'Jakarta - Indonesia berhasil mengalahkan Kamboja 2-0. Sempat buntu di babak pertama, Luis Milla mengubah taktik dan berbuah hasil.
 
 Bermain di Stadion Shah Alam, Malaysia, Kamis (24/8/2017) sore WIB, Luis Milla kembali menurunkan formasi andalal 4-2-3-1. Dengan target meraih kemenangan 3-0 atas Kamboja demi mengamankan tike ke semifinal. Marinus Maryanto Wanewar dimainkan sejak menit pertama.
 
@@ -2351,19 +2351,19 @@ Di posisi poros tengah, Muhammad Hargianto berduet dengan Evan Dimas. Sementara 
 
 Seperti yang sudah-sudah, Indonesia kembali menyerang dengan mengandalkan kecepatan di sisi lapangan. Umpan-umpan silang pun jadi opsi untuk masuk ke area kotak penalti.
 
-Namun, upaya tersebut kerap gagal. Osvaldo, yang ada di sisi kiri tampil kurang oke dalam memberi tusukan ke kotak penalti. Tak hanya itu, umpan silang yang dikirim dari kedua sisi Indonesia juga kerap mudah dipatahkan.', 'Jakarta - Indonesia berhasil mengalahkan Kamboja 2-0. Sempat buntu di babak pertama, Luis Milla mengubah taktik dan berbuah hasil. Bermain di Stadion Shah Alam, Malaysia, Kamis (24/8/2017) sore WIB,...', 'http://demo.idtheme.com/bloggingpro/wp-content/uploads/2019/03/Luis-Milla-nuevo-entrenador-del-Zaragoza-min.jpg', admin_user_id, 'PUBLISHED', 5388, '2019-03-17T08:28:54.000Z', '2019-03-17T08:28:54.000Z', '2026-02-01T00:20:45.988Z'
+Namun, upaya tersebut kerap gagal. Osvaldo, yang ada di sisi kiri tampil kurang oke dalam memberi tusukan ke kotak penalti. Tak hanya itu, umpan silang yang dikirim dari kedua sisi Indonesia juga kerap mudah dipatahkan.', 'Jakarta - Indonesia berhasil mengalahkan Kamboja 2-0. Sempat buntu di babak pertama, Luis Milla mengubah taktik dan berbuah hasil. Bermain di Stadion Shah Alam, Malaysia, Kamis (24/8/2017) sore WIB,...', NULL, admin_user_id, 'PUBLISHED', 5388, '2019-03-17T08:28:54.000Z', '2019-03-17T08:28:54.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'pergantian-jitu-luis-milla-yang-mengantar-indonesia-ke-semifinal');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tb5x7b45x', 'Jokowi Minta ASEAN Tangani Masalah Muslim Rohingya di Rakhine State', 'jokowi-minta-asean-tangani-masalah-muslim-rohingya-di-rakhine-state', 'Presiden Jokowi menerima Menteri Luar Negeri Thailand Don Pramudwinai di Istana Merdeka, Jakarta Pusat, Rabu (13/3/2019).
+  SELECT 'cml3059bj6p7e9a2t', 'Jokowi Minta ASEAN Tangani Masalah Muslim Rohingya di Rakhine State', 'jokowi-minta-asean-tangani-masalah-muslim-rohingya-di-rakhine-state', 'Presiden Jokowi menerima Menteri Luar Negeri Thailand Don Pramudwinai di Istana Merdeka, Jakarta Pusat, Rabu (13/3/2019).
 
 Dalam pertemuan, Jokowi menyampaikan pentingnya konsep kerja sama Indo-Pasifik terkait nasib muslim Rohingya di Kota Rakhine, Myanmar.
 
 "Mengenai masalah Rakhine State, Presiden menyampaikan pentingnya keterlibatan ASEAN dalam membantu Myanmar di dalam mempersiapkan repatriasi yang sukarela, damai, dan bermartabat," kata Menteri Luar Negeri Retno Marsudi usai melakukan pertemuan di Istana Merdeka, Jakara Pusat, Rabu (13/3/2019).
 
-Retno mengatakan, Thailand, yang saat ini menjadi Ketua Negara-Negara ASEAN, perlu membahas lebih jauh mengenai rencana itu.', 'Presiden Jokowi menerima Menteri Luar Negeri Thailand Don Pramudwinai di Istana Merdeka, Jakarta Pusat, Rabu (13/3/2019). Dalam pertemuan, Jokowi menyampaikan pentingnya konsep kerja sama...', 'http://demo.idtheme.com/bloggingpro/wp-content/uploads/2019/03/rohingyabangladeshafplima-min.jpg', admin_user_id, 'PUBLISHED', 4507, '2019-03-16T17:57:26.000Z', '2019-03-16T17:57:26.000Z', '2026-02-01T00:20:45.988Z'
+Retno mengatakan, Thailand, yang saat ini menjadi Ketua Negara-Negara ASEAN, perlu membahas lebih jauh mengenai rencana itu.', 'Presiden Jokowi menerima Menteri Luar Negeri Thailand Don Pramudwinai di Istana Merdeka, Jakarta Pusat, Rabu (13/3/2019). Dalam pertemuan, Jokowi menyampaikan pentingnya konsep kerja sama...', NULL, admin_user_id, 'PUBLISHED', 4507, '2019-03-16T17:57:26.000Z', '2019-03-16T17:57:26.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'jokowi-minta-asean-tangani-masalah-muslim-rohingya-di-rakhine-state');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tamtnfs71', 'Demi Xpander, Mitsubishi Bakal Mengimpor Kembali Pajero Sport', 'demi-xpander-mitsubishi-bakal-mengimpor-kembali-pajero-sport', 'Peningkatan penjualan yang sangat signifikan untuk small MPV PT Mitsubishi Motors Krama Yudha Sales Indonesia (MMKSI), Xpander sepertinya bakal berpengaruh terhadap model lain pabrikan berlambang tiga berlian ini.
+  SELECT 'cml3059bjhjwtvyyh', 'Demi Xpander, Mitsubishi Bakal Mengimpor Kembali Pajero Sport', 'demi-xpander-mitsubishi-bakal-mengimpor-kembali-pajero-sport', 'Peningkatan penjualan yang sangat signifikan untuk small MPV PT Mitsubishi Motors Krama Yudha Sales Indonesia (MMKSI), Xpander sepertinya bakal berpengaruh terhadap model lain pabrikan berlambang tiga berlian ini.
 
 Pasalnya, beredar rencana untuk mengejar produksi pesaing Toyota Avanza ini, Pajero Sport bakal kembali berstatus impor alias CBU.
 
@@ -2371,10 +2371,10 @@ Menurut Direktur of Sales &amp; Marketing Division PT MMKSI, Irwan Kuncoro, hing
 
 Jadi, kalaupun dikaitkan dengan rencana ada impor itu, sebetulnya itu rencana untuk sementara, karena itu bagian dari peningkatan kapasitas untuk Xpander," jelas Irwan di sela-sela media gathering, di bilangan Jakarta Pusat, belum lama ini.
 
-Lanjut Irwan, rencana status Pajero Sport yang kembali impor memang belum terealisasi. Dan berbicara sampai kapan, memang harus dilihat dahulu, kapan waktu mulainya, karena hingga saat ini memang belum dilaksanakan (impor Pajero Sport).', 'Peningkatan penjualan yang sangat signifikan untuk small MPV PT Mitsubishi Motors Krama Yudha Sales Indonesia (MMKSI), Xpander sepertinya bakal berpengaruh terhadap model lain pabrikan berlambang...', 'http://demo.idtheme.com/bloggingpro/wp-content/uploads/2019/03/pajero-sport-dakar-min.jpg', admin_user_id, 'PUBLISHED', 1217, '2019-03-16T10:53:59.000Z', '2019-03-16T10:53:59.000Z', '2026-02-01T00:20:45.988Z'
+Lanjut Irwan, rencana status Pajero Sport yang kembali impor memang belum terealisasi. Dan berbicara sampai kapan, memang harus dilihat dahulu, kapan waktu mulainya, karena hingga saat ini memang belum dilaksanakan (impor Pajero Sport).', 'Peningkatan penjualan yang sangat signifikan untuk small MPV PT Mitsubishi Motors Krama Yudha Sales Indonesia (MMKSI), Xpander sepertinya bakal berpengaruh terhadap model lain pabrikan berlambang...', NULL, admin_user_id, 'PUBLISHED', 1217, '2019-03-16T10:53:59.000Z', '2019-03-16T10:53:59.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'demi-xpander-mitsubishi-bakal-mengimpor-kembali-pajero-sport');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tu4zbb8f1', 'Sosok New Nissan Livina Terungkap, Apa Kata NMI?', 'sosok-new-nissan-livina-terungkap-apa-kata-nmi', 'Setelah pecinta otomotif dihebohkan dengan bocoran Toyota Avanza baru, kini muncul gambar yang disinyalir sebagai Nissan Livina anyar.
+  SELECT 'cml3059bjip7rts2m', 'Sosok New Nissan Livina Terungkap, Apa Kata NMI?', 'sosok-new-nissan-livina-terungkap-apa-kata-nmi', 'Setelah pecinta otomotif dihebohkan dengan bocoran Toyota Avanza baru, kini muncul gambar yang disinyalir sebagai Nissan Livina anyar.
 
 Gambar tersebut, beredar luas di media sosial dan juga grup aplikasi percakapan elektronik.
 
@@ -2384,10 +2384,10 @@ Jika diperhatikan, muka low multi purpose vehicle (LMVP) andalan PT Nissan Motor
 
 "New Livina pesan sekarang, hanya di Nissan Datsun Sunter," tulis keterangan sebagai caption dalam foto yang beredar terebut.
 
-Mencoba mengkonfirmasi kepada pihak NMI, melalui Head of Communicationnya, Hana Maharani enggan berkomentar terkait foto yang beredar tersebut.', 'Setelah pecinta otomotif dihebohkan dengan bocoran Toyota Avanza baru, kini muncul gambar yang disinyalir sebagai Nissan Livina anyar. Gambar tersebut, beredar luas di media sosial dan juga grup...', 'http://demo.idtheme.com/bloggingpro/wp-content/uploads/2019/03/new-nissan-grand-livina-min.jpg', admin_user_id, 'PUBLISHED', 1785, '2019-03-16T09:43:44.000Z', '2019-03-16T09:43:44.000Z', '2026-02-01T00:20:45.988Z'
+Mencoba mengkonfirmasi kepada pihak NMI, melalui Head of Communicationnya, Hana Maharani enggan berkomentar terkait foto yang beredar tersebut.', 'Setelah pecinta otomotif dihebohkan dengan bocoran Toyota Avanza baru, kini muncul gambar yang disinyalir sebagai Nissan Livina anyar. Gambar tersebut, beredar luas di media sosial dan juga grup...', NULL, admin_user_id, 'PUBLISHED', 1785, '2019-03-16T09:43:44.000Z', '2019-03-16T09:43:44.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'sosok-new-nissan-livina-terungkap-apa-kata-nmi');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2ts5yzm9es', 'Aliansi Nissan-Mitsubishi Luncurkan Livina Versi Mungil', 'aliansi-nissan-mitsubishi-luncurkan-livina-versi-mungil', 'Nissan meluncurkan Nissan Livina berbasis Xpander beberapa waktu lalu di Indonesia. Di Jepang, aliansi Nissan-Mitsubishi meluncurkan empat mobil jenis Kei car baru.
+  SELECT 'cml3059bj34bfypkx', 'Aliansi Nissan-Mitsubishi Luncurkan Livina Versi Mungil', 'aliansi-nissan-mitsubishi-luncurkan-livina-versi-mungil', 'Nissan meluncurkan Nissan Livina berbasis Xpander beberapa waktu lalu di Indonesia. Di Jepang, aliansi Nissan-Mitsubishi meluncurkan empat mobil jenis Kei car baru.
 
 Beberapa kendaraan di antaranya: Nissan Dayz, Nissan Dayz Highway Star, Mitsubishi eK Wagon dan Mitsubishi eK X. Bentuknya sangat mirip dengan Livina dan Xpander.
 
@@ -2395,19 +2395,19 @@ Nah, produksi mobil mini ini, ditangani oleh perusahaan patungan, NMKV. Dan mere
 
 Sebetulnya, kerja bareng antara Nissan dengan Mitsubishi meluncurkan Kei car terjalin pada 2013. Lalu terjadi peningkatan kolaborasi bisnis, sejak keduanya menjadi mitra aliansi pada 2016.
 
-Untuk pertama kalinya, Kei car Nissan dan Mitsubishi siap menawarkan teknologi mengemudi semi-otonom. Kemampuan yang dirancang untuk penggunaan jalur tunggal di jalan raya.', 'Nissan meluncurkan Nissan Livina berbasis Xpander beberapa waktu lalu di Indonesia. Di Jepang, aliansi Nissan-Mitsubishi meluncurkan empat mobil jenis Kei car baru. Beberapa kendaraan di antaranya:...', 'http://demo.idtheme.com/bloggingpro/wp-content/uploads/2019/03/Nissan-Mitsubishi-keicar-min.jpg', admin_user_id, 'PUBLISHED', 5283, '2019-03-16T09:37:12.000Z', '2019-03-16T09:37:12.000Z', '2026-02-01T00:20:45.988Z'
+Untuk pertama kalinya, Kei car Nissan dan Mitsubishi siap menawarkan teknologi mengemudi semi-otonom. Kemampuan yang dirancang untuk penggunaan jalur tunggal di jalan raya.', 'Nissan meluncurkan Nissan Livina berbasis Xpander beberapa waktu lalu di Indonesia. Di Jepang, aliansi Nissan-Mitsubishi meluncurkan empat mobil jenis Kei car baru. Beberapa kendaraan di antaranya:...', NULL, admin_user_id, 'PUBLISHED', 5283, '2019-03-16T09:37:12.000Z', '2019-03-16T09:37:12.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'aliansi-nissan-mitsubishi-luncurkan-livina-versi-mungil');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2ttj73v5gc', 'Video: Kelemahan dan Kelebihan All New Terios', 'video-kelemahan-dan-kelebihan-all-new-terios', 'Daihatsu Terios pertama kali terjun ke pasar Tanah Air 2006 silam. Setelah berumur 10 tahun lebih, PT Astra Daihatsu Motor (ADM) sadar kalau persaingan mulai ketat, maka PT ADM meluncurkan model terbarunya pada November 2017 lalu dengan ubahan yang signifikan.
+  SELECT 'cml3059bj3ypbaz5r', 'Video: Kelemahan dan Kelebihan All New Terios', 'video-kelemahan-dan-kelebihan-all-new-terios', 'Daihatsu Terios pertama kali terjun ke pasar Tanah Air 2006 silam. Setelah berumur 10 tahun lebih, PT Astra Daihatsu Motor (ADM) sadar kalau persaingan mulai ketat, maka PT ADM meluncurkan model terbarunya pada November 2017 lalu dengan ubahan yang signifikan.
 
 Menariknya meskipun eksterior, interior berubah total dan berbagai fitur canggih sudah tertanam pada All New Terios harga jualnya masih sama dengan versi sebelumnya.
 
 Seperti diketahui, Terios baru ini sudah dibekali fitur smart keyless, vehicle stability control, around view monitor, dan Hill Start Assist.
 
-Sementara untuk dapur pacunya, Terios baru ini juga memiliki mesin baru yang sama dengan mesin Toyota Avanza yakni, 2NR-VE berkapasitas 1.500 cc yang dapat menyemburkan tenaga 104 daya kuda dan torsi 135 newton meter, dengan pilihan transmisi matik konvensional 4-percepatan dan manual 5-percepatan.', 'Daihatsu Terios pertama kali terjun ke pasar Tanah Air 2006 silam. Setelah berumur 10 tahun lebih, PT Astra Daihatsu Motor (ADM) sadar kalau persaingan mulai ketat, maka PT ADM meluncurkan model...', 'http://demo.idtheme.com/bloggingpro/wp-content/uploads/2019/03/all-new-terios-min.jpg', admin_user_id, 'PUBLISHED', 971, '2019-03-16T09:03:53.000Z', '2019-03-16T09:03:53.000Z', '2026-02-01T00:20:45.988Z'
+Sementara untuk dapur pacunya, Terios baru ini juga memiliki mesin baru yang sama dengan mesin Toyota Avanza yakni, 2NR-VE berkapasitas 1.500 cc yang dapat menyemburkan tenaga 104 daya kuda dan torsi 135 newton meter, dengan pilihan transmisi matik konvensional 4-percepatan dan manual 5-percepatan.', 'Daihatsu Terios pertama kali terjun ke pasar Tanah Air 2006 silam. Setelah berumur 10 tahun lebih, PT Astra Daihatsu Motor (ADM) sadar kalau persaingan mulai ketat, maka PT ADM meluncurkan model...', NULL, admin_user_id, 'PUBLISHED', 971, '2019-03-16T09:03:53.000Z', '2019-03-16T09:03:53.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'video-kelemahan-dan-kelebihan-all-new-terios');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tiuxmxtyb', 'Prabowo Resmikan Kantor DPD Gerindra di Banten', 'prabowo-resmikan-kantor-dpd-gerindra-di-banten', 'Serang - Capres Prabowo Subianto meresmikan kantor baru DPD Gerindra Banten di Jalan Serang-Pandeglang. Selain meresmikan, kedatangannya ke Banten akan bertemu dengan pendukung di rumah aspirasi.
+  SELECT 'cml3059bjulaxrt0j', 'Prabowo Resmikan Kantor DPD Gerindra di Banten', 'prabowo-resmikan-kantor-dpd-gerindra-di-banten', 'Serang - Capres Prabowo Subianto meresmikan kantor baru DPD Gerindra Banten di Jalan Serang-Pandeglang. Selain meresmikan, kedatangannya ke Banten akan bertemu dengan pendukung di rumah aspirasi.
 
 Ketua DPD Banten Desmon J Mahesa mengatakan, Prabowo secara khusus meresmikan rumah partai Gerindra Banten yang baru.
 
@@ -2415,10 +2415,10 @@ Prabowo juga dijadwalkan menyapa partai koalisi, relawan dan masyarakat Banten.
 
 "Hari ini Pak Prabowo datang dalam rangka meresmikan DPD partai, kedua akan ke rumah aspirasi saya di Ciwaru dalam rangka menyapa masyarakat," kata Desmon singkat di Jalan Serang-Pandeglang, Banten, Sabtu (16/3/2019).
 
-Prabowo langsung memberikan tumpeng ke salah satu tokoh Banten Buya Humaid Tanara sebagai prosesi peresmian. Ia juga menandatangani prasasti gedung DPD Gerindra.', 'Serang - Capres Prabowo Subianto meresmikan kantor baru DPD Gerindra Banten di Jalan Serang-Pandeglang. Selain meresmikan, kedatangannya ke Banten akan bertemu dengan pendukung di rumah aspirasi....', 'http://demo.idtheme.com/bloggingpro/wp-content/uploads/2019/03/thumbnail-berita-6-min.jpg', admin_user_id, 'PUBLISHED', 2947, '2019-03-16T08:55:46.000Z', '2019-03-16T08:55:46.000Z', '2026-02-01T00:20:45.988Z'
+Prabowo langsung memberikan tumpeng ke salah satu tokoh Banten Buya Humaid Tanara sebagai prosesi peresmian. Ia juga menandatangani prasasti gedung DPD Gerindra.', 'Serang - Capres Prabowo Subianto meresmikan kantor baru DPD Gerindra Banten di Jalan Serang-Pandeglang. Selain meresmikan, kedatangannya ke Banten akan bertemu dengan pendukung di rumah aspirasi....', NULL, admin_user_id, 'PUBLISHED', 2947, '2019-03-16T08:55:46.000Z', '2019-03-16T08:55:46.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'prabowo-resmikan-kantor-dpd-gerindra-di-banten');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2t0z24pmin', '14 Tahun Terbunuhnya Munir, Polri Didesak Bentuk Tim Khusus', '14-tahun-terbunuhnya-munir-polri-didesak-bentuk-tim-khusus', 'Jakarta - Hari yang sama 14 tahun lalu, Munir Said Thalib meninggal di dalam pesawat yang mengantarnya ke Amsterdam, Belanda. Munir diracun di udara.
+  SELECT 'cml3059bj406rj7no', '14 Tahun Terbunuhnya Munir, Polri Didesak Bentuk Tim Khusus', '14-tahun-terbunuhnya-munir-polri-didesak-bentuk-tim-khusus', 'Jakarta - Hari yang sama 14 tahun lalu, Munir Said Thalib meninggal di dalam pesawat yang mengantarnya ke Amsterdam, Belanda. Munir diracun di udara.
 
 Pollycarpus Budihari Priyanto, seorang pilot senior Garuda Indonesia saat itu, ditangkap dan diadili. Dia divonis 14 tahun penjara, tetapi majelis hakim yang mengadilinya yakin ada dalang di balik pembunuhan Munir. Siapa?
 
@@ -2426,10 +2426,10 @@ Pertanyaan itu hingga Pollycarpus akhirnya bebas tahun ini pun belum terjawab. P
 
 "Kembali kami menegaskan negara belum mampu membongkar konspirasi dalam kejahatan ini.
 
-Pernyataan Presiden Joko Widodo bahwa kasus pembunuhan Munir adalah pekerjaan rumah yang harus diselesaikan masih sebatas janji tanpa bukti," ujar salah satu aktivis HAM dari Kontras, Yati Andriani, di Jalan Kramat II, Senen, Jakarta Pusat, Jumat (7/9/2018).', 'Jakarta - Hari yang sama 14 tahun lalu, Munir Said Thalib meninggal di dalam pesawat yang mengantarnya ke Amsterdam, Belanda. Munir diracun di udara. Pollycarpus Budihari Priyanto, seorang pilot...', 'http://demo.idtheme.com/bloggingpro/wp-content/uploads/2019/03/thumbnail-berita-5-min.jpg', admin_user_id, 'PUBLISHED', 4975, '2019-03-16T08:28:00.000Z', '2019-03-16T08:28:00.000Z', '2026-02-01T00:20:45.988Z'
+Pernyataan Presiden Joko Widodo bahwa kasus pembunuhan Munir adalah pekerjaan rumah yang harus diselesaikan masih sebatas janji tanpa bukti," ujar salah satu aktivis HAM dari Kontras, Yati Andriani, di Jalan Kramat II, Senen, Jakarta Pusat, Jumat (7/9/2018).', 'Jakarta - Hari yang sama 14 tahun lalu, Munir Said Thalib meninggal di dalam pesawat yang mengantarnya ke Amsterdam, Belanda. Munir diracun di udara. Pollycarpus Budihari Priyanto, seorang pilot...', NULL, admin_user_id, 'PUBLISHED', 4975, '2019-03-16T08:28:00.000Z', '2019-03-16T08:28:00.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = '14-tahun-terbunuhnya-munir-polri-didesak-bentuk-tim-khusus');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tkozhzdra', '2 Hari Hilang, Nelayan Tewas Mengambang di Pantai Cipalawah Garut', '2-hari-hilang-nelayan-tewas-mengambang-di-pantai-cipalawah-garut', 'Garut - Setelah melakukan pencarian selama dua hari, petugas Basarnas dan Polairud menemukan jasad Maulana di Pantai Cipalawah, Kabupaten Garut, Jawa Barat. Jenazah pria tersebut langsung dievakuasi petugas.
+  SELECT 'cml3059bjdia2je08', '2 Hari Hilang, Nelayan Tewas Mengambang di Pantai Cipalawah Garut', '2-hari-hilang-nelayan-tewas-mengambang-di-pantai-cipalawah-garut', 'Garut - Setelah melakukan pencarian selama dua hari, petugas Basarnas dan Polairud menemukan jasad Maulana di Pantai Cipalawah, Kabupaten Garut, Jawa Barat. Jenazah pria tersebut langsung dievakuasi petugas.
 
 "Setelah melakukan pencarian selama 2 hari, Tim SAR Bandung akhirnya dapat menemukan korban.
 
@@ -2437,10 +2437,10 @@ Ditemukan dalam keadaan meninggal dunia," kata Humas Kantor SAR Bandung Joshua B
 
 Nelayan berusia 45 tahun asal Garut ini dilaporkan hilang di pesisir Pantai Cipalawah, Desa Sancang, Kecamatan Cibalong, Garut, Kamis (14/3).
 
-Kapolsek Cibalong AKP Ridwan Tampubolon menyebutkan Maulana menghilang saat hendak mencari ikan dengan cara menyelam di pantai menggunakan busur panah.', 'Garut - Setelah melakukan pencarian selama dua hari, petugas Basarnas dan Polairud menemukan jasad Maulana di Pantai Cipalawah, Kabupaten Garut, Jawa Barat. Jenazah pria tersebut langsung dievakuasi...', 'http://demo.idtheme.com/bloggingpro/wp-content/uploads/2019/03/thumbnail-berita-4-min.jpg', admin_user_id, 'PUBLISHED', 1662, '2019-03-16T08:22:08.000Z', '2019-03-16T08:22:08.000Z', '2026-02-01T00:20:45.988Z'
+Kapolsek Cibalong AKP Ridwan Tampubolon menyebutkan Maulana menghilang saat hendak mencari ikan dengan cara menyelam di pantai menggunakan busur panah.', 'Garut - Setelah melakukan pencarian selama dua hari, petugas Basarnas dan Polairud menemukan jasad Maulana di Pantai Cipalawah, Kabupaten Garut, Jawa Barat. Jenazah pria tersebut langsung dievakuasi...', NULL, admin_user_id, 'PUBLISHED', 1662, '2019-03-16T08:22:08.000Z', '2019-03-16T08:22:08.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = '2-hari-hilang-nelayan-tewas-mengambang-di-pantai-cipalawah-garut');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2toceg9qv6', 'Bersih-bersih, 60 Warga Tanjung Priok Ikuti Program Padat Karya', 'bersih-bersih-60-warga-tanjung-priok-ikuti-program-padat-karya', 'Jakarta - Kementerian Perhubungan (Kemenhub) melalui Distrik Navigasi (Disnav) Kelas I Tanjung Priok Jakarta menggelar program padat karya.
+  SELECT 'cml3059bj5ris1mkm', 'Bersih-bersih, 60 Warga Tanjung Priok Ikuti Program Padat Karya', 'bersih-bersih-60-warga-tanjung-priok-ikuti-program-padat-karya', 'Jakarta - Kementerian Perhubungan (Kemenhub) melalui Distrik Navigasi (Disnav) Kelas I Tanjung Priok Jakarta menggelar program padat karya.
 
 Sedikitnya 60 orang warga dari Kelurahan Tanjung Priok, Pademangan Barat, Sungai Bambu, dan Warakas Jakarta Utara turut terlibat dalam kegiatan ini.
 
@@ -2448,10 +2448,10 @@ Sedikitnya 60 orang warga dari Kelurahan Tanjung Priok, Pademangan Barat, Sungai
 
 Hal tersebut diungkapkannya saat membuka kegiatan padat karya tersebut di halaman Kantor Disnav Kelas I Tanjung Priok, Jakarta.
 
-Menurut Basar, kegiatan padat karya seperti ini dapat membuat lingkungan kerja yang bersih dan nyaman bagi para pegawai Disnav Tanjung Priok.', 'Jakarta - Kementerian Perhubungan (Kemenhub) melalui Distrik Navigasi (Disnav) Kelas I Tanjung Priok Jakarta menggelar program padat karya. Sedikitnya 60 orang warga dari Kelurahan Tanjung Priok,...', 'http://demo.idtheme.com/bloggingpro/wp-content/uploads/2019/03/thumbnail-berita-3-min.jpg', admin_user_id, 'PUBLISHED', 4337, '2019-03-16T08:10:58.000Z', '2019-03-16T08:10:58.000Z', '2026-02-01T00:20:45.988Z'
+Menurut Basar, kegiatan padat karya seperti ini dapat membuat lingkungan kerja yang bersih dan nyaman bagi para pegawai Disnav Tanjung Priok.', 'Jakarta - Kementerian Perhubungan (Kemenhub) melalui Distrik Navigasi (Disnav) Kelas I Tanjung Priok Jakarta menggelar program padat karya. Sedikitnya 60 orang warga dari Kelurahan Tanjung Priok,...', NULL, admin_user_id, 'PUBLISHED', 4337, '2019-03-16T08:10:58.000Z', '2019-03-16T08:10:58.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'bersih-bersih-60-warga-tanjung-priok-ikuti-program-padat-karya');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tts9tjear', 'Menag Kecam Penembakan di New Zealand: Tak Berperikemanusiaan!', 'menag-kecam-penembakan-di-new-zealand-tak-berperikemanusiaan', 'Jakarta - Menteri Agaman Lukman Hakim Saifuddin mengecam aksi penembakan di dua masjid di Christchurch, New Zealand. Dia mengatakan aksi terorisme itu bertentangan dengan nilai-nilai agama.
+  SELECT 'cml3059bjjttysli3', 'Menag Kecam Penembakan di New Zealand: Tak Berperikemanusiaan!', 'menag-kecam-penembakan-di-new-zealand-tak-berperikemanusiaan', 'Jakarta - Menteri Agaman Lukman Hakim Saifuddin mengecam aksi penembakan di dua masjid di Christchurch, New Zealand. Dia mengatakan aksi terorisme itu bertentangan dengan nilai-nilai agama.
 
 "Itu tindakan tidak berperikemanusiaan dan sangat bertentangan dengan nilai-nilai agama," kata Lukman dalam keterangan tertulis, Sabtu (16/3/2019).
 
@@ -2459,10 +2459,10 @@ Lukman mengatakan aksi terorisme tidak dibenarkan dalam ajaran agama apa pun. Ja
 
 Dia mengajak seluruh umat beragam untuk menahan diri dan meningkatkan kewaspadaan. Pemerintah melalui Kementerian Luar Negeri juga bekerja keras mencari kabar perkembangan kondisi di Selandia Baru, termasuk memastikan kondisi keamanan warga negara Indonesia.
 
-Dia juga meminta seluruh warga tidak menyebarkan video aksi penembakan yang dilakukan pelaku.', 'Jakarta - Menteri Agaman Lukman Hakim Saifuddin mengecam aksi penembakan di dua masjid di Christchurch, New Zealand. Dia mengatakan aksi terorisme itu bertentangan dengan nilai-nilai agama. "Itu...', 'http://demo.idtheme.com/bloggingpro/wp-content/uploads/2019/03/Thumbnail-berita-2-min.jpg', admin_user_id, 'PUBLISHED', 681, '2019-03-16T07:56:50.000Z', '2019-03-16T07:56:50.000Z', '2026-02-01T00:20:45.988Z'
+Dia juga meminta seluruh warga tidak menyebarkan video aksi penembakan yang dilakukan pelaku.', 'Jakarta - Menteri Agaman Lukman Hakim Saifuddin mengecam aksi penembakan di dua masjid di Christchurch, New Zealand. Dia mengatakan aksi terorisme itu bertentangan dengan nilai-nilai agama. "Itu...', NULL, admin_user_id, 'PUBLISHED', 681, '2019-03-16T07:56:50.000Z', '2019-03-16T07:56:50.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'menag-kecam-penembakan-di-new-zealand-tak-berperikemanusiaan');
   INSERT INTO posts (id, title, slug, content, excerpt, "featuredImage", "authorId", status, "viewCount", "publishedAt", "createdAt", "updatedAt")
-  SELECT 'cml2zvw2trubm2i83', 'Solidaritas Korban Penembakan, DKI Beri Warna Bendera New Zealand di JPO GBK', 'solidaritas-korban-penembakan-dki-beri-warna-bendera-new-zealand-di-jpo-gbk', 'Pemprov DKI turut berbelasungkawa atas penembakan di dua masjid di Christchurch, New Zealand, yang menewaskan 49 orang.
+  SELECT 'cml3059bj5rrxme9r', 'Solidaritas Korban Penembakan, DKI Beri Warna Bendera New Zealand di JPO GBK', 'solidaritas-korban-penembakan-dki-beri-warna-bendera-new-zealand-di-jpo-gbk', 'Pemprov DKI turut berbelasungkawa atas penembakan di dua masjid di Christchurch, New Zealand, yang menewaskan 49 orang.
 
 Warna-warna bendera Selandia Baru akan dimunculkan selama seminggu di jembatan penyeberangan orang (JPO) Gelora Bung Karno.
 
@@ -2470,7 +2470,7 @@ Kepala Dinas Bina Marga Hari Nugroho mengatakan kombinasi warna itu dimunculkan 
 
 "Ini sesuai dengan arahan Pak Gubernur," ujar Hari lewat keterangannya, Sabtu (16/3/2019).
 
-Pemunculan warna-warna bendera Selandia Baru ini sudah dilakukan sejak Jumat (15/3) malam. Kombinasi warna yang ada di bendera tersebut adalah merah, biru, dan putih.', 'Pemprov DKI turut berbelasungkawa atas penembakan di dua masjid di Christchurch, New Zealand, yang menewaskan 49 orang. Warna-warna bendera Selandia Baru akan dimunculkan selama seminggu di jembatan...', 'http://demo.idtheme.com/bloggingpro/wp-content/uploads/2019/03/thumbnail-1.jpg', admin_user_id, 'PUBLISHED', 729, '2019-03-16T07:48:14.000Z', '2019-03-16T07:48:14.000Z', '2026-02-01T00:20:45.988Z'
+Pemunculan warna-warna bendera Selandia Baru ini sudah dilakukan sejak Jumat (15/3) malam. Kombinasi warna yang ada di bendera tersebut adalah merah, biru, dan putih.', 'Pemprov DKI turut berbelasungkawa atas penembakan di dua masjid di Christchurch, New Zealand, yang menewaskan 49 orang. Warna-warna bendera Selandia Baru akan dimunculkan selama seminggu di jembatan...', NULL, admin_user_id, 'PUBLISHED', 729, '2019-03-16T07:48:14.000Z', '2019-03-16T07:48:14.000Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM posts WHERE slug = 'solidaritas-korban-penembakan-dki-beri-warna-bendera-new-zealand-di-jpo-gbk');
 
   -- Post-Category relationships
@@ -3563,22 +3563,22 @@ Pemunculan warna-warna bendera Selandia Baru ini sudah dilakukan sejak Jumat (15
 
   -- Settings
   INSERT INTO settings (id, key, value, "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tz3rj9nj3', 'site_name', 'Kilas Indonesia', '2026-02-01T00:20:45.988Z', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bj5patsxo1', 'site_name', 'Kilas Indonesia', '2026-02-01T00:28:03.054Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM settings WHERE key = 'site_name');
   INSERT INTO settings (id, key, value, "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tf8wj7l6l', 'site_description', 'Portal Berita Pendidikan Islam Terpercaya', '2026-02-01T00:20:45.988Z', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bj85jqxkdl', 'site_description', 'Portal Berita Pendidikan Islam Terpercaya', '2026-02-01T00:28:03.054Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM settings WHERE key = 'site_description');
   INSERT INTO settings (id, key, value, "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tlxm9f2my', 'site_logo', 'https://res.cloudinary.com/dicwfbdgz/image/upload/v1769873625/logo_kilasindonesia_ww6s9k.png', '2026-02-01T00:20:45.988Z', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bjq1afsm5a', 'site_logo', 'https://res.cloudinary.com/dicwfbdgz/image/upload/v1769873625/logo_kilasindonesia_ww6s9k.png', '2026-02-01T00:28:03.054Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM settings WHERE key = 'site_logo');
   INSERT INTO settings (id, key, value, "createdAt", "updatedAt")
-  SELECT 'cml2zvw2t4hksd3pi', 'contact_email', 'redaksi@kilasindonesia.com', '2026-02-01T00:20:45.988Z', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bjyuo0h462', 'contact_email', 'redaksi@kilasindonesia.com', '2026-02-01T00:28:03.054Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM settings WHERE key = 'contact_email');
   INSERT INTO settings (id, key, value, "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tmokg12ik', 'social_facebook', 'https://facebook.com/kilasindonesia', '2026-02-01T00:20:45.988Z', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bjrmd6sv5y', 'social_facebook', 'https://facebook.com/kilasindonesia', '2026-02-01T00:28:03.054Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM settings WHERE key = 'social_facebook');
   INSERT INTO settings (id, key, value, "createdAt", "updatedAt")
-  SELECT 'cml2zvw2tdpar1ke5', 'social_twitter', 'https://twitter.com/kilasindonesia', '2026-02-01T00:20:45.988Z', '2026-02-01T00:20:45.988Z'
+  SELECT 'cml3059bjxsqjhq8a', 'social_twitter', 'https://twitter.com/kilasindonesia', '2026-02-01T00:28:03.054Z', '2026-02-01T00:28:03.054Z'
   WHERE NOT EXISTS (SELECT 1 FROM settings WHERE key = 'social_twitter');
 
 END $$;
