@@ -108,7 +108,7 @@ async function main() {
   }
   lines.push('')
 
-  // Settings
+  // Settings (schema: key PRIMARY KEY, value)
   lines.push('  -- Settings')
   const settings = [
     { key: 'site_name', value: 'Kilas Indonesia' },
@@ -119,9 +119,8 @@ async function main() {
     { key: 'social_twitter', value: 'https://twitter.com/kilasindonesia' },
   ]
   for (const setting of settings) {
-    const id = createId()
-    lines.push(`  INSERT INTO settings (id, key, value, "createdAt", "updatedAt")`)
-    lines.push(`  SELECT '${id}', '${setting.key}', '${escapeSQL(setting.value)}', '${now}', '${now}'`)
+    lines.push(`  INSERT INTO settings (key, value)`)
+    lines.push(`  SELECT '${setting.key}', '${escapeSQL(setting.value)}'`)
     lines.push(`  WHERE NOT EXISTS (SELECT 1 FROM settings WHERE key = '${setting.key}');`)
   }
   lines.push('')
