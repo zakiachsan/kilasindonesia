@@ -1,5 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { db, posts, users, categories, tags, postCategories, postTags, eq, desc, and, or, ilike, sql, count } from '@/db'
+import { db, posts, users, categories, tags, postCategories, postTags, eq, desc, and, or, ilike, sql, count, gte } from '@/db'
+
+// Get date 3 months ago for filtering recent articles
+function getThreeMonthsAgo(): Date {
+  const date = new Date()
+  date.setMonth(date.getMonth() - 3)
+  return date
+}
 
 export async function GET(request: NextRequest) {
   try {
@@ -9,11 +16,17 @@ export async function GET(request: NextRequest) {
     const category = searchParams.get('category')
     const tag = searchParams.get('tag')
     const search = searchParams.get('search')
+    const popular = searchParams.get('popular') === 'true' // Filter for popular posts within 3 months
 
     const offset = (page - 1) * limit
 
     // Build conditions
     const conditions = [eq(posts.status, 'PUBLISHED')]
+
+    // If popular mode, only show articles within 3 months
+    if (popular) {
+      conditions.push(gte(posts.publishedAt, getThreeMonthsAgo()))
+    }
 
     if (search) {
       conditions.push(
@@ -98,6 +111,9 @@ export async function GET(request: NextRequest) {
     }
 
     // Re-run query with updated conditions
+    // Order by viewCount if popular mode, otherwise by publishedAt
+    const orderByClause = popular ? desc(posts.viewCount) : desc(posts.publishedAt)
+
     const postsResult = await db
       .select({
         id: posts.id,
@@ -114,7 +130,7 @@ export async function GET(request: NextRequest) {
       .from(posts)
       .leftJoin(users, eq(posts.authorId, users.id))
       .where(and(...conditions))
-      .orderBy(desc(posts.publishedAt))
+      .orderBy(orderByClause)
       .limit(limit)
       .offset(offset)
 

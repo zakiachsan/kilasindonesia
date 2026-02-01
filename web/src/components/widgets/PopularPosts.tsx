@@ -28,14 +28,10 @@ export default function PopularPosts({
   useEffect(() => {
     async function fetchPosts() {
       try {
-        // For now, fetch posts and sort by viewCount on client
-        // Later, add a dedicated API endpoint for popular posts
-        const res = await fetch(`/api/posts?limit=${limit * 2}`)
+        // Fetch popular posts within 3 months, sorted by viewCount
+        const res = await fetch(`/api/posts?limit=${limit}&popular=true`)
         const data = await res.json()
-        const sortedPosts = (data.posts || [])
-          .sort((a: Post, b: Post) => b.viewCount - a.viewCount)
-          .slice(0, limit)
-        setPosts(sortedPosts)
+        setPosts(data.posts || [])
       } catch (error) {
         console.error('Failed to fetch popular posts:', error)
       } finally {

@@ -1,5 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { db, posts, categories, postCategories, eq, and, desc, inArray, sql } from '@/db'
+import { db, posts, categories, postCategories, eq, and, desc, inArray, sql, gte } from '@/db'
+
+// Get date 3 months ago for filtering recent articles
+function getThreeMonthsAgo(): Date {
+  const date = new Date()
+  date.setMonth(date.getMonth() - 3)
+  return date
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -10,6 +17,7 @@ export async function POST(request: NextRequest) {
     }
 
     let recommendations: any[] = []
+    const threeMonthsAgo = getThreeMonthsAgo()
 
     if (categorySlugs.length > 0) {
       // Get category IDs
@@ -44,7 +52,8 @@ export async function POST(request: NextRequest) {
             .from(posts)
             .where(and(
               inArray(posts.id, validPostIds.slice(0, 20)),
-              eq(posts.status, 'PUBLISHED')
+              eq(posts.status, 'PUBLISHED'),
+              gte(posts.publishedAt, threeMonthsAgo) // Only articles within 3 months
             ))
             .orderBy(desc(posts.viewCount), desc(posts.publishedAt))
             .limit(3)
@@ -65,7 +74,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // If not enough recommendations, fill with popular posts
+    // If not enough recommendations, fill with popular posts (within 3 months)
     if (recommendations.length < 3) {
       const existingIds = [...excludeIds, ...recommendations.map(r => r.id)]
 
@@ -82,6 +91,7 @@ export async function POST(request: NextRequest) {
         .from(posts)
         .where(and(
           eq(posts.status, 'PUBLISHED'),
+          gte(posts.publishedAt, threeMonthsAgo), // Only articles within 3 months
           existingIds.length > 0 ? sql`${posts.id} NOT IN (${sql.join(existingIds.map(id => sql`${id}`), sql`, `)})` : sql`1=1`
         ))
         .orderBy(desc(posts.viewCount))
