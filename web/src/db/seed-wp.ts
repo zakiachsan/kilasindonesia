@@ -1,6 +1,7 @@
 import 'dotenv/config'
 import { drizzle } from 'drizzle-orm/node-postgres/driver'
 import { Pool } from 'pg'
+import bcrypt from 'bcryptjs'
 import * as schema from './schema'
 import { categoriesData, tagsData, postsData } from './seed-data'
 
@@ -22,12 +23,13 @@ async function main() {
   await db.delete(schema.categories)
   await db.delete(schema.users)
   await db.delete(schema.settings)
+  await db.delete(schema.pages)
 
   // ===========================================
   // CREATE ADMIN USER
   // ===========================================
   console.log('👤 Creating admin user...')
-  const hashedPassword = '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy' // admin123
+  const hashedPassword = await bcrypt.hash('admin123', 12)
 
   const now = new Date()
   const [admin] = await db.insert(schema.users).values({
@@ -170,6 +172,47 @@ async function main() {
     { key: 'social_twitter', value: 'https://twitter.com/kilasindonesia' },
   ])
 
+  // ===========================================
+  // CREATE STATIC PAGES
+  // ===========================================
+  console.log('📄 Creating static pages...')
+
+  const aboutContent = `
+<h2>Kilas Indonesia</h2>
+<p>Kilas Indonesia adalah portal berita yang menyajikan informasi terkini, akurat, dan terpercaya seputar pendidikan Islam, madrasah, pesantren, dan berbagai topik menarik lainnya.</p>
+
+<h3>Visi</h3>
+<p>Menjadi portal berita terpercaya untuk menyajikan informasi seputar dunia pendidikan Islam dan keagamaan di Indonesia.</p>
+
+<h3>Misi</h3>
+<ul>
+<li>Menyajikan berita yang akurat, terpercaya, dan terkini</li>
+<li>Mendukung perkembangan pendidikan Islam di Indonesia</li>
+<li>Memberikan wawasan tentang dunia pesantren dan madrasah</li>
+<li>Memperluas informasi tentang perguruan tinggi keagamaan</li>
+</ul>
+
+<h3>Redaksi</h3>
+<p>Tim redaksi Kilas Indonesia terdiri dari jurnalis profesional yang berkomitmen menghadirkan berita berkualitas.</p>
+
+<h3>Kontak</h3>
+<p>Untuk informasi lebih lanjut, silakan hubungi kami melalui:</p>
+<ul>
+<li>Email: redaksi@kilasindonesia.com</li>
+<li>WhatsApp: +62 8xx-xxxx-xxxx</li>
+</ul>
+`
+
+  await db.insert(schema.pages).values({
+    slug: 'tentang-kami',
+    title: 'Tentang Kilas Indonesia',
+    content: aboutContent,
+    excerpt: 'Kilas Indonesia adalah portal berita yang menyajikan informasi terkini, akurat, dan terpercaya seputar pendidikan Islam.',
+    publishedAt: now,
+    createdAt: now,
+    updatedAt: now,
+  })
+
   console.log('✅ Seed completed successfully!')
   console.log(`   - 1 admin user`)
   console.log(`   - ${insertedCategories.length} categories`)
@@ -177,6 +220,11 @@ async function main() {
   console.log(`   - ${successCount} posts`)
   console.log(`   - 2 menus`)
   console.log(`   - 6 settings`)
+  console.log(`   - 1 page (tentang-kami)`)
+  console.log('')
+  console.log('🔐 Admin credentials:')
+  console.log('   Email: admin@kilasindonesia.com')
+  console.log('   Password: admin123')
 
   await pool.end()
 }
