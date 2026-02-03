@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import { drizzle } from 'drizzle-orm/node-postgres'
+import { drizzle } from 'drizzle-orm'
 import { Pool } from 'pg'
 import * as schema from './schema'
 import { categoriesData, tagsData, postsData } from './seed-data'

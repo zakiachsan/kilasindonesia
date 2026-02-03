@@ -1,9 +1,9 @@
 import 'dotenv/config'
-import { drizzle } from 'drizzle-orm/node-postgres'
+import { drizzle } from 'drizzle-orm'
 import { Pool } from 'pg'
 import * as schema from './schema'
 
-const pool = new Pool({ connectionString: process.env.DATABASE_URL })
+const pool = new Pool({ connectionString: process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/kilasindonesia' })
 const db = drizzle(pool, { schema })
 
 async function main() {
