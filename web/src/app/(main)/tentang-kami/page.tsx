@@ -47,9 +47,9 @@ async function getPopularPosts() {
 // Fetch categories
 async function getCategories() {
   try {
-    const { categories, postCategories } = await import('@/db')
+    const { categories, postCategories, posts } = await import('@/db')
     const { eq, asc, count } = await import('drizzle-orm')
-    
+
     const allCats = await db
       .select()
       .from(categories)
