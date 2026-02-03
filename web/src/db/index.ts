@@ -1,4 +1,4 @@
-import { drizzle } from 'drizzle-orm'
+import { drizzle } from 'drizzle-orm/node-postgres/driver'
 import { Pool } from 'pg'
 import * as schema from './schema'
 
