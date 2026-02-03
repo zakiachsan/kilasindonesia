@@ -20,6 +20,7 @@ async function main() {
   await db.delete(schema.categories)
   await db.delete(schema.users)
   await db.delete(schema.settings)
+  await db.delete(schema.pages)
 
   // ===========================================
   // CREATE ADMIN USER
@@ -281,6 +282,49 @@ async function main() {
   console.log('🔐 Admin credentials:')
   console.log('   Email: admin@kilasindonesia.com')
   console.log('   Password: admin123')
+
+  // ===========================================
+  // CREATE STATIC PAGES
+  // ===========================================
+  console.log('📄 Creating static pages...')
+
+  const aboutContent = `
+<h2>Kilas Indonesia</h2>
+<p>Kilas Indonesia adalah portal berita yang menyajikan informasi terkini, akurat, dan terpercaya seputar pendidikan Islam, madrasah, pesantren, dan berbagai topik menarik lainnya.</p>
+
+<h3>Visi</h3>
+<p>Menjadi portal berita terpercaya untuk menyajikan informasi seputar dunia pendidikan Islam dan keagamaan di Indonesia.</p>
+
+<h3>Misi</h3>
+<ul>
+<li>Menyajikan berita yang akurat, terpercaya, dan terkini</li>
+<li>Mendukung perkembangan pendidikan Islam di Indonesia</li>
+<li>Memberikan wawasan tentang dunia pesantren dan madrasah</li>
+<li>Memperluas informasi tentang perguruan tinggi keagamaan</li>
+</ul>
+
+<h3>Redaksi</h3>
+<p>Tim redaksi Kilas Indonesia terdiri dari jurnalis profesional yang berkomitmen menghadirkan berita berkualitas.</p>
+
+<h3>Kontak</h3>
+<p>Untuk informasi lebih lanjut, silakan hubungi kami melalui:</p>
+<ul>
+<li>Email: redaksi@kilasindonesia.com</li>
+<li>WhatsApp: +62 8xx-xxxx-xxxx</li>
+</ul>
+`
+
+  await db.insert(schema.pages).values({
+    slug: 'tentang-kami',
+    title: 'Tentang Kilas Indonesia',
+    content: aboutContent,
+    excerpt: 'Kilas Indonesia adalah portal berita yang menyajikan informasi terkini, akurat, dan terpercaya seputar pendidikan Islam, madrasah, pesantren, dan berbagai topik menarik lainnya.',
+    publishedAt: now,
+    createdAt: now,
+    updatedAt: now,
+  })
+
+  console.log('✅ Static pages created')
 }
 
 main()

@@ -201,7 +201,9 @@ export async function generateMetadata({ params }: PageProps) {
   const canonicalUrl = getCanonicalUrl(`/${slug}`)
   // Make sure image URL is absolute for social sharing (WhatsApp, Facebook, Twitter)
   const rawImageUrl = post.featuredImage || '/og-image.svg'
-  const imageUrl = rawImageUrl.startsWith('http') ? rawImageUrl : getCanonicalUrl(rawImageUrl)
+  let imageUrl = rawImageUrl.startsWith('http') ? rawImageUrl : getCanonicalUrl(rawImageUrl)
+  // Force HTTPS for WhatsApp/Telegram sharing
+  imageUrl = imageUrl.replace('http://', 'https://')
 
   return {
     title,

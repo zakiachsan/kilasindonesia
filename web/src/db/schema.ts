@@ -286,6 +286,27 @@ export const ads = pgTable('ads', {
 ])
 
 // ============================================
+// STATIC PAGES (About, Contact, etc.)
+// ============================================
+
+export const pages = pgTable('pages', {
+  id: text('id').primaryKey().$defaultFn(createId),
+  slug: text('slug').notNull().unique(),
+  title: text('title').notNull(),
+  content: text('content').notNull(), // HTML or Markdown content
+  excerpt: text('excerpt'),
+  featuredImage: text('featuredImage'),
+  seoTitle: text('seoTitle'),
+  seoDescription: text('seoDescription'),
+  publishedAt: timestamp('publishedAt'),
+  createdAt: timestamp('createdAt').notNull().defaultNow(),
+  updatedAt: timestamp('updatedAt').notNull().defaultNow().$onUpdate(() => new Date()),
+}, (table) => [
+  index('pages_slug_idx').on(table.slug),
+  index('pages_published_idx').on(table.publishedAt),
+])
+
+// ============================================
 // TYPE EXPORTS
 // ============================================
 
@@ -306,3 +327,5 @@ export type Menu = typeof menus.$inferSelect
 export type MenuItem = typeof menuItems.$inferSelect
 export type Ad = typeof ads.$inferSelect
 export type NewAd = typeof ads.$inferInsert
+export type Page = typeof pages.$inferSelect
+export type NewPage = typeof pages.$inferInsert
