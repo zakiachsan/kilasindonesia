@@ -1,0 +1,17 @@
+name = "kilasindonesia"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = ".vercel/output/static"
+
+# Uncomment and configure if using Cloudflare Hyperdrive for PostgreSQL
+# [[hyperdrive]]
+# binding = "HYPERDRIVE"
+# id = "your-hyperdrive-id-here"
+
+# Environment variables (set these in Cloudflare Dashboard)
+# [vars]
+# NEXT_PUBLIC_APP_URL = "https://kilasindonesia.com"
+# NEXT_PUBLIC_APP_NAME = "Kilas Indonesia"
+
+# Note: Sensitive variables like DATABASE_URL, NEXTAUTH_SECRET should be set
+# as encrypted secrets in Cloudflare Dashboard, not in this file.

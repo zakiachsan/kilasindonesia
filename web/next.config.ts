@@ -1,11 +1,22 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-  // Enable standalone output for Docker deployment
-  output: 'standalone',
+// Import setupDevPlatform for Cloudflare local development
+// This is only needed for local development, not for production builds
+import { setupDevPlatform } from '@cloudflare/next-on-pages/next-dev';
 
-  // Image optimization
+// Setup Cloudflare platform for local development
+if (process.env.NODE_ENV === 'development') {
+  setupDevPlatform();
+}
+
+const nextConfig: NextConfig = {
+  // Note: 'standalone' output removed for Cloudflare Pages compatibility
+  // For Docker deployment, add: output: 'standalone'
+
+  // Image optimization (unoptimized for Cloudflare Pages)
+  // To use Cloudflare Images, set up a custom loader instead
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
