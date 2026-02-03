@@ -57,7 +57,7 @@ export default async function PagesAdmin() {
                 <tr key={page.id} className="border-b hover:bg-gray-50">
                   <td className="p-4">
                     <Link
-                      href={`/tentang-kami`}
+                      href={`/${page.slug}`}
                       className="text-primary-600 hover:underline"
                       target="_blank"
                     >
