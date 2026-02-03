@@ -1,7 +1,15 @@
 import 'dotenv/config'
 import { drizzle } from 'drizzle-orm/node-postgres/driver'
 import { Pool } from 'pg'
+import bcrypt from 'bcryptjs'
 import * as schema from './schema'
+
+// Prevent running in production - use specific scripts instead
+if (process.env.NODE_ENV === 'production') {
+  console.error('❌ Cannot run full seed in production!')
+  console.error('   Use specific scripts: npm run db:reset-password or npm run db:seed-pages')
+  process.exit(1)
+}
 
 const pool = new Pool({ connectionString: process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/kilasindonesia' })
 const db = drizzle(pool, { schema })
@@ -26,8 +34,8 @@ async function main() {
   // CREATE ADMIN USER
   // ===========================================
   console.log('👤 Creating admin user...')
-  // Pre-hashed password for 'admin123' using bcrypt with 10 rounds
-  const hashedPassword = '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy'
+  // Hash password dynamically to ensure it's always correct
+  const hashedPassword = await bcrypt.hash('admin123', 12)
 
   const now = new Date()
   const [admin] = await db.insert(schema.users).values({

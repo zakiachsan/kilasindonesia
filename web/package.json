@@ -11,6 +11,8 @@
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
     "db:seed": "tsx src/db/seed.ts",
+    "db:seed-pages": "tsx src/db/seed-pages.ts",
+    "db:reset-password": "tsx src/db/reset-password.ts",
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {

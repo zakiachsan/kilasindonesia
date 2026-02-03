@@ -81,7 +81,7 @@ export default async function PagesAdmin() {
                   </td>
                   <td className="p-4">
                     <Link
-                      href={`/admin/pages/${page.id}/edit`}
+                      href={`/admin/pages/${page.id}`}
                       className="text-primary-600 hover:underline mr-4"
                     >
                       Edit
