@@ -29,7 +29,8 @@ interface PostData {
   content: string
   excerpt: string
   featuredImage: string
-  status: 'DRAFT' | 'PUBLISHED' | 'ARCHIVED'
+  status: 'DRAFT' | 'PUBLISHED' | 'SCHEDULED' | 'ARCHIVED'
+  scheduledAt: string
   categoryIds: string[]
   tagIds: string[]
   metaTitle: string
@@ -41,6 +42,7 @@ interface PostEditorProps {
   categories: Category[]
   tags: Tag[]
   isEdit?: boolean
+  defaultStatus?: 'DRAFT' | 'PUBLISHED' | 'SCHEDULED' | 'ARCHIVED'
 }
 
 function slugify(text: string): string {
@@ -57,6 +59,7 @@ export default function PostEditor({
   categories,
   tags: initialTags,
   isEdit = false,
+  defaultStatus = 'DRAFT',
 }: PostEditorProps) {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
@@ -71,7 +74,8 @@ export default function PostEditor({
     content: post?.content || '',
     excerpt: post?.excerpt || '',
     featuredImage: post?.featuredImage || '',
-    status: post?.status || 'DRAFT',
+    status: post?.status || defaultStatus,
+    scheduledAt: post?.scheduledAt || '',
     categoryIds: post?.categoryIds || [],
     tagIds: post?.tagIds || [],
     metaTitle: post?.metaTitle || '',
@@ -203,6 +207,19 @@ export default function PostEditor({
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError('')
+
+    // Validate scheduledAt for SCHEDULED status
+    if (formData.status === 'SCHEDULED') {
+      if (!formData.scheduledAt) {
+        setError('Tanggal jadwal wajib diisi untuk artikel terjadwal')
+        return
+      }
+      if (new Date(formData.scheduledAt) <= new Date()) {
+        setError('Tanggal jadwal harus di masa depan')
+        return
+      }
+    }
+
     setLoading(true)
 
     try {
@@ -221,7 +238,9 @@ export default function PostEditor({
         throw new Error(data.error || 'Gagal menyimpan artikel')
       }
 
-      router.push('/admin/posts')
+      // Redirect based on status
+      const redirectUrl = formData.status === 'SCHEDULED' ? '/admin/scheduled' : '/admin/posts'
+      router.push(redirectUrl)
       router.refresh()
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Gagal menyimpan artikel')
@@ -451,9 +470,30 @@ export default function PostEditor({
                   className="w-full px-2 py-1.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500 text-sm"
                 >
                   <option value="DRAFT">Draft</option>
+                  <option value="SCHEDULED">Terjadwal</option>
                   <option value="PUBLISHED">Dipublikasi</option>
                   <option value="ARCHIVED">Arsip</option>
                 </select>
+
+                {formData.status === 'SCHEDULED' && (
+                  <div className="mt-3">
+                    <label htmlFor="scheduledAt" className="block text-xs font-medium text-gray-700 mb-1">
+                      Jadwal Publikasi
+                    </label>
+                    <input
+                      type="datetime-local"
+                      id="scheduledAt"
+                      value={formData.scheduledAt}
+                      onChange={(e) => setFormData((prev) => ({ ...prev, scheduledAt: e.target.value }))}
+                      min={new Date().toISOString().slice(0, 16)}
+                      required
+                      className="w-full px-2 py-1.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500 text-sm"
+                    />
+                    <p className="text-[10px] text-gray-500 mt-1">
+                      Artikel akan dipublikasi otomatis pada waktu yang ditentukan
+                    </p>
+                  </div>
+                )}
               </div>
 
               <div className="pt-3 border-t border-gray-200 flex gap-2">

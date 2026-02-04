@@ -11,21 +11,20 @@ interface Post {
   status: 'DRAFT' | 'PUBLISHED' | 'SCHEDULED' | 'ARCHIVED'
   viewCount: number
   publishedAt: Date | null
-  scheduledAt?: Date | null
+  scheduledAt: Date | null
   createdAt: Date
   authorId: string
   author: { name: string }
   categories: Array<{ name: string; slug: string }>
-  isPinned?: boolean
 }
 
-interface PostsTableProps {
+interface ScheduledPostsTableProps {
   posts: Post[]
   currentUserId: string
   currentUserRole: string
 }
 
-export default function PostsTable({ posts, currentUserId, currentUserRole }: PostsTableProps) {
+export default function ScheduledPostsTable({ posts, currentUserId, currentUserRole }: ScheduledPostsTableProps) {
   const router = useRouter()
   const [deletingId, setDeletingId] = useState<string | null>(null)
 
@@ -38,7 +37,27 @@ export default function PostsTable({ posts, currentUserId, currentUserRole }: Po
       day: 'numeric',
       month: 'short',
       year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
     })
+  }
+
+  function getRelativeTime(date: Date | null): string {
+    if (!date) return '-'
+    const now = new Date()
+    const target = new Date(date)
+    const diffMs = target.getTime() - now.getTime()
+
+    if (diffMs < 0) return 'Sudah lewat'
+
+    const diffMins = Math.floor(diffMs / (1000 * 60))
+    const diffHours = Math.floor(diffMs / (1000 * 60 * 60))
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
+
+    if (diffMins < 60) return `dalam ${diffMins} menit`
+    if (diffHours < 24) return `dalam ${diffHours} jam`
+    if (diffDays === 1) return 'besok'
+    return `dalam ${diffDays} hari`
   }
 
   async function handleDelete(id: string, title: string) {
@@ -78,15 +97,15 @@ export default function PostsTable({ posts, currentUserId, currentUserRole }: Po
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={1.5}
-            d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
+            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
           />
         </svg>
-        <p className="text-sm text-gray-500">Tidak ada artikel ditemukan</p>
+        <p className="text-sm text-gray-500">Tidak ada artikel terjadwal</p>
         <Link
-          href="/admin/posts/new"
+          href="/admin/scheduled/new"
           className="inline-block mt-3 text-xs text-red-600 hover:text-red-700 font-medium"
         >
-          Buat artikel pertama →
+          Jadwalkan artikel pertama →
         </Link>
       </div>
     )
@@ -104,13 +123,10 @@ export default function PostsTable({ posts, currentUserId, currentUserRole }: Po
               Kategori
             </th>
             <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Status
+              Jadwal Tayang
             </th>
             <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Views
-            </th>
-            <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Tanggal
+              Waktu
             </th>
             <th className="px-3 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
               Aksi
@@ -122,19 +138,12 @@ export default function PostsTable({ posts, currentUserId, currentUserRole }: Po
             <tr key={post.id} className="hover:bg-gray-50">
               <td className="px-3 py-2.5">
                 <div>
-                  <div className="flex items-center gap-1.5">
-                    {post.isPinned && (
-                      <svg className="w-3 h-3 text-orange-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                    )}
-                    <Link
-                      href={`/admin/posts/${post.id}/edit`}
-                      className="font-medium text-gray-900 hover:text-red-600 line-clamp-1 text-xs"
-                    >
-                      {post.title}
-                    </Link>
-                  </div>
+                  <Link
+                    href={`/admin/scheduled/${post.id}/edit`}
+                    className="font-medium text-gray-900 hover:text-red-600 line-clamp-1 text-xs"
+                  >
+                    {post.title}
+                  </Link>
                   <p className="text-xs text-gray-400 mt-0.5">
                     oleh {post.author.name}
                   </p>
@@ -150,58 +159,26 @@ export default function PostsTable({ posts, currentUserId, currentUserRole }: Po
                 )}
               </td>
               <td className="px-3 py-2.5">
-                <span
-                  className={`px-1.5 py-0.5 text-[10px] rounded ${
-                    post.status === 'PUBLISHED'
-                      ? 'bg-green-100 text-green-700'
-                      : post.status === 'SCHEDULED'
-                      ? 'bg-blue-100 text-blue-700'
-                      : post.status === 'DRAFT'
-                      ? 'bg-yellow-100 text-yellow-700'
-                      : 'bg-gray-100 text-gray-700'
-                  }`}
-                >
-                  {post.status === 'PUBLISHED'
-                    ? 'Dipublikasi'
-                    : post.status === 'SCHEDULED'
-                    ? 'Terjadwal'
-                    : post.status === 'DRAFT'
-                    ? 'Draft'
-                    : 'Arsip'}
-                </span>
-              </td>
-              <td className="px-3 py-2.5 text-xs text-gray-500">
-                {post.viewCount.toLocaleString('id-ID')}
-              </td>
-              <td className="px-3 py-2.5 text-xs text-gray-500">
-                {post.status === 'SCHEDULED' && post.scheduledAt ? (
-                  <span className="flex items-center gap-1">
-                    <svg className="w-3 h-3 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
+                <div className="flex items-center gap-1.5">
+                  <svg className="w-3.5 h-3.5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span className="text-xs text-gray-700">
                     {formatDate(post.scheduledAt)}
                   </span>
-                ) : (
-                  formatDate(post.publishedAt || post.createdAt)
-                )}
+                </div>
+              </td>
+              <td className="px-3 py-2.5">
+                <span className="text-xs text-blue-600 font-medium">
+                  {getRelativeTime(post.scheduledAt)}
+                </span>
               </td>
               <td className="px-3 py-2.5">
                 <div className="flex items-center justify-end gap-1">
-                  <Link
-                    href={`/${post.slug}`}
-                    target="_blank"
-                    className="p-1 text-gray-400 hover:text-gray-600 rounded"
-                    title="Lihat"
-                  >
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                    </svg>
-                  </Link>
                   {canEditPost(post) && (
                     <>
                       <Link
-                        href={`/admin/posts/${post.id}/edit`}
+                        href={`/admin/scheduled/${post.id}/edit`}
                         className="p-1 text-gray-400 hover:text-blue-600 rounded"
                         title="Edit"
                       >

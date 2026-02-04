@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { db, posts, categories, comments, users, postCategories, eq, desc, count } from '@/db'
+import { db, posts, categories, users, postCategories, eq, desc, count, sql } from '@/db'
+import { LineChart } from './components/LineChart'
 
 async function getStats() {
   try {
@@ -8,17 +9,15 @@ async function getStats() {
       publishedPostsResult,
       draftPostsResult,
       totalCategoriesResult,
-      totalCommentsResult,
-      pendingCommentsResult,
       pinnedPostsResult,
+      scheduledPostsResult,
     ] = await Promise.all([
       db.select({ count: count() }).from(posts),
       db.select({ count: count() }).from(posts).where(eq(posts.status, 'PUBLISHED')),
       db.select({ count: count() }).from(posts).where(eq(posts.status, 'DRAFT')),
       db.select({ count: count() }).from(categories),
-      db.select({ count: count() }).from(comments),
-      db.select({ count: count() }).from(comments).where(eq(comments.status, 'PENDING')),
       db.select({ count: count() }).from(posts).where(eq(posts.isPinned, true)),
+      db.select({ count: count() }).from(posts).where(eq(posts.status, 'SCHEDULED')),
     ])
 
     return {
@@ -26,9 +25,8 @@ async function getStats() {
       publishedPosts: publishedPostsResult[0]?.count || 0,
       draftPosts: draftPostsResult[0]?.count || 0,
       totalCategories: totalCategoriesResult[0]?.count || 0,
-      totalComments: totalCommentsResult[0]?.count || 0,
-      pendingComments: pendingCommentsResult[0]?.count || 0,
       pinnedPosts: pinnedPostsResult[0]?.count || 0,
+      scheduledPosts: scheduledPostsResult[0]?.count || 0,
     }
   } catch (error) {
     console.error('Failed to fetch stats:', error)
@@ -37,9 +35,8 @@ async function getStats() {
       publishedPosts: 0,
       draftPosts: 0,
       totalCategories: 0,
-      totalComments: 0,
-      pendingComments: 0,
       pinnedPosts: 0,
+      scheduledPosts: 0,
     }
   }
 }
@@ -78,37 +75,39 @@ async function getRecentPosts() {
   }
 }
 
-async function getRecentComments() {
+async function getMonthlyPublishedStats() {
   try {
-    const recentComments = await db
-      .select()
-      .from(comments)
-      .orderBy(desc(comments.createdAt))
-      .limit(5)
+    const currentYear = new Date().getFullYear()
 
-    return Promise.all(recentComments.map(async (comment) => {
-      const [post] = await db
-        .select({ title: posts.title, slug: posts.slug })
-        .from(posts)
-        .where(eq(posts.id, comment.postId))
-        .limit(1)
+    const result = await db.execute(sql`
+      SELECT
+        EXTRACT(MONTH FROM "publishedAt") as month,
+        EXTRACT(YEAR FROM "publishedAt") as year,
+        COUNT(*) as count
+      FROM posts
+      WHERE status = 'PUBLISHED'
+        AND "publishedAt" IS NOT NULL
+        AND EXTRACT(YEAR FROM "publishedAt") = ${currentYear}
+      GROUP BY EXTRACT(YEAR FROM "publishedAt"), EXTRACT(MONTH FROM "publishedAt")
+      ORDER BY year, month
+    `)
 
-      return {
-        ...comment,
-        post: post || { title: 'Unknown', slug: '#' },
-      }
+    return (result.rows as { month: string; year: string; count: string }[]).map((row) => ({
+      month: parseInt(row.month),
+      year: parseInt(row.year),
+      count: parseInt(row.count),
     }))
   } catch (error) {
-    console.error('Failed to fetch recent comments:', error)
+    console.error('Failed to fetch monthly stats:', error)
     return []
   }
 }
 
 export default async function AdminDashboard() {
-  const [stats, recentPosts, recentComments] = await Promise.all([
+  const [stats, recentPosts, monthlyStats] = await Promise.all([
     getStats(),
     getRecentPosts(),
-    getRecentComments(),
+    getMonthlyPublishedStats(),
   ])
 
   const statCards = [
@@ -146,15 +145,15 @@ export default async function AdminDashboard() {
       href: '/admin/posts/featured',
     },
     {
-      name: 'Komentar Pending',
-      value: stats.pendingComments,
+      name: 'Terjadwal',
+      value: stats.scheduledPosts,
       icon: (
         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       ),
-      color: 'bg-red-500',
-      href: '/admin/comments?status=pending',
+      color: 'bg-purple-500',
+      href: '/admin/scheduled',
     },
   ]
 
@@ -195,8 +194,11 @@ export default async function AdminDashboard() {
         ))}
       </div>
 
-      {/* Recent Content Grid */}
+      {/* Chart and Recent Posts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        {/* Monthly Published Chart */}
+        <LineChart data={monthlyStats} title="Artikel Dipublikasi per Bulan" />
+
         {/* Recent Posts */}
         <div className="bg-white rounded-md shadow-sm border border-gray-200">
           <div className="flex items-center justify-between px-3 py-2 border-b border-gray-200">
@@ -238,63 +240,6 @@ export default async function AdminDashboard() {
                         ? 'Draft'
                         : 'Arsip'}
                     </span>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
-        </div>
-
-        {/* Recent Comments */}
-        <div className="bg-white rounded-md shadow-sm border border-gray-200">
-          <div className="flex items-center justify-between px-3 py-2 border-b border-gray-200">
-            <h2 className="text-sm font-semibold text-gray-900">Komentar Terbaru</h2>
-            <Link href="/admin/comments" className="text-xs text-red-600 hover:text-red-700">
-              Lihat Semua →
-            </Link>
-          </div>
-          <div className="divide-y divide-gray-100">
-            {recentComments.length === 0 ? (
-              <div className="p-4 text-center text-xs text-gray-500">
-                Belum ada komentar
-              </div>
-            ) : (
-              recentComments.map((comment) => (
-                <div key={comment.id} className="px-3 py-2 hover:bg-gray-50">
-                  <div className="flex items-start gap-2">
-                    <div className="w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0">
-                      <span className="text-gray-600 text-[10px] font-medium">
-                        {comment.authorName.charAt(0).toUpperCase()}
-                      </span>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-1.5">
-                        <span className="font-medium text-gray-900 text-xs">
-                          {comment.authorName}
-                        </span>
-                        <span
-                          className={`px-1 py-0.5 text-[9px] rounded ${
-                            comment.status === 'APPROVED'
-                              ? 'bg-green-100 text-green-700'
-                              : comment.status === 'PENDING'
-                              ? 'bg-yellow-100 text-yellow-700'
-                              : 'bg-red-100 text-red-700'
-                          }`}
-                        >
-                          {comment.status === 'APPROVED'
-                            ? 'OK'
-                            : comment.status === 'PENDING'
-                            ? 'Pending'
-                            : 'Ditolak'}
-                        </span>
-                      </div>
-                      <p className="text-[10px] text-gray-600 line-clamp-1 mt-0.5">
-                        {comment.content}
-                      </p>
-                      <p className="text-[9px] text-gray-400 mt-0.5">
-                        pada &quot;{comment.post.title.substring(0, 25)}...&quot;
-                      </p>
-                    </div>
                   </div>
                 </div>
               ))

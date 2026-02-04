@@ -16,7 +16,7 @@ import { createId } from './utils'
 // ============================================
 
 export const roleEnum = pgEnum('Role', ['ADMIN', 'AUTHOR'])
-export const postStatusEnum = pgEnum('PostStatus', ['DRAFT', 'PUBLISHED', 'ARCHIVED'])
+export const postStatusEnum = pgEnum('PostStatus', ['DRAFT', 'PUBLISHED', 'SCHEDULED', 'ARCHIVED'])
 export const commentStatusEnum = pgEnum('CommentStatus', ['PENDING', 'APPROVED', 'REJECTED'])
 export const adTypeEnum = pgEnum('AdType', ['placeholder', 'custom', 'programmatic'])
 
@@ -92,6 +92,7 @@ export const posts = pgTable('posts', {
   status: postStatusEnum('status').notNull().default('DRAFT'),
   viewCount: integer('viewCount').notNull().default(0),
   publishedAt: timestamp('publishedAt'),
+  scheduledAt: timestamp('scheduledAt'),
   isPinned: boolean('isPinned').notNull().default(false),
   pinnedOrder: integer('pinnedOrder').notNull().default(0),
   metaTitle: text('metaTitle'),
@@ -100,6 +101,7 @@ export const posts = pgTable('posts', {
   updatedAt: timestamp('updatedAt').notNull().defaultNow().$onUpdate(() => new Date()),
 }, (table) => [
   index('posts_status_published_idx').on(table.status, table.publishedAt),
+  index('posts_status_scheduled_idx').on(table.status, table.scheduledAt),
   index('posts_author_idx').on(table.authorId),
   index('posts_pinned_idx').on(table.isPinned, table.pinnedOrder),
 ])

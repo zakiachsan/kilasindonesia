@@ -1,7 +1,7 @@
 import { notFound, redirect } from 'next/navigation'
 import { db, posts, categories, tags, postCategories, postTags, eq, asc } from '@/db'
 import { auth } from '@/lib/auth'
-import PostEditor from '../../components/PostEditor'
+import PostEditor from '../../../posts/components/PostEditor'
 
 interface PageProps {
   params: Promise<{ id: string }>
@@ -51,7 +51,14 @@ async function getData(id: string) {
   }
 }
 
-export default async function EditPostPage({ params }: PageProps) {
+function formatDateForInput(date: Date | null): string {
+  if (!date) return ''
+  const d = new Date(date)
+  // Format as YYYY-MM-DDTHH:mm for datetime-local input
+  return d.toISOString().slice(0, 16)
+}
+
+export default async function EditScheduledPostPage({ params }: PageProps) {
   const session = await auth()
   const { id } = await params
   const { post, categories: allCategories, tags: allTags } = await getData(id)
@@ -64,14 +71,7 @@ export default async function EditPostPage({ params }: PageProps) {
   const isAdmin = session?.user?.role === 'ADMIN'
   const isOwner = post.authorId === session?.user?.id
   if (!isAdmin && !isOwner) {
-    redirect('/admin/posts')
-  }
-
-  // Format scheduledAt for datetime-local input
-  const formatDateForInput = (date: Date | null): string => {
-    if (!date) return ''
-    const d = new Date(date)
-    return d.toISOString().slice(0, 16)
+    redirect('/admin/scheduled')
   }
 
   const postData = {
@@ -92,7 +92,7 @@ export default async function EditPostPage({ params }: PageProps) {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Edit Artikel</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Edit Artikel Terjadwal</h1>
         <p className="text-sm text-gray-500 mt-1">
           {post.title}
         </p>

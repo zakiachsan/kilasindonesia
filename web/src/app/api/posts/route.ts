@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { db, posts, users, categories, tags, postCategories, postTags, eq, desc, and, or, ilike, sql, count, gte } from '@/db'
+import { db, posts, users, categories, tags, postCategories, postTags, eq, desc, and, or, ilike, sql, count, gte, lte } from '@/db'
 
 // Get date 3 months ago for filtering recent articles
 function getThreeMonthsAgo(): Date {
@@ -20,8 +20,17 @@ export async function GET(request: NextRequest) {
 
     const offset = (page - 1) * limit
 
-    // Build conditions
-    const conditions = [eq(posts.status, 'PUBLISHED')]
+    // Build conditions - include published and scheduled posts that are due
+    const now = new Date()
+    const conditions = [
+      or(
+        eq(posts.status, 'PUBLISHED'),
+        and(
+          eq(posts.status, 'SCHEDULED'),
+          lte(posts.scheduledAt, now)
+        )
+      )!
+    ]
 
     // If popular mode, only show articles within 3 months
     if (popular) {

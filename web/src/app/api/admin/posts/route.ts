@@ -18,6 +18,7 @@ export async function POST(request: NextRequest) {
       excerpt,
       featuredImage,
       status,
+      scheduledAt,
       categoryIds,
       tagIds,
       metaTitle,
@@ -30,6 +31,22 @@ export async function POST(request: NextRequest) {
         { error: 'Judul, slug, dan konten wajib diisi' },
         { status: 400 }
       )
+    }
+
+    // Validate scheduledAt for SCHEDULED status
+    if (status === 'SCHEDULED') {
+      if (!scheduledAt) {
+        return NextResponse.json(
+          { error: 'Tanggal jadwal wajib diisi untuk artikel terjadwal' },
+          { status: 400 }
+        )
+      }
+      if (new Date(scheduledAt) <= new Date()) {
+        return NextResponse.json(
+          { error: 'Tanggal jadwal harus di masa depan' },
+          { status: 400 }
+        )
+      }
     }
 
     // Check if slug already exists
@@ -59,6 +76,7 @@ export async function POST(request: NextRequest) {
         status: status || 'DRAFT',
         authorId: session.user.id,
         publishedAt: status === 'PUBLISHED' ? now : null,
+        scheduledAt: status === 'SCHEDULED' && scheduledAt ? new Date(scheduledAt) : null,
         metaTitle: metaTitle || null,
         metaDescription: metaDescription || null,
         createdAt: now,

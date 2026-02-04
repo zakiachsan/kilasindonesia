@@ -1,44 +1,37 @@
 import Link from 'next/link'
-import { db, posts, users, categories, postCategories, eq, desc, count, ilike, or, and, ne } from '@/db'
+import { db, posts, users, categories, postCategories, eq, asc, count, ilike, or, and } from '@/db'
 import { auth } from '@/lib/auth'
-import PostsTable from './components/PostsTable'
+import ScheduledPostsTable from './components/ScheduledPostsTable'
 
 interface PageProps {
-  searchParams: Promise<{ status?: string; page?: string; search?: string }>
+  searchParams: Promise<{ page?: string; search?: string }>
 }
 
-async function getPosts(status?: string, page = 1, search?: string) {
+async function getScheduledPosts(page = 1, search?: string) {
   const limit = 10
   const skip = (page - 1) * limit
 
   try {
-    // Build conditions
-    const conditions = []
-
-    if (status && ['PUBLISHED', 'DRAFT', 'ARCHIVED'].includes(status.toUpperCase())) {
-      conditions.push(eq(posts.status, status.toUpperCase() as 'PUBLISHED' | 'DRAFT' | 'ARCHIVED'))
-    } else {
-      // By default, exclude SCHEDULED posts (they appear in the Jadwal menu)
-      conditions.push(ne(posts.status, 'SCHEDULED'))
-    }
+    // Build conditions - only SCHEDULED posts
+    const conditions = [eq(posts.status, 'SCHEDULED')]
 
     if (search) {
       conditions.push(or(
         ilike(posts.title, `%${search}%`),
         ilike(posts.excerpt, `%${search}%`)
-      ))
+      )!)
     }
 
     const whereClause = conditions.length === 1
       ? conditions[0]
       : and(...conditions)
 
-    // Get posts
+    // Get posts - ordered by scheduledAt ascending (soonest first)
     const allPosts = await db
       .select()
       .from(posts)
       .where(whereClause)
-      .orderBy(desc(posts.publishedAt))
+      .orderBy(asc(posts.scheduledAt))
       .limit(limit)
       .offset(skip)
 
@@ -77,83 +70,48 @@ async function getPosts(status?: string, page = 1, search?: string) {
       currentPage: page,
     }
   } catch (error) {
-    console.error('Failed to fetch posts:', error)
+    console.error('Failed to fetch scheduled posts:', error)
     return { posts: [], total: 0, totalPages: 0, currentPage: 1 }
   }
 }
 
-export default async function PostsPage({ searchParams }: PageProps) {
+export default async function ScheduledPostsPage({ searchParams }: PageProps) {
   const session = await auth()
   const params = await searchParams
-  const status = params.status
   const page = parseInt(params.page || '1')
   const search = params.search
 
-  const { posts: postsList, total, totalPages, currentPage } = await getPosts(status, page, search)
+  const { posts: postsList, total, totalPages, currentPage } = await getScheduledPosts(page, search)
 
   const currentUserId = session?.user?.id || ''
   const currentUserRole = session?.user?.role || ''
-
-  const statusTabs = [
-    { name: 'Semua', value: '', count: null },
-    { name: 'Dipublikasi', value: 'published', count: null },
-    { name: 'Draft', value: 'draft', count: null },
-    { name: 'Arsip', value: 'archived', count: null },
-  ]
 
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Artikel</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Artikel Terjadwal</h1>
           <p className="text-sm text-gray-500 mt-1">
-            Kelola semua artikel di website
+            Kelola artikel yang dijadwalkan untuk dipublikasi
           </p>
         </div>
         <Link
-          href="/admin/posts/new"
+          href="/admin/scheduled/new"
           className="px-4 py-2 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition-colors flex items-center gap-2"
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
           </svg>
-          Artikel Baru
+          Jadwalkan Artikel
         </Link>
       </div>
 
-      {/* Filters */}
+      {/* Content */}
       <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-        {/* Status Tabs */}
-        <div className="border-b border-gray-200">
-          <nav className="flex -mb-px">
-            {statusTabs.map((tab) => {
-              const isActive = (status || '') === tab.value
-              const href = tab.value
-                ? `/admin/posts?status=${tab.value}`
-                : '/admin/posts'
-
-              return (
-                <Link
-                  key={tab.value}
-                  href={href}
-                  className={`px-6 py-3 text-sm font-medium border-b-2 transition-colors ${
-                    isActive
-                      ? 'border-red-600 text-red-600'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                  }`}
-                >
-                  {tab.name}
-                </Link>
-              )
-            })}
-          </nav>
-        </div>
-
         {/* Search & Actions */}
-        <div className="p-4 flex items-center justify-between gap-4">
-          <form action="/admin/posts" method="GET" className="flex-1 max-w-md">
-            {status && <input type="hidden" name="status" value={status} />}
+        <div className="p-4 flex items-center justify-between gap-4 border-b border-gray-200">
+          <form action="/admin/scheduled" method="GET" className="flex-1 max-w-md">
             <div className="relative">
               <input
                 type="text"
@@ -174,12 +132,12 @@ export default async function PostsPage({ searchParams }: PageProps) {
           </form>
 
           <div className="text-sm text-gray-500">
-            {total} artikel ditemukan
+            {total} artikel terjadwal
           </div>
         </div>
 
         {/* Posts Table */}
-        <PostsTable
+        <ScheduledPostsTable
           posts={postsList}
           currentUserId={currentUserId}
           currentUserRole={currentUserRole}
@@ -194,7 +152,7 @@ export default async function PostsPage({ searchParams }: PageProps) {
             <div className="flex gap-2">
               {currentPage > 1 && (
                 <Link
-                  href={`/admin/posts?page=${currentPage - 1}${status ? `&status=${status}` : ''}${search ? `&search=${search}` : ''}`}
+                  href={`/admin/scheduled?page=${currentPage - 1}${search ? `&search=${search}` : ''}`}
                   className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm"
                 >
                   Sebelumnya
@@ -202,7 +160,7 @@ export default async function PostsPage({ searchParams }: PageProps) {
               )}
               {currentPage < totalPages && (
                 <Link
-                  href={`/admin/posts?page=${currentPage + 1}${status ? `&status=${status}` : ''}${search ? `&search=${search}` : ''}`}
+                  href={`/admin/scheduled?page=${currentPage + 1}${search ? `&search=${search}` : ''}`}
                   className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm"
                 >
                   Selanjutnya
