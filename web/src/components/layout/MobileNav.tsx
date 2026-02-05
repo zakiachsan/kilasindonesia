@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { cn } from '@/lib/utils'
 
 interface NavItem {
@@ -43,8 +43,13 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
     }
   }, [isOpen])
 
-  // Close menu on route change
+  // Close menu on route change (not on mount)
+  const isFirstRender = useRef(true)
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false
+      return
+    }
     onClose()
   }, [pathname, onClose])
 
