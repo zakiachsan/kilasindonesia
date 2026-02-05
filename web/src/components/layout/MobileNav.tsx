@@ -71,7 +71,7 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
       <div
         className={cn(
           'mobile-menu-backdrop',
-          isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+          isOpen && 'open'
         )}
         onClick={onClose}
         aria-hidden="true"
@@ -82,7 +82,7 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
         id="mobile-menu"
         className={cn(
           'mobile-menu-drawer',
-          isOpen ? 'translate-x-0' : '-translate-x-full'
+          isOpen && 'open'
         )}
         aria-label="Mobile navigation"
       >
