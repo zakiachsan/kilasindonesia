@@ -70,8 +70,8 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
       {/* Backdrop */}
       <div
         className={cn(
-          'mobile-menu-backdrop',
-          isOpen && 'open'
+          'fixed inset-0 bg-black/50 z-[1040] transition-all duration-200',
+          isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
         )}
         onClick={onClose}
         aria-hidden="true"
@@ -81,8 +81,8 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
       <nav
         id="mobile-menu"
         className={cn(
-          'mobile-menu-drawer',
-          isOpen && 'open'
+          'fixed top-0 left-0 h-full w-[300px] max-w-[85vw] bg-white z-[1050] transition-transform duration-300 overflow-y-auto',
+          isOpen ? 'translate-x-0' : '-translate-x-full'
         )}
         aria-label="Mobile navigation"
       >
