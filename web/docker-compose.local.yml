@@ -24,7 +24,7 @@ services:
     ports:
       - "3001:3000"
     environment:
-      DATABASE_URL: postgresql://${POSTGRES_USER:-kilasindonesia}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-kilasindonesia}?schema=public
+      DATABASE_URL: ${DATABASE_URL}
       NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:?NextAuth secret is required}
       NEXTAUTH_URL: ${NEXTAUTH_URL:-http://kilasindonesia.com}
       NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://kilasindonesia.com}
