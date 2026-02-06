@@ -46,6 +46,14 @@ export default function Footer({ links = defaultLinks }: FooterProps) {
               dan berbagai topik menarik lainnya.
             </p>
 
+            {/* PT Info */}
+            <div className="mb-6">
+              <p className="text-sm font-medium text-gray-700 mb-1">PT. Jagonya Media Nusantara</p>
+              <p className="text-xs text-gray-500 max-w-md">
+                Jl. Prof. DR. Soepomo SH No.23 (Lt. Dasar Hotel Sofyan Soepomo), Tebet Barat, Tebet, Jakarta Selatan, DKI Jakarta
+              </p>
+            </div>
+
             {/* Connect With Us */}
             <p className="text-sm font-medium text-gray-700 mb-3">Connect With Us</p>
             {/* Social Links */}
