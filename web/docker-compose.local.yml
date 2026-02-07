@@ -1,47 +1,16 @@
 services:
-  postgres:
-    image: postgres:16-alpine
-    container_name: kilasindonesia-db
-    restart: unless-stopped
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER:-kilasindonesia}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Database password is required}
-      POSTGRES_DB: ${POSTGRES_DB:-kilasindonesia}
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    networks:
-      - kilasindonesia-network
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-kilasindonesia}"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
   app:
     image: ghcr.io/zakiachsan/kilasindonesia:latest
     container_name: kilasindonesia-app
     restart: unless-stopped
     ports:
       - "3001:3000"
+    env_file:
+      - .env
     environment:
-      DATABASE_URL: ${DATABASE_URL}
-      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:?NextAuth secret is required}
-      NEXTAUTH_URL: ${NEXTAUTH_URL:-http://kilasindonesia.com}
-      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://kilasindonesia.com}
-      NEXT_PUBLIC_APP_NAME: ${NEXT_PUBLIC_APP_NAME:-Kilas Indonesia}
       NODE_ENV: production
-    depends_on:
-      postgres:
-        condition: service_healthy
-    networks:
-      - kilasindonesia-network
     volumes:
       - uploads_data:/app/public/uploads
 
-networks:
-  kilasindonesia-network:
-    driver: bridge
-
 volumes:
-  postgres_data:
   uploads_data:

@@ -15,6 +15,26 @@ const ITEMS_PER_PAGE = 15
 // Force dynamic rendering to fetch data at runtime
 export const dynamic = 'force-dynamic'
 
+// Common post columns to select (excludes scheduledAt for schema compatibility)
+const postColumns = {
+  id: posts.id,
+  title: posts.title,
+  slug: posts.slug,
+  content: posts.content,
+  excerpt: posts.excerpt,
+  featuredImage: posts.featuredImage,
+  authorId: posts.authorId,
+  status: posts.status,
+  viewCount: posts.viewCount,
+  publishedAt: posts.publishedAt,
+  isPinned: posts.isPinned,
+  pinnedOrder: posts.pinnedOrder,
+  metaTitle: posts.metaTitle,
+  metaDescription: posts.metaDescription,
+  createdAt: posts.createdAt,
+  updatedAt: posts.updatedAt,
+}
+
 // Fetch tag by slug
 async function getTag(slug: string) {
   try {
@@ -56,7 +76,7 @@ async function getTagPosts(tagId: string, page: number = 1) {
 
     // Get published posts with pagination
     const tagPosts = await db
-      .select()
+      .select(postColumns)
       .from(posts)
       .where(and(
         inArray(posts.id, ids),
@@ -98,7 +118,7 @@ async function getTagPosts(tagId: string, page: number = 1) {
 async function getPopularPosts() {
   try {
     return db
-      .select()
+      .select(postColumns)
       .from(posts)
       .where(eq(posts.status, 'PUBLISHED'))
       .orderBy(desc(posts.viewCount))

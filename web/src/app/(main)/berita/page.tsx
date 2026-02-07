@@ -15,13 +15,33 @@ const ITEMS_PER_PAGE = 15
 // Force dynamic rendering to fetch data at runtime
 export const dynamic = 'force-dynamic'
 
+// Common post columns to select (excludes scheduledAt for schema compatibility)
+const postColumns = {
+  id: posts.id,
+  title: posts.title,
+  slug: posts.slug,
+  content: posts.content,
+  excerpt: posts.excerpt,
+  featuredImage: posts.featuredImage,
+  authorId: posts.authorId,
+  status: posts.status,
+  viewCount: posts.viewCount,
+  publishedAt: posts.publishedAt,
+  isPinned: posts.isPinned,
+  pinnedOrder: posts.pinnedOrder,
+  metaTitle: posts.metaTitle,
+  metaDescription: posts.metaDescription,
+  createdAt: posts.createdAt,
+  updatedAt: posts.updatedAt,
+}
+
 // Fetch posts with pagination
 async function getPosts(page: number = 1) {
   const offset = (page - 1) * ITEMS_PER_PAGE
-  
+
   try {
     const allPosts = await db
-      .select()
+      .select(postColumns)
       .from(posts)
       .where(eq(posts.status, 'PUBLISHED'))
       .orderBy(desc(posts.publishedAt))
@@ -45,7 +65,7 @@ async function getPosts(page: number = 1) {
 async function getPostBySlug(slug: string) {
   try {
     const [post] = await db
-      .select()
+      .select(postColumns)
       .from(posts)
       .where(eq(posts.slug, slug))
       .limit(1)
@@ -64,7 +84,7 @@ async function getPopularPosts(excludeIds: string[] = [], limit: number = 5) {
 
     // First, try to get popular posts from the last 7 days
     const recentPopular = await db
-      .select()
+      .select(postColumns)
       .from(posts)
       .where(and(
         eq(posts.status, 'PUBLISHED'),
@@ -93,7 +113,7 @@ async function getPopularPosts(excludeIds: string[] = [], limit: number = 5) {
     // Otherwise, fill with all-time popular posts
     const existingIds = [...excludeIds, ...recentPopular.map(p => p.id)]
     const allTimePopular = await db
-      .select()
+      .select(postColumns)
       .from(posts)
       .where(eq(posts.status, 'PUBLISHED'))
       .orderBy(desc(posts.viewCount))
