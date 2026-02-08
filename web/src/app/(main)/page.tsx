@@ -154,6 +154,7 @@ export default async function HomePage() {
   const featuredPost = allPosts[0]
   // Berita Utama: Hardcoded articles from Jan & Dec 2026 (admin curated)
   const topPosts = allPosts.filter(post => {
+    if (!post.publishedAt) return false
     const date = new Date(post.publishedAt)
     const month = date.getMonth() // 0 = Jan, 11 = Dec
     const year = date.getFullYear()
