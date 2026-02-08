@@ -43,7 +43,7 @@ export default function Footer({ links = defaultLinks }: FooterProps) {
             <p className="text-sm text-gray-500 mb-6 max-w-md leading-relaxed">
               Kilas Indonesia adalah portal berita yang menyajikan informasi terkini,
               akurat, dan terpercaya seputar pendidikan Islam, madrasah, pesantren,
-              dan berbagai topik menarik.
+              dan berbagai topik menarik lainnya.
             </p>
 
             {/* PT Info */}
