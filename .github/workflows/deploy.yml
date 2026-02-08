@@ -66,6 +66,14 @@ jobs:
             docker compose -f docker-compose.local.yml down
             docker compose -f docker-compose.local.yml up -d
 
+            # Wait for containers to be ready
+            echo "Waiting for containers to be ready..."
+            sleep 10
+
+            # Run database schema sync
+            echo "Syncing database schema..."
+            docker exec kilasindonesia-app npx drizzle-kit push --force || echo "Warning: Schema sync failed"
+
             # Cleanup old images to save disk space
             echo "Cleaning up old Docker images..."
             docker image prune -af --filter "until=24h"

@@ -15,6 +15,26 @@ const ITEMS_PER_PAGE = 15
 // Force dynamic rendering to fetch data at runtime
 export const dynamic = 'force-dynamic'
 
+// Common post columns to select (excludes scheduledAt for schema compatibility)
+const postColumns = {
+  id: posts.id,
+  title: posts.title,
+  slug: posts.slug,
+  content: posts.content,
+  excerpt: posts.excerpt,
+  featuredImage: posts.featuredImage,
+  authorId: posts.authorId,
+  status: posts.status,
+  viewCount: posts.viewCount,
+  publishedAt: posts.publishedAt,
+  isPinned: posts.isPinned,
+  pinnedOrder: posts.pinnedOrder,
+  metaTitle: posts.metaTitle,
+  metaDescription: posts.metaDescription,
+  createdAt: posts.createdAt,
+  updatedAt: posts.updatedAt,
+}
+
 // Fetch category by slug
 async function getCategory(slug: string) {
   try {
@@ -56,7 +76,7 @@ async function getCategoryPosts(categoryId: string, page: number = 1) {
 
     // Get published posts with pagination
     const categoryPosts = await db
-      .select()
+      .select(postColumns)
       .from(posts)
       .where(and(
         inArray(posts.id, ids),
@@ -113,7 +133,7 @@ async function getPopularInCategory(categoryId: string, excludeIds: string[] = [
 
     // First, try to get popular posts from the last 7 days
     const recentPopular = await db
-      .select()
+      .select(postColumns)
       .from(posts)
       .where(and(
         inArray(posts.id, ids),
@@ -145,7 +165,7 @@ async function getPopularInCategory(categoryId: string, excludeIds: string[] = [
     if (remainingIds.length === 0) return recentWithCats
 
     const allTimePopular = await db
-      .select()
+      .select(postColumns)
       .from(posts)
       .where(and(
         inArray(posts.id, remainingIds),
@@ -179,7 +199,7 @@ async function getPopularPosts() {
 
     // First, try to get popular posts from the last 7 days
     const recentPopular = await db
-      .select()
+      .select(postColumns)
       .from(posts)
       .where(and(
         eq(posts.status, 'PUBLISHED'),
@@ -198,7 +218,7 @@ async function getPopularPosts() {
     let allTimePopular: typeof recentPopular = []
     if (existingIds.length > 0) {
       allTimePopular = await db
-        .select()
+        .select(postColumns)
         .from(posts)
         .where(and(
           eq(posts.status, 'PUBLISHED'),
@@ -208,7 +228,7 @@ async function getPopularPosts() {
         .limit(5 - recentPopular.length)
     } else {
       allTimePopular = await db
-        .select()
+        .select(postColumns)
         .from(posts)
         .where(eq(posts.status, 'PUBLISHED'))
         .orderBy(desc(posts.viewCount))
