@@ -230,7 +230,6 @@ export default async function HomePage() {
                         title={post.title}
                         slug={post.slug}
                         featuredImage={post.featuredImage}
-                        publishedAt={post.publishedAt}
                         variant="small"
                       />
                     </div>
