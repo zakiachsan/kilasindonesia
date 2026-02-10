@@ -9,16 +9,20 @@ interface AdminHeaderProps {
     email: string
     role: string
   }
+  onMenuToggle?: () => void
 }
 
-export default function AdminHeader({ user }: AdminHeaderProps) {
+export default function AdminHeader({ user, onMenuToggle }: AdminHeaderProps) {
   const [showDropdown, setShowDropdown] = useState(false)
 
   return (
     <header className="sticky top-0 z-10 bg-white border-b border-gray-200">
       <div className="flex items-center justify-between h-12 px-4">
         {/* Mobile Menu Button */}
-        <button className="lg:hidden p-1.5 rounded-md hover:bg-gray-100">
+        <button 
+          onClick={onMenuToggle}
+          className="lg:hidden p-1.5 rounded-md hover:bg-gray-100"
+        >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
           </svg>

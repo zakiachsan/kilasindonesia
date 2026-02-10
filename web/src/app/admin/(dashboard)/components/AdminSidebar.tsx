@@ -10,6 +10,8 @@ interface AdminSidebarProps {
     email: string
     role: string
   }
+  isOpen?: boolean
+  onClose?: () => void
 }
 
 interface MenuItem {
@@ -128,7 +130,7 @@ const menuItems: MenuItem[] = [
   },
 ]
 
-export default function AdminSidebar({ user }: AdminSidebarProps) {
+export default function AdminSidebar({ user, isOpen = false, onClose }: AdminSidebarProps) {
   const pathname = usePathname()
   const [expandedMenus, setExpandedMenus] = useState<string[]>(['Artikel'])
 
@@ -140,15 +142,28 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
     )
   }
 
-  return (
-    <aside className="hidden lg:flex lg:flex-col lg:w-56 lg:fixed lg:inset-y-0 bg-gray-900">
+  const handleLinkClick = () => {
+    if (onClose) onClose()
+  }
+
+  const sidebarContent = (
+    <>
       {/* Logo */}
-      <div className="flex items-center justify-center h-12 px-3 bg-gray-800">
-        <Link href="/admin" className="flex items-center">
+      <div className="flex items-center justify-between h-12 px-3 bg-gray-800">
+        <Link href="/admin" className="flex items-center" onClick={handleLinkClick}>
           <h1 className="text-base font-bold text-white">
             Kilas<span className="text-red-500">Indonesia</span>
           </h1>
         </Link>
+        {/* Close button for mobile */}
+        <button
+          onClick={onClose}
+          className="lg:hidden p-1 rounded-md hover:bg-gray-700 text-gray-400"
+        >
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
       </div>
 
       {/* Navigation */}
@@ -196,6 +211,7 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
                         <Link
                           key={subItem.href}
                           href={subItem.href}
+                          onClick={handleLinkClick}
                           className={`block px-3 py-1.5 rounded-md text-xs transition-colors ${
                             isSubActive
                               ? 'bg-red-600/80 text-white'
@@ -216,6 +232,7 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
             <Link
               key={item.name}
               href={item.href}
+              onClick={handleLinkClick}
               className={`flex items-center gap-2 px-3 py-2 rounded-md transition-colors text-sm ${
                 isActive
                   ? 'bg-red-600 text-white'
@@ -246,6 +263,7 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
       <div className="p-3 border-t border-gray-700">
         <Link
           href="/"
+          onClick={handleLinkClick}
           className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
         >
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -254,6 +272,30 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
           <span className="text-xs">Lihat Website</span>
         </Link>
       </div>
-    </aside>
+    </>
+  )
+
+  return (
+    <>
+      {/* Desktop Sidebar */}
+      <aside className="hidden lg:flex lg:flex-col lg:w-56 lg:fixed lg:inset-y-0 bg-gray-900">
+        {sidebarContent}
+      </aside>
+
+      {/* Mobile Sidebar Overlay */}
+      {isOpen && (
+        <div className="lg:hidden fixed inset-0 z-40">
+          {/* Backdrop */}
+          <div 
+            className="fixed inset-0 bg-black/50" 
+            onClick={onClose}
+          />
+          {/* Sidebar */}
+          <aside className="fixed inset-y-0 left-0 w-56 bg-gray-900 flex flex-col z-50">
+            {sidebarContent}
+          </aside>
+        </div>
+      )}
+    </>
   )
 }
