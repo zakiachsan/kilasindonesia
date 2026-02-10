@@ -81,6 +81,7 @@ export default async function EditPostPage({ params }: PageProps) {
     content: post.content,
     excerpt: post.excerpt || '',
     featuredImage: post.featuredImage || '',
+    featuredImageCaption: post.featuredImageCaption || '',
     status: post.status as 'DRAFT' | 'PUBLISHED' | 'SCHEDULED' | 'ARCHIVED',
     scheduledAt: formatDateForInput(post.scheduledAt),
     categoryIds: post.categories.map((c) => c.id),
