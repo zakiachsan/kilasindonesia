@@ -35,8 +35,27 @@ export const prisma = {
       return result?.count || 0
     },
     update: async (options: any) => {
-      if (options.where?.id && options.data?.viewCount?.increment) {
-        await db.update(posts).set({ viewCount: sql`${posts.viewCount} + ${options.data.viewCount.increment}` }).where(eq(posts.id, options.where.id))
+      if (options.where?.id) {
+        const updateData: any = {}
+        
+        // Handle viewCount increment
+        if (options.data?.viewCount?.increment) {
+          await db.update(posts).set({ viewCount: sql`${posts.viewCount} + ${options.data.viewCount.increment}` }).where(eq(posts.id, options.where.id))
+          return {}
+        }
+        
+        // Handle direct field updates
+        if (options.data?.isPinned !== undefined) updateData.isPinned = options.data.isPinned
+        if (options.data?.pinnedOrder !== undefined) updateData.pinnedOrder = options.data.pinnedOrder
+        if (options.data?.title !== undefined) updateData.title = options.data.title
+        if (options.data?.content !== undefined) updateData.content = options.data.content
+        if (options.data?.excerpt !== undefined) updateData.excerpt = options.data.excerpt
+        if (options.data?.status !== undefined) updateData.status = options.data.status
+        if (options.data?.featuredImage !== undefined) updateData.featuredImage = options.data.featuredImage
+        
+        if (Object.keys(updateData).length > 0) {
+          await db.update(posts).set(updateData).where(eq(posts.id, options.where.id))
+        }
       }
       return {}
     },
