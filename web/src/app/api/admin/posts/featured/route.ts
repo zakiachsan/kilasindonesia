@@ -28,15 +28,17 @@ export async function POST(request: NextRequest) {
 
     if (action === 'remove') {
       // Remove post from featured
-      await prisma.post.update({
+      console.log('[Featured API] Removing post from featured:', postId)
+      const result = await prisma.post.update({
         where: { id: postId },
         data: {
           isPinned: false,
           pinnedOrder: 0,
         },
       })
+      console.log('[Featured API] Remove result:', result)
 
-      return NextResponse.json({ success: true })
+      return NextResponse.json({ success: true, result })
     }
 
     if (action === 'reorder') {
