@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { Sidebar, SidebarWidget, SidebarAd } from '@/components/layout'
+import { Sidebar, SidebarWidget } from '@/components/layout'
+import { BannerAd } from '@/components/ads'
 import { PostCard } from '@/components/posts'
 import { ReadingTracker } from '../../../components/posts/ReadingTracker'
 import { db, posts, users, categories, tags, comments, postCategories, postTags, eq, and, desc, sql, inArray, count, asc } from '@/db'
@@ -483,7 +484,7 @@ export default async function ArticlePage({ params }: PageProps) {
               </div>
             </SidebarWidget>
 
-            <SidebarAd height={250} />
+            <BannerAd slot="sidebar-1" />
 
             <SidebarWidget title="Kategori">
               <ul className="space-y-2">
@@ -498,7 +499,7 @@ export default async function ArticlePage({ params }: PageProps) {
               </ul>
             </SidebarWidget>
 
-            <SidebarAd height={300} />
+            <BannerAd slot="sidebar-2" />
           </Sidebar>
         </div>
       </div>

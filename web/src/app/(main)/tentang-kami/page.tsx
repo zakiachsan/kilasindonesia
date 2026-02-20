@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { Sidebar, SidebarWidget, SidebarAd } from '@/components/layout'
+import { Sidebar, SidebarWidget } from '@/components/layout'
+import { BannerAd } from '@/components/ads'
 import { PostCard } from '@/components/posts'
 import { db, pages, eq, desc } from '@/db'
 import { getCanonicalUrl } from '@/lib/seo'
@@ -190,7 +191,7 @@ export default async function AboutPage() {
             </SidebarWidget>
 
             {/* Ad Placeholder */}
-            <SidebarAd height={250} />
+            <BannerAd slot="sidebar-1" />
 
             {/* Categories Widget */}
             <SidebarWidget title="Kategori">
@@ -212,7 +213,7 @@ export default async function AboutPage() {
             </SidebarWidget>
 
             {/* Another Ad */}
-            <SidebarAd height={300} />
+            <BannerAd slot="sidebar-2" />
           </Sidebar>
         </div>
       </div>
