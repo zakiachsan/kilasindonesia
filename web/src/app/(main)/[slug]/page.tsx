@@ -199,11 +199,13 @@ export async function generateMetadata({ params }: PageProps) {
   const title = post.metaTitle || post.title
   const description = post.metaDescription || post.excerpt || post.content.replace(/<[^>]*>/g, '').substring(0, 160)
   const canonicalUrl = getCanonicalUrl(`/${slug}`)
-  // Make sure image URL is absolute for social sharing (WhatsApp, Facebook, Twitter)
+  const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://kilasindonesia.com'
   const rawImageUrl = post.featuredImage || '/og-image.svg'
-  let imageUrl = rawImageUrl.startsWith('http') ? rawImageUrl : getCanonicalUrl(rawImageUrl)
-  // Force HTTPS for WhatsApp/Telegram sharing
-  imageUrl = imageUrl.replace('http://', 'https://')
+  
+  // Use OG image API to auto-resize to 1200x630 for optimal social sharing (WhatsApp, Facebook, Twitter)
+  const ogImageUrl = rawImageUrl 
+    ? `${BASE_URL}/api/og-image?url=${encodeURIComponent(rawImageUrl)}`
+    : `${BASE_URL}/og-image.svg`
 
   return {
     title,
@@ -221,13 +223,13 @@ export async function generateMetadata({ params }: PageProps) {
       authors: [post.author.name],
       section: post.categories[0]?.name || 'Berita',
       tags: post.tags?.map((tag) => tag.name) || [],
-      images: [{ url: imageUrl, width: 1200, height: 630, alt: title }],
+      images: [{ url: ogImageUrl, width: 1200, height: 630, alt: title }],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
-      images: [imageUrl],
+      images: [ogImageUrl],
       creator: '@kilasindonesia',
       site: '@kilasindonesia',
     },
