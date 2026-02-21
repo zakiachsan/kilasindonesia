@@ -9,6 +9,7 @@ import TextAlign from '@tiptap/extension-text-align'
 import Underline from '@tiptap/extension-underline'
 import { ArticleInsert } from './extensions'
 import { useCallback, useEffect, useRef, useState } from 'react'
+import ImageCropper from '@/components/admin/ImageCropper'
 
 interface ArticleSearchResult {
   id: string
@@ -36,6 +37,7 @@ export default function RichTextEditor({
   const [articleSearchQuery, setArticleSearchQuery] = useState('')
   const [articleSearchResults, setArticleSearchResults] = useState<ArticleSearchResult[]>([])
   const [articleSearchLoading, setArticleSearchLoading] = useState(false)
+  const [cropImageSrc, setCropImageSrc] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const editor = useEditor({
@@ -155,17 +157,31 @@ export default function RichTextEditor({
     }
   }, [editor])
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file || !editor) return
 
+    const objectUrl = URL.createObjectURL(file)
+    setCropImageSrc(objectUrl)
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
+    }
+  }
+
+  const handleCropComplete = async (croppedBlob: Blob) => {
+    if (cropImageSrc) URL.revokeObjectURL(cropImageSrc)
+    setCropImageSrc(null)
+
+    if (!editor) return
+
     try {
-      const formData = new FormData()
-      formData.append('file', file)
+      const uploadData = new FormData()
+      uploadData.append('file', croppedBlob, 'cropped-image.webp')
 
       const res = await fetch('/api/upload', {
         method: 'POST',
-        body: formData,
+        body: uploadData,
       })
 
       const data = await res.json()
@@ -178,11 +194,12 @@ export default function RichTextEditor({
     } catch (err) {
       console.error('Upload error:', err)
       alert('Gagal upload gambar')
-    } finally {
-      if (fileInputRef.current) {
-        fileInputRef.current.value = ''
-      }
     }
+  }
+
+  const handleCropCancel = () => {
+    if (cropImageSrc) URL.revokeObjectURL(cropImageSrc)
+    setCropImageSrc(null)
   }
 
   if (!editor) {
@@ -427,7 +444,7 @@ export default function RichTextEditor({
           />
           <ToolbarButton
             onClick={() => fileInputRef.current?.click()}
-            title="Upload Image"
+            title="Upload Image (1200x675, 16:9)"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -493,8 +510,17 @@ export default function RichTextEditor({
       {/* Character Count */}
       <div className="bg-gray-50 border-t border-gray-300 px-3 py-1.5 text-xs text-gray-500 flex justify-between">
         <span>{editor.storage.characterCount?.characters?.() || editor.getText().length} karakter</span>
+        <span>Upload gambar: 1200x675 px (16:9)</span>
         <span>{editor.storage.characterCount?.words?.() || editor.getText().split(/\s+/).filter(Boolean).length} kata</span>
       </div>
+
+      {cropImageSrc && (
+        <ImageCropper
+          imageSrc={cropImageSrc}
+          onCropComplete={handleCropComplete}
+          onCancel={handleCropCancel}
+        />
+      )}
     </div>
   )
 }

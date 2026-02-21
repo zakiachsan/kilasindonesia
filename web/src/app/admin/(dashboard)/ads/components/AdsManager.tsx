@@ -316,7 +316,7 @@ export default function AdsManager({ initialAds }: AdsManagerProps) {
                             uploadFormData.append('file', file)
                             
                             try {
-                              const res = await fetch('/api/upload', {
+                              const res = await fetch('/api/upload?skipResize=true', {
                                 method: 'POST',
                                 body: uploadFormData,
                               })

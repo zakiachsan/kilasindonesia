@@ -10,6 +10,11 @@ const RichTextEditor = dynamic(
   { ssr: false, loading: () => <div className="h-[400px] bg-gray-100 animate-pulse rounded-lg" /> }
 )
 
+const ImageCropper = dynamic(
+  () => import('@/components/admin/ImageCropper'),
+  { ssr: false }
+)
+
 interface Category {
   id: string
   name: string
@@ -88,6 +93,7 @@ export default function PostEditor({
   const [autoMetaTitle, setAutoMetaTitle] = useState(!isEdit)
   const [autoMetaDesc, setAutoMetaDesc] = useState(!isEdit)
   const [uploading, setUploading] = useState(false)
+  const [cropImageSrc, setCropImageSrc] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   // Extract plain text from HTML and get first sentence
@@ -103,18 +109,30 @@ export default function PostEditor({
     return text.slice(0, 160)
   }
 
-  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
     if (!file) return
 
+    const objectUrl = URL.createObjectURL(file)
+    setCropImageSrc(objectUrl)
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
+    }
+  }
+
+  async function handleCropComplete(croppedBlob: Blob) {
+    if (cropImageSrc) URL.revokeObjectURL(cropImageSrc)
+    setCropImageSrc(null)
     setUploading(true)
+
     try {
-      const formData = new FormData()
-      formData.append('file', file)
+      const uploadData = new FormData()
+      uploadData.append('file', croppedBlob, 'cropped-image.webp')
 
       const res = await fetch('/api/upload', {
         method: 'POST',
-        body: formData,
+        body: uploadData,
       })
 
       const data = await res.json()
@@ -128,10 +146,12 @@ export default function PostEditor({
       setError(err instanceof Error ? err.message : 'Upload gagal')
     } finally {
       setUploading(false)
-      if (fileInputRef.current) {
-        fileInputRef.current.value = ''
-      }
     }
+  }
+
+  function handleCropCancel() {
+    if (cropImageSrc) URL.revokeObjectURL(cropImageSrc)
+    setCropImageSrc(null)
   }
 
   function handleTitleChange(title: string) {
@@ -554,7 +574,7 @@ export default function PostEditor({
                   )}
                 </label>
                 <p className="text-[10px] text-gray-500 mt-1 text-center">
-                  Format: JPG, PNG, WebP (Max 5MB)
+                  JPG, PNG, WebP. Maks 5MB. Output: 1200x675 (16:9)
                 </p>
               </div>
 
@@ -638,6 +658,13 @@ export default function PostEditor({
 
         </div>
       </div>
+      {cropImageSrc && (
+        <ImageCropper
+          imageSrc={cropImageSrc}
+          onCropComplete={handleCropComplete}
+          onCancel={handleCropCancel}
+        />
+      )}
     </form>
   )
 }

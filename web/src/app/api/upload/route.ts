@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
-import path from 'path'
 import { auth } from '@/lib/auth'
 import { getSupabaseAdmin, getPublicUrl } from '@/lib/supabase'
+import sharp from 'sharp'
+
+export const runtime = 'nodejs'
 
 const ALLOWED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp']
 const MAX_SIZE = 5 * 1024 * 1024 // 5MB
@@ -38,15 +40,35 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Generate unique filename
-    const timestamp = Date.now()
-    const randomStr = Math.random().toString(36).substring(2, 8)
-    const ext = path.extname(file.name) || `.${file.type.split('/')[1]}`
-    const filename = `${timestamp}-${randomStr}${ext}`
-
     // Convert file to buffer
     const bytes = await file.arrayBuffer()
     const buffer = Buffer.from(bytes)
+
+    // Check if resize should be skipped (e.g. for ads with custom dimensions)
+    const url = new URL(request.url)
+    const skipResize = url.searchParams.get('skipResize') === 'true'
+
+    // Process image with sharp: convert to WebP + optional resize
+    let processedBuffer: Buffer
+    if (skipResize) {
+      processedBuffer = await sharp(buffer)
+        .webp({ quality: 80 })
+        .toBuffer()
+    } else {
+      processedBuffer = await sharp(buffer)
+        .resize(1200, 675, {
+          fit: 'cover',
+          position: 'center',
+          withoutEnlargement: true,
+        })
+        .webp({ quality: 80 })
+        .toBuffer()
+    }
+
+    // Generate unique filename (always .webp)
+    const timestamp = Date.now()
+    const randomStr = Math.random().toString(36).substring(2, 8)
+    const filename = `${timestamp}-${randomStr}.webp`
 
     // Get Supabase client
     const supabase = getSupabaseAdmin()
@@ -54,8 +76,8 @@ export async function POST(request: NextRequest) {
     // Upload to Supabase Storage
     const { data, error } = await supabase.storage
       .from(BUCKET_NAME)
-      .upload(filename, buffer, {
-        contentType: file.type,
+      .upload(filename, processedBuffer, {
+        contentType: 'image/webp',
         upsert: false,
       })
 
@@ -71,11 +93,11 @@ export async function POST(request: NextRequest) {
     }
 
     // Get public URL
-    const url = getPublicUrl(BUCKET_NAME, filename)
+    const publicUrl = getPublicUrl(BUCKET_NAME, filename)
 
     return NextResponse.json({
       success: true,
-      url,
+      url: publicUrl,
       filename,
       path: data.path,
     })
