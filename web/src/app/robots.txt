@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Block old WordPress detail URLs
+Disallow: /detail/
+
+# Allow sitemap
+Sitemap: https://kilasindonesia.com/sitemap.xml
