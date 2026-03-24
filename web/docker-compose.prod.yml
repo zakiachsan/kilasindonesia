@@ -12,6 +12,8 @@ services:
       - .env
     environment:
       NODE_ENV: production
+      NEXT_PUBLIC_APP_URL: https://kilasindonesia.com
+      NEXTAUTH_URL: https://kilasindonesia.com
       NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL}
       SUPABASE_SERVICE_ROLE_KEY: ${SUPABASE_SERVICE_ROLE_KEY}
     volumes:
