@@ -3,15 +3,14 @@ import { db, posts, categories, postCategories, eq, and, gte, desc } from '@/db'
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://kilasindonesia.com'
 const SITE_NAME = 'Kilas Indonesia'
 
+export const dynamic = 'force-dynamic'
+
 export async function GET() {
   try {
-    // Google News requires articles from the last 48 hours
     const twoDaysAgo = new Date(Date.now() - 48 * 60 * 60 * 1000)
 
-    // Get recent published posts
     const recentPosts = await db
       .select({
-        id: posts.id,
         slug: posts.slug,
         title: posts.title,
         publishedAt: posts.publishedAt,
@@ -26,7 +25,6 @@ export async function GET() {
       .orderBy(desc(posts.publishedAt))
       .limit(1000)
 
-    // Build news sitemap XML
     const urls = recentPosts.map((post) => {
       const postUrl = `${BASE_URL}/${post.slug}`
       const pubDate = post.publishedAt
