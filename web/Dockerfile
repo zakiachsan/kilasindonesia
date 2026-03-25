@@ -17,9 +17,16 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# Accept build-time arguments for public env vars
+ARG NEXT_PUBLIC_APP_URL=https://kilasindonesia.com
+ARG NEXTAUTH_URL=https://kilasindonesia.com
+
 # Set environment for build
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
+# These env vars are baked into the client bundle at build time
+ENV NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL}
+ENV NEXTAUTH_URL=${NEXTAUTH_URL}
 # Dummy DATABASE_URL for build (actual URL provided at runtime)
 ENV DATABASE_URL="postgresql://user:pass@localhost:5432/db"
 

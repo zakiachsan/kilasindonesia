@@ -49,6 +49,9 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           no-cache: true
+          build-args: |
+            NEXT_PUBLIC_APP_URL=https://kilasindonesia.com
+            NEXTAUTH_URL=https://kilasindonesia.com
 
   deploy:
     needs: build
@@ -64,24 +67,24 @@ jobs:
             cd /opt/apps/kilasindonesia/web
             docker pull ghcr.io/${{ github.repository }}:latest
             docker compose -f docker-compose.local.yml down
-            docker compose -f docker-compose.local.yml up -d
+            docker compose -f docker-compose.local.yml up -d --wait
 
-            # Wait for containers to be ready
-            echo "Waiting for containers to be ready..."
-            sleep 10
+            # Wait for healthcheck to pass (--wait already handles this)
+            echo "Container started, verifying health..."
+            sleep 5
 
             # Run database schema sync
             echo "Syncing database schema..."
             docker exec kilasindonesia-app npx drizzle-kit push --force || echo "Warning: Schema sync failed"
 
+            # Verify deployment - check health endpoint
+            echo "Verifying deployment..."
+            HEALTH_STATUS=$(docker exec kilasindonesia-app wget -qO- http://localhost:3000/api/health 2>/dev/null || echo "FAILED")
+            echo "Health check: $HEALTH_STATUS"
+
             # Cleanup old images to save disk space
             echo "Cleaning up old Docker images..."
             docker image prune -af --filter "until=24h"
-
-            # Verify deployment
-            sleep 5
-            echo "Checking container status..."
-            docker ps | grep kilasindonesia-app || echo "Warning: Container may not be running"
 
             # Show disk usage
             echo "Disk usage:"
